@@ -1,0 +1,32 @@
+{
+  "Race1" : {
+    "Name" : "Human"
+    "Resistance" : {
+      "Grass" : 5,
+      "Dungeon" : -5
+    }
+    "Price" : {
+      "Grass" : 5,
+      "Dungeon" : -5
+    }
+    "Agility" : {
+      "Grass" : 5,
+      "Dungeon" : -5
+    }
+  }
+  "Race2" : {
+    "Name" : "Dwarf",
+    "Resistance" : {
+      "Grass" : -5,
+      "Dungeon" : 5
+    }
+    "Price" : {
+      "Grass" : -5,
+      "Dungeon" : 5
+    }
+    "Agility" : {
+      "Grass" : -5,
+      "Dungeon" : 5
+    }
+  }
+}

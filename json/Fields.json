@@ -1,0 +1,8 @@
+{
+  "Grass": {
+    "DefaultPass" : 1,
+    "DefaultFlyPass" : 1,
+    "DefaultPrice" : 10,
+    "Icon" : "grass.png"
+  }
+}

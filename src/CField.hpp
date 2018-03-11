@@ -5,17 +5,16 @@
 #ifndef GAME_PROJ_CFIELD_HPP
 #define GAME_PROJ_CFIELD_HPP
 
-
-#include <vector>
-#include <string>
 #include "CObject.hpp"
-
+#include <nlohmann/json.hpp>
+#include <string>
+#include <vector>
 class CField : public CObject {
 private:
-    std::string m_name;
+  std::string m_name;
+
 public:
-    static std::vector<std::string> EFields;
+  static std::map<std::string, json> EFields;
 };
 
-
-#endif //GAME_PROJ_CFIELD_HPP
+#endif // GAME_PROJ_CFIELD_HPP

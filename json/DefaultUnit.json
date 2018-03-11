@@ -1,0 +1,28 @@
+{
+  "Health" : 100,
+  "Agility" : 40,
+  "Strength" : 1,
+  "Stamina" : 100,
+  "Icon" : "data/icons/default_icon.png",
+  "Patency" : {
+    "Grass" : 10,
+    "Dungeon" : 10,
+    "Forest" : 10,
+    "Field" : 10
+  },
+  "Resistance" : {
+    "Cutting" : 50,
+    "Ruinous" : 50,
+    "Magic" : 50,
+    "pricking" : 50
+  },
+  "Abilities" : {
+    "HandHit" : {
+      "type" : "attack",
+      "usage" : "manual",
+      "strength" : 2,
+      "range_type" : "melee",
+      "count" : 3
+    }
+  }
+}

@@ -5,17 +5,11 @@
 #ifndef GAME_PROJ_POSITION_H
 #define GAME_PROJ_POSITION_H
 
-#include <cstddef>
-
-typedef size_t Position_t;
+#include "defines.hpp"
 class CPosition {
 public:
     Position_t X_Axis;
     Position_t Y_Axis;
-
-    CPosition(Position_t X_Axis, Position_t Y_Axis);
-
-    CPosition();
 };
 
 
