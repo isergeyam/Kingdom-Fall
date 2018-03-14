@@ -19,7 +19,6 @@
   "Abilities" : {
     "HandHit" : {
       "type" : "attack",
-      "usage" : "manual",
       "strength" : 2,
       "range_type" : "melee",
       "count" : 3

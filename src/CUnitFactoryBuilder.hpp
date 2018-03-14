@@ -20,6 +20,8 @@ private:
 public:
   template <typename T> void AddAttr(std::string, T);
   std::shared_ptr<CUnitFactory> GetFactory();
+  template<typename T>
+  T UpdateField(const json &m_def, const json &m_race, const json &m_type, const json &m_custom, const std::string &key);
 };
 
 #endif // GAME_PROJ_CUNITFACTORYBUILDER_HPP

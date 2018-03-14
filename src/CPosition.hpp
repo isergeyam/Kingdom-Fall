@@ -7,9 +7,14 @@
 
 #include "defines.hpp"
 class CPosition {
-public:
-    Position_t X_Axis;
-    Position_t Y_Axis;
+private:
+ public:
+  CPosition(Position_t m_x_axis, Position_t m_y_axis);
+  Position_t getM_x_axis() const;
+  Position_t getM_y_axis() const;
+ private:
+  Position_t m_x_axis;
+  Position_t m_y_axis;
 };
 
 

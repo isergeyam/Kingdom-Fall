@@ -8,15 +8,12 @@
 #include "CUnit.hpp"
 class CUnitFactory {
  private:
-  json &m_race;
  public:
-  CUnitFactory(json &m_race, json &m_type, json &m_custom);
+  CUnitFactory(const json &m_unit);
  private:
-  json &m_type;
-  json &m_custom;
   json m_unit;
  public:
-  std::shared_ptr<CUnit> CreateUnit();
+  std::shared_ptr<CUnit> CreateUnit(CPosition unit_pos);
 };
 
 #endif //GAME_PROJ_CUNITFACTORY_HPP
