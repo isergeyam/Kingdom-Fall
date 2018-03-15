@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/game_proj.dir/src/CObject.cpp.o CMakeFiles/game_proj.dir/src/CPosition.cpp.o CMakeFiles/game_proj.dir/src/CUnit.cpp.o CMakeFiles/game_proj.dir/src/CField.cpp.o CMakeFiles/game_proj.dir/src/CUnitFactoryBuilder.cpp.o CMakeFiles/game_proj.dir/src/CUnitFactory.cpp.o CMakeFiles/game_proj.dir/src/CGame.cpp.o  -o game_proj 

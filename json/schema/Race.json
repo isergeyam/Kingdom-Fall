@@ -1,0 +1,48 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+		"title": "Race",
+		"description" : "An unit race schema",
+		"type" : "object",
+		"properties": {
+			"Name" : {
+				"type" : "string"
+			},
+			"Health" : {
+				"type" : "number"
+			},
+			"Agility" : {
+				"type" : "number"
+			},
+			"Strength" : {
+				"type" : "number"
+			},
+			"Stamina" : {
+				"type" : "number"
+			},
+			"Patency" : {
+				"type" : "object",
+				"additionalProperties" : {
+					"type" : "number"
+				}
+			},
+			"Resistance" : {
+				"type" : "object",
+				"additionalProperties" : {
+					"type" : "number"
+				}
+			},
+			"Abilities" : {
+				"type" : "object",
+				"additionalProperties" : {
+					"$ref" : "Ability.json#/Ability"
+				}
+			}
+		},
+		"AutoAbilities" : {
+			"type" : "object",
+			"additionalProperties" : {
+				"$ref" : "Ability.json.schema#/Ability"
+			}
+		},
+		"required" : ["Name"]
+}

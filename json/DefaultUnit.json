@@ -5,23 +5,23 @@
   "Stamina" : 100,
   "Icon" : "data/icons/default_icon.png",
   "Patency" : {
-    "Grass" : 10,
-    "Dungeon" : 10,
-    "Forest" : 10,
-    "Field" : 10
+    "Grass" : 1.1,
+    "Dungeon" : 1.1,
+    "Forest" : 1.1,
+    "Field" : 1.1
   },
   "Resistance" : {
-    "Cutting" : 50,
-    "Ruinous" : 50,
-    "Magic" : 50,
-    "pricking" : 50
+    "Cutting" : 0.4,
+    "Ruinous" : 0.4,
+    "Magic" : 0.4,
+    "Pricking" : 0.4
   },
   "Abilities" : {
     "HandHit" : {
       "type" : "attack",
       "strength" : 2,
-      "range_type" : "melee",
-      "count" : 3
+      "count" : 3,
+      "range_type" : "melee"
     }
   }
 }

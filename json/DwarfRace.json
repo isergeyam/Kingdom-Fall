@@ -1,0 +1,14 @@
+{
+	"Name" : "Dwarf",
+	"Resistance" : {
+		"Magic" : 0.9,
+		"Cutting" : 1.1
+	},
+	"Patency" : {
+		"Grass" : 0.9,
+		"Dungeon" : 1.1
+	},
+	"Health" : 1.05,
+	"Stamina" : 1.05,
+	"Agility" : 0.9
+}
