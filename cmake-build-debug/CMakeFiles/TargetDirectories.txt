@@ -1,3 +1,0 @@
-/home/sg/mipt/homework/prog_tech/Kingdom_Fall/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/sg/mipt/homework/prog_tech/Kingdom_Fall/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/sg/mipt/homework/prog_tech/Kingdom_Fall/cmake-build-debug/CMakeFiles/game_proj.dir

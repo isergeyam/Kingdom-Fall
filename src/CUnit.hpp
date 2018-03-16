@@ -23,7 +23,7 @@ private:
   //Percent_t m_strength;
   /*std::string m_race;
   std::string m_type;*/
-  json &m_properties;
+  const json &m_properties;
   /*json m_patency;
   json m_ability;
   json m_resistance;*/

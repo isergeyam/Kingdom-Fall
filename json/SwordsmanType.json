@@ -1,0 +1,11 @@
+{
+  "Name" : "Swordsman",
+  "Abilities" : {
+    "Sword Hit" : {
+      "type" : "attack",
+      "strength" : 4,
+      "count" : 4,
+      "range_type" : "melee"
+    }
+  }
+}

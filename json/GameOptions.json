@@ -1,0 +1,76 @@
+{
+  "DefaultUnit": {
+    "Health": 100,
+    "Agility": 1,
+    "Strength": 1,
+    "Stamina": 100,
+    "Icon": "data/icons/default_icon.png",
+    "Patency": {
+      "Grass": 0.9,
+      "Dungeon": 0.9,
+      "Forest": 0.9,
+      "Field": 0.9
+    },
+    "Adaption": {
+      "Grass": 0.9,
+      "Dungeon": 0.9,
+      "Forest": 0.9,
+      "Field": 0.9
+    },
+    "Resistance": {
+      "Cutting": 0.4,
+      "Ruinous": 0.4,
+      "Magic": 0.4,
+      "Pricking": 0.4
+    },
+    "Abilities": {
+      "Hand Hit": {
+        "type": "attack",
+        "strength": 2,
+        "count": 3,
+        "range_type": "melee"
+      }
+    },
+    "AutoAbilities" : {}
+  },
+  "Races": [
+    {
+      "Name": "Dwarf",
+      "Resistance": {
+        "Magic": 0.9,
+        "Cutting": 1.1
+      },
+      "Patency": {
+        "Grass": 0.9,
+        "Dungeon": 1.1
+      },
+      "Health": 1.05,
+      "Stamina": 1.05,
+      "Agility": 0.9
+    },
+    {
+      "Name": "Human",
+      "Resistance": {
+        "Grass": 1.1,
+        "Dungeon": 0.9
+      },
+      "Patency": {
+        "Grass": 1.1,
+        "Dungeon": 0.9
+      }
+    }
+  ],
+  "Types": [
+    {
+      "Name": "Swordsman",
+      "Abilities": {
+        "Sword Hit": {
+          "type": "attack",
+          "strength": 4,
+          "count": 4,
+          "range_type": "melee"
+        }
+      }
+    }
+  ]
+}

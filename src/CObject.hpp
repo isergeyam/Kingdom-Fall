@@ -7,7 +7,8 @@
 #define GAME_PROJ_OBJECT_HPP
 
 #include "CPosition.hpp"
-#include "CGame.hpp"
+#include "defines.hpp"
+#include "json.hpp"
 class CObject {
  protected:
   CPosition m_position;

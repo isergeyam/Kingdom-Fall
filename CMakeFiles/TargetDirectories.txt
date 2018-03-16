@@ -1,0 +1,3 @@
+/home/sg/mipt/homework/prog_tech/Kingdom_Fall/CMakeFiles/rebuild_cache.dir
+/home/sg/mipt/homework/prog_tech/Kingdom_Fall/CMakeFiles/edit_cache.dir
+/home/sg/mipt/homework/prog_tech/Kingdom_Fall/CMakeFiles/MyTest.dir

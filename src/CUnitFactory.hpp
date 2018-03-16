@@ -13,6 +13,10 @@ class CUnitFactory {
  private:
   json m_unit;
  public:
+  const json &getM_unit() const;
+ public:
+  void setM_unit(const json &m_unit);
+ public:
   std::shared_ptr<CUnit> CreateUnit(CPosition unit_pos);
 };
 

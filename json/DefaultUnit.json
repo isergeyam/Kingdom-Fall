@@ -1,14 +1,20 @@
 {
   "Health" : 100,
-  "Agility" : 40,
+  "Agility" : 1,
   "Strength" : 1,
   "Stamina" : 100,
   "Icon" : "data/icons/default_icon.png",
   "Patency" : {
-    "Grass" : 1.1,
-    "Dungeon" : 1.1,
-    "Forest" : 1.1,
-    "Field" : 1.1
+    "Grass" : 0.9,
+    "Dungeon" : 0.9,
+    "Forest" : 0.9,
+    "Field" : 0.9
+  },
+  "Adaption" : {
+    "Grass" : 0.9,
+    "Dungeon" : 0.9,
+    "Forest" : 0.9,
+    "Field" : 0.9
   },
   "Resistance" : {
     "Cutting" : 0.4,
@@ -17,7 +23,7 @@
     "Pricking" : 0.4
   },
   "Abilities" : {
-    "HandHit" : {
+    "Hand Hit" : {
       "type" : "attack",
       "strength" : 2,
       "count" : 3,
