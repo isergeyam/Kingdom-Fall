@@ -6,13 +6,14 @@ cmake_minimum_required(VERSION 3.5)
     #URL "https://github.com/ruslo/hunter/archive/v0.19.52.tar.gz"
     #SHA1 "6d3a8135ba62726d810fd8c8c7d97980fa6c3b4a"
 #)
-project(game_proj)
+project(Kingdom-Fall)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_EXPORT_COMPILE_COMMANDS 1)
-set(CMAKE_CXX_FLAGS_DEBUG "-fsanitize=address -g -Wall")
+set(CMAKE_CXX_FLAGS_DEBUG "-fsanitize=leak -g -Wall")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3")
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
+#set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR})
 #hunter_add_package(nlohmann_json)
 #find_package(nlohmann_json REQUIRED)
 #include_directories(${nlohmann_json_INCLUDE_DIRS})
