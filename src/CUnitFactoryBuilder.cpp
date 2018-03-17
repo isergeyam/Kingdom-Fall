@@ -35,7 +35,7 @@ std::shared_ptr<CUnitFactory> CUnitFactoryBuilder::GetFactory() {
     ExtendJson(m_unit[iter], m_type[iter]);
     ExtendJson(m_unit[iter], m_custom[iter]);
   }
-  for (auto &&iter1 : {"Patency", "Resistance"}) {
+  for (auto &&iter1 : {"Patency", "Resistance", "Adaption"}) {
     for (auto iter2 = m_default[iter1].begin(); iter2 != m_default[iter1].end();
          ++iter2) {
       m_unit[iter1][iter2.key()] =

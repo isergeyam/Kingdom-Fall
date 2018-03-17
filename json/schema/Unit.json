@@ -47,5 +47,5 @@
 				"$ref" : "Ability.json.schema#/Ability"
 			}
 		},
-		"required" : ["Health", "Agility", "Strength", "Stamina", "Patency", "Resistance"]
+		"required" : ["Health", "Agility", "Strength", "Stamina", "Patency", "Resistance", "Adaption", "Abilities", "AutoAbilities"]
 }

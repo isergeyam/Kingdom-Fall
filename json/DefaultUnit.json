@@ -29,5 +29,6 @@
       "count" : 3,
       "range_type" : "melee"
     }
-  }
+  },
+	"AutoAbilities" : {}
 }

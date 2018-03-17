@@ -4,7 +4,7 @@
 
 #ifndef GAME_PROJ_JSON_HPP
 #define GAME_PROJ_JSON_HPP
-#include <nlohmann/json.hpp>
+#include "../third_party/nlohmann/json.hpp"
 using json = nlohmann::json;
 /*namespace MyExtension{
 void MyExtensionExtendJson(json &j1, const json &j2) {
@@ -53,4 +53,4 @@ const Percent_t& GetMax(Percent_t &first, Percent_t &second, bool is_less) {
   return std::max(first, second, std::greater<Percent_t >());
 }
 };*/
-#endif //GAME_PROJ_JSON_HPP
+#endif // GAME_PROJ_JSON_HPP

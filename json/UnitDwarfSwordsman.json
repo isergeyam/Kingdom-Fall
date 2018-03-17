@@ -1,0 +1,42 @@
+
+{
+	"Abilities": {
+		"Hand Hit": {
+			"count": 3,
+			"range_type": "melee",
+			"strength": 2,
+			"type": "attack"
+		},
+		"Sword Hit": {
+			"count": 4,
+			"range_type": "melee",
+			"strength": 4,
+			"type": "attack"
+		}
+	},
+	"Adaption": {
+		"Dungeon": 0.9,
+		"Field": 0.9,
+		"Forest": 0.9,
+		"Grass": 0.9
+	},
+	"Agility": 0.9,
+	"AutoAbilities": {},
+	"Health": 105,
+	"Patency": {
+		"Dungeon": 0.99,
+		"Field": 0.9,
+		"Forest": 0.9,
+		"Grass": 0.81
+	},
+	"Race": "Dwarf",
+	"Resistance": {
+		"Cutting": 0.44,
+		"Magic": 0.36,
+		"Pricking": 0.4,
+		"Ruinous": 0.4
+	},
+	"Stamina": 105,
+	"Strength": 1.0,
+	"Type": "Swordsman"
+}
