@@ -1,26 +1,14 @@
 cmake_minimum_required(VERSION 3.5)
-#set(HUNTER_ROOT, "cmake/hunter")
-#include("cmake/HunterGate.cmake")
-#include("cmake/cmake/Hunter")
-#HunterGate(
-    #URL "https://github.com/ruslo/hunter/archive/v0.19.52.tar.gz"
-    #SHA1 "6d3a8135ba62726d810fd8c8c7d97980fa6c3b4a"
-#)
 project(Kingdom-Fall)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_EXPORT_COMPILE_COMMANDS 1)
 set(CMAKE_CXX_FLAGS_DEBUG "-fsanitize=leak -g -Wall")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3")
-#set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR})
-#hunter_add_package(nlohmann_json)
-#find_package(nlohmann_json REQUIRED)
-#include_directories(${nlohmann_json_INCLUDE_DIRS})
 include_directories(third_party)
 set(SOURCE_FILES src/CObject.cpp src/CObject.hpp src/CPosition.cpp src/CPosition.hpp src/CUnit.cpp src/CUnit.hpp src/CField.cpp src/CField.hpp src/CUnitFactoryBuilder.cpp src/CUnitFactoryBuilder.hpp src/CUnitFactory.cpp src/CUnitFactory.hpp src/defines.hpp src/json.hpp)
 set(TEST_SOURCES ${SOURCE_FILES} test/test.hpp test/test.cpp)
-#add_executable(game_proj ${SOURCE_FILES})
 add_executable(MyTest ${TEST_SOURCES})
 target_link_libraries(MyTest gtest)
 target_link_libraries(MyTest pthread)
