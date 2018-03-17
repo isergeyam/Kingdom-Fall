@@ -16,12 +16,12 @@ TEST_P(UnitsTest, UnitsTest_UnitsBuilding_Test) {
   ifs.close();
   CUnitFactoryBuilder Builder;
   Builder.setM_default(Game["DefaultUnit"]);
-  Builder.setM_race(Game["Races"][0]);
+  Builder.setM_race(Game["Races"][1]);
   Builder.setM_type(Game["Types"][0]);
   std::ofstream ofs(GetParam().second);
   ofs << std::setprecision(2) << Builder.GetFactory()->getM_unit().dump(2);
 }
-INSTANTIATE_TEST_CASE_P(
-    INST_DEFAULT, UnitsTest,
-    ::testing::Values(std::make_pair("json/GameOptions.json", "GenUnit.json")));
+INSTANTIATE_TEST_CASE_P(INST_DEFAULT, UnitsTest,
+                        ::testing::Values(std::make_pair(
+                            "json/GameOptions.json", "GenUnitHuman.json")));
 #endif // GAME_PROJ_TEST_HPP
