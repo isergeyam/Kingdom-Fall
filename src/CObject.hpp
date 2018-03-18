@@ -10,18 +10,21 @@
 #include "defines.hpp"
 #include "json.hpp"
 class CObject {
- protected:
+protected:
   CPosition m_position;
   bool injurable;
   bool passable;
   bool fly_passable;
- public:
+
+public:
   void setM_position(const CPosition &m_position);
-  CObject(const CPosition &m_position, bool is_injurable, bool is_passable, bool is_fly_passable);
+  CObject(const CPosition &m_position, bool is_injurable, bool is_passable,
+          bool is_fly_passable);
   const CPosition &getM_position() const;
   bool isInjurable() const;
   bool isPassable() const;
   bool isFly_passable() const;
+  virtual ~CObject() = 0;
 };
 
 #endif // GAME_PROJ_OBJECT_H
