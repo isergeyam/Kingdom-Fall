@@ -4,6 +4,6 @@
 
 #ifndef GAME_PROJ_JSON_HPP
 #define GAME_PROJ_JSON_HPP
-#include "../third_party/nlohmann/json.hpp"
+#include <nlohmann/json.hpp>
 using json = nlohmann::json;
 #endif // GAME_PROJ_JSON_HPP

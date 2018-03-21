@@ -4,20 +4,24 @@
 
 #ifndef GAME_PROJ_CUNITFACTORY_HPP
 #define GAME_PROJ_CUNITFACTORY_HPP
-#include <memory>
 #include "CUnit.hpp"
+#include <memory>
 class CUnitFactory {
- private:
- public:
-  CUnitFactory(const json &m_unit);
- private:
+public:
+  explicit CUnitFactory(const json &m_unit);
+  explicit CUnitFactory(json &&m_unit);
+
+private:
   json m_unit;
- public:
+
+public:
   const json &getM_unit() const;
- public:
+
+public:
   void setM_unit(const json &m_unit);
- public:
-  std::shared_ptr<CUnit> CreateUnit(CPosition unit_pos);
+
+public:
+  std::shared_ptr<CUnit> CreateUnit(const CPosition &unit_pos);
 };
 
-#endif //GAME_PROJ_CUNITFACTORY_HPP
+#endif // GAME_PROJ_CUNITFACTORY_HPP

@@ -43,7 +43,7 @@ std::shared_ptr<CUnitFactory> CUnitFactoryBuilder::GetFactory() {
                                  m_custom[iter1], iter2.key());
     }
   }
-  return std::make_shared<CUnitFactory>(CUnitFactory(m_unit));
+  return std::make_shared<CUnitFactory>(CUnitFactory(std::move(m_unit)));
 }
 void CUnitFactoryBuilder::setM_custom(const json &m_custom) {
   CUnitFactoryBuilder::m_custom = m_custom;

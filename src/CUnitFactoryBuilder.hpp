@@ -6,6 +6,7 @@
 #define GAME_PROJ_CUNITFACTORYBUILDER_HPP
 
 #include "CUnitFactory.hpp"
+#include "json-validator.hpp"
 class CUnitFactoryBuilder {
 private:
   json m_race;
