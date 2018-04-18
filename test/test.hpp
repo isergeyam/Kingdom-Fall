@@ -8,6 +8,7 @@
 #include <fstream>
 #include <gtest/gtest.h>
 #include <iomanip>
+#include "../src/CurrentSerializer.hpp"
 class UnitsTest
     : public ::testing::TestWithParam<
           std::tuple<const char *, const char *, const char *, const char *>> {
@@ -17,15 +18,18 @@ TEST_P(UnitsTest, UnitsTest_UnitsBuilding_Test) {
   std::ifstream iUnitRace(std::get<1>(GetParam()));
   std::ifstream iUnitType(std::get<2>(GetParam()));
   std::ifstream iExpectedUnit(std::get<3>(GetParam()));
+  std::ifstream iValidateUnit("json/schema/Unit.json");
+  CUnitFactory::m_validator.set_schema(iValidateUnit);
   CUnitFactoryBuilder Builder;
-  Builder.setM_default(json::parse(iDefaultUnit));
-  Builder.setM_race(json::parse(iUnitRace));
-  Builder.setM_type(json::parse(iUnitType));
-  EXPECT_EQ(Builder.GetFactory()->getM_unit(), json::parse(iExpectedUnit));
+  Builder.setM_default(CurrentSerializer::Deserialize(iDefaultUnit));
+  Builder.setM_race(CurrentSerializer::Deserialize(iUnitRace));
+  Builder.setM_type(CurrentSerializer::Deserialize(iUnitType));
+  EXPECT_EQ(Builder.GetFactory()->getM_properties(), CurrentSerializer::Deserialize(iExpectedUnit));
   iDefaultUnit.close();
   iUnitType.close();
   iUnitRace.close();
   iExpectedUnit.close();
+  iValidateUnit.close();
 }
 INSTANTIATE_TEST_CASE_P(INST_HUMAN_SWORDSMAN, UnitsTest,
                         ::testing::Values(std::make_tuple(

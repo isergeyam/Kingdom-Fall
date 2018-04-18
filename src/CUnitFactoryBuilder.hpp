@@ -5,26 +5,28 @@
 #ifndef GAME_PROJ_CUNITFACTORYBUILDER_HPP
 #define GAME_PROJ_CUNITFACTORYBUILDER_HPP
 
-#include "CUnitFactory.hpp"
-#include "json-validator.hpp"
+#include "CObjectFactory.hpp"
+#include "CurrentSerializer.hpp"
+#include "CUnit.hpp"
+using CUnitFactory = CObjectFactory<CUnit>;
 class CUnitFactoryBuilder {
 private:
-  json m_race;
-  json m_type;
-  json m_custom;
-  json m_default;
+  CurrentSerializerType m_race;
+  CurrentSerializerType m_type;
+  CurrentSerializerType m_custom;
+  CurrentSerializerType m_default;
   template <typename T>
-  T UpdateField(const json &m_def, const json &m_race, const json &m_type,
-                const json &m_custom, const std::string &key);
+  T UpdateField(const CurrentSerializerType &m_def, const CurrentSerializerType &m_race, const CurrentSerializerType &m_type,
+                const CurrentSerializerType &m_custom, const std::string &key);
 
 public:
-  void setM_default(const json &m_default);
-  void setM_race(const json &m_race);
-  void setM_type(const json &m_type);
-  void setM_custom(const json &m_custom);
+  void setM_default(const CurrentSerializerType &m_default);
+  void setM_race(const CurrentSerializerType &m_race);
+  void setM_type(const CurrentSerializerType &m_type);
+  void setM_custom(const CurrentSerializerType &m_custom);
   template <typename T> void AddAttr(std::string, T);
   std::shared_ptr<CUnitFactory> GetFactory();
-  static void ExtendJson(json &j1, const json &j2);
+  static void ExtendData(CurrentSerializerType &j1, const CurrentSerializerType &j2);
 };
 
 #endif // GAME_PROJ_CUNITFACTORYBUILDER_HPP

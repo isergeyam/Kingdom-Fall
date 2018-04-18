@@ -11,3 +11,7 @@ template<typename _Object>
 std::shared_ptr<_Object> CObjectFactory<_Object>::CreateObject(const CPosition &m_position) {
   return std::make_shared<_Object>(m_position, m_properties);
 }
+template<typename _Object>
+const CurrentSerializerType &CObjectFactory<_Object>::getM_properties() const {
+  return m_properties;
+}
