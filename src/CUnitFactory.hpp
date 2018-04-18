@@ -6,6 +6,7 @@
 #define GAME_PROJ_CUNITFACTORY_HPP
 #include "CUnit.hpp"
 #include <memory>
+#include "json-validator.hpp"
 class CUnitFactory {
 public:
   explicit CUnitFactory(const json &m_unit);
@@ -13,7 +14,7 @@ public:
 
 private:
   json m_unit;
-
+  static json_validator m_validator;
 public:
   const json &getM_unit() const;
 

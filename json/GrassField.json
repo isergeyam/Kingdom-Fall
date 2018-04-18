@@ -1,4 +1,5 @@
 {
+    "Name" : "grass",
     "DefaultPass" : true,
     "DefaultFlyPass" : true,
     "DefaultPatency" : 10,

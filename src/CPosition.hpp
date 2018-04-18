@@ -12,6 +12,12 @@ private:
   CPosition(Position_t m_x_axis, Position_t m_y_axis);
   Position_t getM_x_axis() const;
   Position_t getM_y_axis() const;
+  bool operator<(const CPosition &rhs) const;
+  bool operator>(const CPosition &rhs) const;
+  bool operator<=(const CPosition &rhs) const;
+  bool operator>=(const CPosition &rhs) const;
+  bool operator==(const CPosition &rhs) const;
+  bool operator!=(const CPosition &rhs) const;
  private:
   Position_t m_x_axis;
   Position_t m_y_axis;

@@ -4,5 +4,3 @@ bin
 Debug
 Release
 MyTest
-src/CField.cpp
-src/CField.hpp

@@ -14,6 +14,8 @@ public:
 private:
   Quantity_t m_health;
   Quantity_t m_stamina;
+  Quantity_t m_exp;
+  size_t m_master;
   const json &m_properties;
 };
 

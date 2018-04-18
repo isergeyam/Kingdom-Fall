@@ -7,4 +7,5 @@
 CUnit::CUnit(const json &m_json, const CPosition &position) : CObject(position, true, false, false), m_properties(m_json) {
   m_health = m_json["Health"];
   m_stamina = m_json["Stamina"];
+  m_exp = 0;
 }
