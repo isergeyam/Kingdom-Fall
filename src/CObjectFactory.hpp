@@ -3,15 +3,15 @@
 //
 
 #pragma once
-#include "json-validator.hpp"
+#include "CurrentSerializer.hpp"
 #include "CPosition.hpp"
 template<typename _Object>
 class CObjectFactory {
  private:
-  static json_validator m_validator;
-  json m_properties;
+  static CurrentValidator m_validator;
+  CurrentSerializerType m_properties;
  public:
-  explicit CObjectFactory(json m_properties);
+  explicit CObjectFactory(CurrentSerializerType m_properties);
   std::shared_ptr<_Object> CreateObject(const CPosition &m_position);
 };
 

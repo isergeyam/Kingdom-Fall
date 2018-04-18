@@ -8,7 +8,6 @@
 
 #include "CPosition.hpp"
 #include "defines.hpp"
-#include "json.hpp"
 class CObject {
 protected:
   CPosition m_position;
