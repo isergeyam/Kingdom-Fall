@@ -20,6 +20,9 @@ private:
                 const CurrentSerializerType &m_custom, const std::string &key);
 
 public:
+  static CurrentValidator m_race_validator;
+  static CurrentValidator m_type_validator;
+  static CurrentValidator m_default_validator;
   void setM_default(const CurrentSerializerType &m_default);
   void setM_race(const CurrentSerializerType &m_race);
   void setM_type(const CurrentSerializerType &m_type);

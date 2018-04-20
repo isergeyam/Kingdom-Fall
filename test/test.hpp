@@ -8,7 +8,6 @@
 #include <fstream>
 #include <gtest/gtest.h>
 #include <iomanip>
-#include "../src/CurrentSerializer.hpp"
 class UnitsTest
     : public ::testing::TestWithParam<
           std::tuple<const char *, const char *, const char *, const char *>> {
@@ -19,7 +18,6 @@ TEST_P(UnitsTest, UnitsTest_UnitsBuilding_Test) {
   std::ifstream iUnitType(std::get<2>(GetParam()));
   std::ifstream iExpectedUnit(std::get<3>(GetParam()));
   std::ifstream iValidateUnit("json/schema/Unit.json");
-  CUnitFactory::m_validator.set_schema(iValidateUnit);
   CUnitFactoryBuilder Builder;
   Builder.setM_default(CurrentSerializer::Deserialize(iDefaultUnit));
   Builder.setM_race(CurrentSerializer::Deserialize(iUnitRace));

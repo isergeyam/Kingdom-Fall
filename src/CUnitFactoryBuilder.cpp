@@ -4,9 +4,11 @@
 
 #include "CUnitFactoryBuilder.hpp"
 void CUnitFactoryBuilder::setM_race(const CurrentSerializerType &m_race) {
+  m_race_validator.validate(m_race);
   CUnitFactoryBuilder::m_race = m_race;
 }
 void CUnitFactoryBuilder::setM_type(const CurrentSerializerType &m_type) {
+  m_type_validator.validate(m_type);
   CUnitFactoryBuilder::m_type = m_type;
 }
 template <typename T>
@@ -42,7 +44,7 @@ std::shared_ptr<CUnitFactory> CUnitFactoryBuilder::GetFactory() {
                                  m_custom[iter1], iter2.key());
     }
   }
-  return std::make_shared<CUnitFactory>(CUnitFactory(std::move(m_unit)));
+  return std::make_shared<CUnitFactory>(std::move(m_unit));
 }
 void CUnitFactoryBuilder::setM_custom(const CurrentSerializerType &m_custom) {
   CUnitFactoryBuilder::m_custom = m_custom;
@@ -61,5 +63,6 @@ T CUnitFactoryBuilder::UpdateField(const CurrentSerializerType &m_def, const Cur
   return res;
 }
 void CUnitFactoryBuilder::setM_default(const CurrentSerializerType &m_default) {
+  m_default_validator.validate(m_default);
   CUnitFactoryBuilder::m_default = m_default;
 }

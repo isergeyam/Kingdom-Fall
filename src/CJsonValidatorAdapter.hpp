@@ -5,7 +5,7 @@
 #pragma once
 #include "json-validator.hpp"
 #include <istream>
-class CJsonValidator {
+class CJsonValidatorAdapter {
  private:
   json_validator m_validator;
  public:
