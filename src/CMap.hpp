@@ -3,11 +3,11 @@
 //
 
 #pragma once
-#include <set>
 #include "CMapCell.hpp"
+using std::vector;
 class CMap {
  private:
-  std::set<CPosition, CMapCell> m_map;
+  vector<vector<CMapCell>> m_map;
 };
 
 

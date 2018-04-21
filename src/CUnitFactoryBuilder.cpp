@@ -4,11 +4,11 @@
 
 #include "CUnitFactoryBuilder.hpp"
 void CUnitFactoryBuilder::setM_race(const CurrentSerializerType &m_race) {
-  m_race_validator.validate(m_race);
+  // m_race_validator.validate(m_race); TODO
   CUnitFactoryBuilder::m_race = m_race;
 }
 void CUnitFactoryBuilder::setM_type(const CurrentSerializerType &m_type) {
-  m_type_validator.validate(m_type);
+  //m_type_validator.validate(m_type); TODO
   CUnitFactoryBuilder::m_type = m_type;
 }
 template <typename T>
@@ -44,6 +44,7 @@ std::shared_ptr<CUnitFactory> CUnitFactoryBuilder::GetFactory() {
                                  m_custom[iter1], iter2.key());
     }
   }
+  //return std::shared_ptr<CUnitFactory>(new CUnitFactory(m_unit));
   return std::make_shared<CUnitFactory>(std::move(m_unit));
 }
 void CUnitFactoryBuilder::setM_custom(const CurrentSerializerType &m_custom) {
@@ -63,6 +64,9 @@ T CUnitFactoryBuilder::UpdateField(const CurrentSerializerType &m_def, const Cur
   return res;
 }
 void CUnitFactoryBuilder::setM_default(const CurrentSerializerType &m_default) {
-  m_default_validator.validate(m_default);
+  //m_default_validator.validate(m_default); TODO
   CUnitFactoryBuilder::m_default = m_default;
 }
+CurrentValidator CUnitFactoryBuilder::m_default_validator = CurrentValidator();
+CurrentValidator CUnitFactoryBuilder::m_type_validator = CurrentValidator();
+CurrentValidator CUnitFactoryBuilder::m_race_validator = CurrentValidator();

@@ -18,6 +18,12 @@ TEST_P(UnitsTest, UnitsTest_UnitsBuilding_Test) {
   std::ifstream iUnitType(std::get<2>(GetParam()));
   std::ifstream iExpectedUnit(std::get<3>(GetParam()));
   std::ifstream iValidateUnit("json/schema/Unit.json");
+  std::ifstream iValidateType("json/schema/Type.json");
+  std::ifstream iValidateRace("json/schema/Race.json");
+  // TODO
+//  CUnitFactoryBuilder::m_default_validator.set_schema(iValidateUnit);
+//  CUnitFactoryBuilder::m_type_validator.set_schema(iValidateType);
+//  CUnitFactoryBuilder::m_race_validator.set_schema(iValidateRace);
   CUnitFactoryBuilder Builder;
   Builder.setM_default(CurrentSerializer::Deserialize(iDefaultUnit));
   Builder.setM_race(CurrentSerializer::Deserialize(iUnitRace));
