@@ -9,7 +9,7 @@
 #include "CObject.hpp"
 #include "CurrentSerializer.hpp"
 #include "CMapCell.hpp"
-using std::vector
+using std::vector;
 class CUnit : public CObject {
 public:
   explicit CUnit(const CurrentSerializerType &, const CPosition &);

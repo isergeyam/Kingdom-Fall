@@ -4,12 +4,11 @@
 
 #pragma once
 #include "CObject.hpp"
-#include "CTerrain.hpp"
-#include "CUnit.hpp"
-#include "CVillage.hpp"
-#include "CGlobalGame.hpp"
 #include <memory>
 #include <vector>
+class CUnit;
+class CVillage;
+class CTerrain;
 class CMapCell {
  private:
   std::shared_ptr<CUnit> m_unit;

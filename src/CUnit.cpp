@@ -2,9 +2,12 @@
 // Created by sg on 10.03.18.
 //
 
-#include <queue>
 #include "CUnit.hpp"
+#include <queue>
 #include "CGlobalGame.hpp"
+#include "CMap.hpp"
+#include "CTerrain.hpp"
+#include "CVillage.hpp"
 CUnit::CUnit(const CurrentSerializerType &m_properties, const CPosition &position) : CObject(position, true, false, false), m_properties(m_properties) {
   m_health = m_properties["Health"];
   m_stamina = m_properties["Stamina"];
@@ -15,8 +18,9 @@ bool CUnit::CanMove(const CPosition &new_position) {
   return CurMap()[new_position].getM_unit() == nullptr &&  CalculateDistance(new_position) <= m_stamina;
 }
 Quantity_t CUnit::CalculateDistance(const CPosition &calc_position) {
-  if (m_state == CurMap().getM_state())
-    return m_distances[calc_position.getM_x_axis()][calc_position.getM_y_axis()];
+  // TODO
+//  if (m_state == CurMap().getM_state())
+//    return m_distances[calc_position.getM_x_axis()][calc_position.getM_y_axis()];
   m_distances.resize(CurMap().getM_x_size());
   std::fill(m_distances.begin(), m_distances.end(), vector<Quantity_t>(CurMap().getM_y_size(), CGlobalGame::MaxDistance));
   std::priority_queue<std::pair<Quantity_t, CPosition > > m_queue;
@@ -49,5 +53,5 @@ Quantity_t CUnit::CalculateDistance(const CMapCell &calc_position) {
   if (calc_position.getM_unit() != nullptr)
     return CGlobalGame::MaxDistance;
   CTerrain &cur_terrain = *calc_position.getM_terrain();
-  return m_properties['Patency'][cur_terrain.getM_name()]*cur_terrain.getM_patency();
+  return m_properties['Patency'][cur_terrain.getM_name()].get<Percent_t >()*cur_terrain.getM_patency();
 }

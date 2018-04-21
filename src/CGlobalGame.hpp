@@ -3,14 +3,16 @@
 //
 
 #pragma once
-#include "CMap.hpp"
+#include "CurrentSerializer.hpp"
+#include "defines.hpp"
+class CMap;
 class CGlobalGame {
  private:
   static std::shared_ptr<CurrentSerializerType> m_settings;
   static std::shared_ptr<CMap> m_map;
   static std::random_device m_device;
   static std::default_random_engine m_engine;
-  static std::uniform_real_distribution m_random_percentage;
+  static std::uniform_real_distribution<Percent_t > m_random_percentage;
  public:
   CGlobalGame() = delete;
   ~CGlobalGame() = delete;
@@ -21,7 +23,10 @@ class CGlobalGame {
   static Percent_t GetRandomPercent();
   static const Quantity_t MaxDistance = 1000000;
 };
-inline CMap& CurMap();
-inline CurrentSerializerType & CurSettings();
-
+inline CMap &CurMap() {
+  return *CGlobalGame::Map();
+}
+inline CurrentSerializerType &CurSettings() {
+  return *CGlobalGame::Settings();
+}
 

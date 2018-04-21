@@ -11,7 +11,7 @@ class CMap {
   Quantity_t m_state = 0;
   Quantity_t m_x_size;
   Quantity_t m_y_size;
-  friend class CMapCell;'
+  friend class CMapCell;
  public:
   CMapCell & operator[](const CPosition &m_pos);
   Quantity_t getM_state() const;
