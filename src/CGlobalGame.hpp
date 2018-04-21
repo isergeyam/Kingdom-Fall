@@ -10,7 +10,7 @@ class CGlobalGame {
   static std::shared_ptr<CMap> m_map;
   static std::random_device m_device;
   static std::default_random_engine m_engine;
-  static std::uniform_int_distribution m_random_percentage;
+  static std::uniform_real_distribution m_random_percentage;
  public:
   CGlobalGame() = delete;
   ~CGlobalGame() = delete;
@@ -19,6 +19,7 @@ class CGlobalGame {
   static std::shared_ptr<CurrentSerializerType> Settings();
   static std::shared_ptr<CMap> Map();
   static Percent_t GetRandomPercent();
+  static const Quantity_t MaxDistance = 1000000;
 };
 inline CMap& CurMap();
 inline CurrentSerializerType & CurSettings();

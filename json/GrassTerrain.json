@@ -1,0 +1,7 @@
+{
+    "Name" : "grass",
+    "Pass" : true,
+    "FlyPass" : true,
+    "Patency" : 10,
+    "Icon" : "grass.png"
+}

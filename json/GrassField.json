@@ -1,7 +1,0 @@
-{
-    "Name" : "grass",
-    "DefaultPass" : true,
-    "DefaultFlyPass" : true,
-    "DefaultPatency" : 10,
-    "Icon" : "grass.png"
-}

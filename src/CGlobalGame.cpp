@@ -15,7 +15,7 @@ std::shared_ptr<CMap> CGlobalGame::Map() {
 }
 std::random_device CGlobalGame::m_device ;
 std::default_random_engine CGlobalGame::m_engine(CGlobalGame::m_device());
-std::uniform_int_distribution CGlobalGame::m_random_percentage(0, 100);
+std::uniform_real_distribution CGlobalGame::m_random_percentage(0, 1);
 Percent_t CGlobalGame::GetRandomPercent() {
   return m_random_percentage(m_engine);
 }

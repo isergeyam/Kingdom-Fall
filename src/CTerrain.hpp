@@ -12,6 +12,11 @@
 class CTerrain : public CObject {
 private:
   const CurrentSerializerType &m_properties;
+  Quantity_t m_patency;
+  std::string m_name;
+ public:
+  Quantity_t getM_patency() const;
+  const std::string &getM_name() const;
   CTerrain(const CPosition &m_position, const CurrentSerializerType &m_properties);
 };
 

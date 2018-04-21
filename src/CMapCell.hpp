@@ -7,6 +7,7 @@
 #include "CTerrain.hpp"
 #include "CUnit.hpp"
 #include "CVillage.hpp"
+#include "CGlobalGame.hpp"
 #include <memory>
 #include <vector>
 class CMapCell {
