@@ -19,3 +19,9 @@ std::uniform_int_distribution CGlobalGame::m_random_percentage(0, 100);
 Percent_t CGlobalGame::GetRandomPercent() {
   return m_random_percentage(m_engine);
 }
+CMap &CurMap() {
+  return *CGlobalGame::Map();
+}
+CurrentSerializerType &CurSettings() {
+  return *CGlobalGame::Settings();
+}

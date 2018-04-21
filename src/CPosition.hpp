@@ -7,7 +7,6 @@
 
 #include "defines.hpp"
 class CPosition {
-private:
  public:
   explicit CPosition(Position_t m_x_axis = 0, Position_t m_y_axis = 0);
   Position_t getM_x_axis() const;

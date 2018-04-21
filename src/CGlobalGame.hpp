@@ -20,5 +20,7 @@ class CGlobalGame {
   static std::shared_ptr<CMap> Map();
   static Percent_t GetRandomPercent();
 };
+inline CMap& CurMap();
+inline CurrentSerializerType & CurSettings();
 
 

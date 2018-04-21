@@ -11,7 +11,9 @@
 class CUnit : public CObject {
 public:
   explicit CUnit(const CurrentSerializerType &, const CPosition &);
-
+  Quantity_t CalculateDistance(const CPosition &new_position);
+  bool CanMove(const CPosition &new_position);
+  bool MoveTo(const CPosition &new_postion);
 private:
   Quantity_t m_health;
   Quantity_t m_stamina;
