@@ -30,7 +30,7 @@ void CGlobalGame::InitializeGame(const CurrentSerializerType &new_map, const Cur
 }
 void CGlobalGame::InitializeTerrains(const vector<CurrentSerializerType> &m_terrains) {
   std::ifstream iTerrain("json/schema/Terrain.json");
-  CObjectFactoryValidateDecorator<CTerrain>::m_validator.set_schema(CurrentSerializer::Deserialize(iTerrain));
+  //CObjectFactoryValidateDecorator<CTerrain>::m_validator.set_schema(CurrentSerializer::Deserialize(iTerrain)); TODO
   for (auto &&cur_terrain : m_terrains) {
     CGlobalGame::LoadedTerrains[cur_terrain["Name"]] = CObjectFactoryValidateDecorator<CTerrain>(std::make_shared<CObjectFactory<CTerrain>>(cur_terrain));
   }

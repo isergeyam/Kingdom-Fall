@@ -56,8 +56,8 @@ TEST_P(UnitMovementTest, UnitMovementTest_Units_Test) {
   CObjectFactoryValidateDecorator<CUnit>
       m_factory(std::make_shared<CUnitFactory>(CurrentSerializer::Deserialize(iUnit)));
   auto m_unit = m_factory.CreateObject(start_pos);
-  std::cout << m_unit->CalculateDistance(end_pos) << std::endl;
-  //EXPECT_EQ(expected_ans, m_unit->CalculateDistance(end_pos));
+  //std::cout << m_unit->CalculateDistance(end_pos) << std::endl;
+  EXPECT_EQ(expected_ans, m_unit->CalculateDistance(end_pos));
 }
 INSTANTIATE_TEST_CASE_P(INST_HUMAN_SWORDSMAN, UnitBuildingTest,
                         ::testing::Values(std::make_tuple(
@@ -75,19 +75,33 @@ INSTANTIATE_TEST_CASE_P(INST_HUMAN_GRASS,
                                                           "json/UnitHumanSwordsman.json",
                                                           CPosition(0, 0),
                                                           CPosition(2, 2),
-                                                          static_cast<Quantity_t >(0))));
+                                                          static_cast<Quantity_t >(20))));
+INSTANTIATE_TEST_CASE_P(INST_DWARF_GRASS,
+                        UnitMovementTest,
+                        ::testing::Values(std::make_tuple("maps/map1.txt",
+                                                          "json/UnitDwarfSwordsman.json",
+                                                          CPosition(0, 0),
+                                                          CPosition(2, 2),
+                                                          static_cast<Quantity_t >(24))));
 INSTANTIATE_TEST_CASE_P(INST_DWARF_MIXED,
                         UnitMovementTest,
                         ::testing::Values(std::make_tuple("maps/map2.txt",
                                                           "json/UnitDwarfSwordsman.json",
                                                           CPosition(0, 0),
                                                           CPosition(4, 3),
-                                                          static_cast<Quantity_t>(0))));
+                                                          static_cast<Quantity_t>(54))));
 INSTANTIATE_TEST_CASE_P(INST_HUMAN_MIXED,
                         UnitMovementTest,
                         ::testing::Values(std::make_tuple("maps/map2.txt",
                                                           "json/UnitHumanSwordsman.json",
                                                           CPosition(0, 0),
                                                           CPosition(4, 3),
-                                                          static_cast<Quantity_t>(0))));
+                                                          static_cast<Quantity_t>(56))));
+INSTANTIATE_TEST_CASE_P(INST_NOT_ACCESSIBLE,
+                        UnitMovementTest,
+                        ::testing::Values(std::make_tuple("maps/map3.txt",
+                                                          "json/UnitHumanSwordsman.json",
+                                                          CPosition(0, 0),
+                                                          CPosition(2, 2),
+                                                          CGlobalGame::MaxDistance)));
 #endif // GAME_PROJ_TEST_HPP
