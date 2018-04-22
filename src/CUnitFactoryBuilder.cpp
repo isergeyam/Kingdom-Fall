@@ -44,7 +44,6 @@ std::shared_ptr<CUnitFactory> CUnitFactoryBuilder::GetFactory() {
                                  m_custom[iter1], iter2.key());
     }
   }
-  //return std::shared_ptr<CUnitFactory>(new CUnitFactory(m_unit));
   return std::make_shared<CUnitFactory>(std::move(m_unit));
 }
 void CUnitFactoryBuilder::setM_custom(const CurrentSerializerType &m_custom) {

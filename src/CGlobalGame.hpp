@@ -23,6 +23,7 @@ class CGlobalGame {
   static Percent_t GetRandomPercent();
   static const Quantity_t MaxDistance = 1000000;
   static Quantity_t CurGlobalState;
+  static void InitializeGame(const CurrentSerializerType &new_map, const CurrentSerializerType &new_settings);
 };
 inline CMap &CurMap() {
   return *CGlobalGame::Map();

@@ -20,7 +20,7 @@ class CObjectFactoryValidateDecorator : public IObjectFactory<_Object> {
 template<typename _Object>
 CObjectFactoryValidateDecorator<_Object>::CObjectFactoryValidateDecorator(const std::shared_ptr<IObjectFactory<_Object>> &my_factory)
     : my_factory(my_factory) {
-  m_validator.validate(my_factory->getM_properties());
+  //m_validator.validate(my_factory->getM_properties()); TODO
 }
 template<typename _Object>
 std::shared_ptr<_Object> CObjectFactoryValidateDecorator<_Object>::CreateObject(const CPosition &position) {

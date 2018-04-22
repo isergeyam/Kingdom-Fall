@@ -6,9 +6,6 @@
 CMapCell & CMap::operator[](const CPosition &m_pos) {
   return m_map[m_pos.getM_x_axis()][m_pos.getM_y_axis()];
 }
-Quantity_t CMap::getM_state() const {
-  return m_state;
-}
 Quantity_t CMap::getM_x_size() const {
   return m_x_size;
 }
@@ -30,4 +27,8 @@ vector<CPosition> CMap::GetNeighbour(const CPosition &pos) {
     }
   }
   return ans;
+}
+CMap::CMap(vector<vector<CMapCell>> m_map) : m_map(std::move(m_map)) {
+  m_x_size = m_map.size();
+  m_y_size = m_map[0].size();
 }

@@ -22,5 +22,9 @@ Percent_t CGlobalGame::GetRandomPercent() {
 }
 const Quantity_t CGlobalGame::MaxDistance;
 Quantity_t CGlobalGame::CurGlobalState = 0;
+void CGlobalGame::InitializeGame(const CurrentSerializerType &new_map, const CurrentSerializerType &new_settings) {
+  m_map = std::make_shared<CMap>(new_map.get<vector<vector<std::string>>>());
+  m_settings = std::make_shared<CurrentSerializerType >(new_settings);
+}
 std::shared_ptr<CMap> CGlobalGame::m_map;
 std::shared_ptr<CurrentSerializerType > CGlobalGame::m_settings;
