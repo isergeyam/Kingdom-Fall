@@ -18,9 +18,8 @@ bool CUnit::CanMove(const CPosition &new_position) {
   return CurMap()[new_position].getM_unit() == nullptr &&  CalculateDistance(new_position) <= m_stamina;
 }
 Quantity_t CUnit::CalculateDistance(const CPosition &calc_position) {
-  // TODO
-//  if (m_state == CurMap().getM_state())
-//    return m_distances[calc_position.getM_x_axis()][calc_position.getM_y_axis()];
+  if (m_state == CGlobalGame::CurGlobalState)
+    return m_distances[calc_position.getM_x_axis()][calc_position.getM_y_axis()];
   m_distances.resize(CurMap().getM_x_size());
   std::fill(m_distances.begin(), m_distances.end(), vector<Quantity_t>(CurMap().getM_y_size(), CGlobalGame::MaxDistance));
   std::priority_queue<std::pair<Quantity_t, CPosition > > m_queue;
@@ -40,6 +39,7 @@ Quantity_t CUnit::CalculateDistance(const CPosition &calc_position) {
       }
     }
   }
+  m_state = CGlobalGame::CurGlobalState;
   return m_distances[calc_position.getM_x_axis()][calc_position.getM_y_axis()];
 }
 bool CUnit::MoveTo(const CPosition &new_postion) {

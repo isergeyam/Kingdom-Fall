@@ -21,6 +21,6 @@ Percent_t CGlobalGame::GetRandomPercent() {
   return m_random_percentage(m_engine);
 }
 const Quantity_t CGlobalGame::MaxDistance;
-// TODO
+Quantity_t CGlobalGame::CurGlobalState = 0;
 std::shared_ptr<CMap> CGlobalGame::m_map;
 std::shared_ptr<CurrentSerializerType > CGlobalGame::m_settings;

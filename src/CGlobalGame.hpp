@@ -22,6 +22,7 @@ class CGlobalGame {
   static std::shared_ptr<CMap> Map();
   static Percent_t GetRandomPercent();
   static const Quantity_t MaxDistance = 1000000;
+  static Quantity_t CurGlobalState;
 };
 inline CMap &CurMap() {
   return *CGlobalGame::Map();
