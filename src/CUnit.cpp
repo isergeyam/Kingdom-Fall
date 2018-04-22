@@ -63,5 +63,5 @@ Quantity_t CUnit::CalculateDistance(const CMapCell &calc_position) {
   CTerrain &cur_terrain = *calc_position.getM_terrain();
   if (calc_position.getM_unit() != nullptr || !cur_terrain.isPassable())
     return CGlobalGame::MaxDistance;
-  return m_properties["Patency"][cur_terrain.getM_name()].get<Percent_t >()*cur_terrain.getM_patency();
+  return cur_terrain.getM_patency()/m_properties["Patency"][cur_terrain.getM_name()].get<Percent_t >();
 }

@@ -83,4 +83,11 @@ INSTANTIATE_TEST_CASE_P(INST_DWARF_MIXED,
                                                           CPosition(0, 0),
                                                           CPosition(4, 3),
                                                           static_cast<Quantity_t>(0))));
+INSTANTIATE_TEST_CASE_P(INST_HUMAN_MIXED,
+                        UnitMovementTest,
+                        ::testing::Values(std::make_tuple("maps/map2.txt",
+                                                          "json/UnitHumanSwordsman.json",
+                                                          CPosition(0, 0),
+                                                          CPosition(4, 3),
+                                                          static_cast<Quantity_t>(0))));
 #endif // GAME_PROJ_TEST_HPP
