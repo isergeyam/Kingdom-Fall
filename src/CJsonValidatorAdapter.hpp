@@ -9,8 +9,8 @@ class CJsonValidatorAdapter {
  private:
   json_validator m_validator;
  public:
-  void set_schema(std::istream &stream_);
-  void validate(const json& obj_);
+  void set_schema(json val);
+  void validate(json obj_);
 };
 
 

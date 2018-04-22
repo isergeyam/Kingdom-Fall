@@ -31,14 +31,14 @@
 			"Abilities" : {
 				"type" : "object",
 				"additionalProperties" : {
-					"$ref" : "Ability.json#/Ability"
+					"$ref" : "#/definitions/Ability"
 				}
 			}
 		},
 		"AutoAbilities" : {
 			"type" : "object",
 			"additionalProperties" : {
-				"$ref" : "Ability.json.schema#/Ability"
+				"$ref" : "#/definitions/Ability"
 			}
 		}
 }

@@ -3,9 +3,9 @@
 //
 
 #include "CJsonValidatorAdapter.hpp"
-void CJsonValidatorAdapter::set_schema(std::istream &stream_) {
-  m_validator.set_root_schema(json::parse(stream_));
+void CJsonValidatorAdapter::set_schema(json val) {
+  m_validator.set_root_schema(std::move(val));
 }
-void CJsonValidatorAdapter::validate(const json &obj_) {
-  m_validator.validate(obj_);
+void CJsonValidatorAdapter::validate(json obj_) {
+  m_validator.validate(std::move(obj_));
 }
