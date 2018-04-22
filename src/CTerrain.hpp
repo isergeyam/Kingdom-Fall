@@ -17,7 +17,7 @@ private:
  public:
   Quantity_t getM_patency() const;
   const std::string &getM_name() const;
-  CTerrain(const CPosition &m_position, const CurrentSerializerType &m_properties);
+  CTerrain(const CurrentSerializerType &m_properties, const CPosition &m_position);
 };
 
 #endif // GAME_PROJ_CFIELD_HPP

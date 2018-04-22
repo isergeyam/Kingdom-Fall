@@ -28,3 +28,6 @@ void CMapCell::setM_terrain(const std::shared_ptr<CTerrain> &m_terrain) {
   ++CGlobalGame::CurGlobalState;
   CMapCell::m_terrain = m_terrain;
 }
+CMapCell::CMapCell(const std::shared_ptr<CTerrain> &m_terrain) : m_terrain(m_terrain) {
+
+}

@@ -8,13 +8,15 @@
     "Grass" : 0.9,
     "Dungeon" : 0.9,
     "Forest" : 0.9,
-    "Field" : 0.9
+    "Field" : 0.9,
+    "Rock" : 0.9
   },
   "Adaption" : {
     "Grass" : 0.9,
     "Dungeon" : 0.9,
     "Forest" : 0.9,
-    "Field" : 0.9
+    "Field" : 0.9,
+    "Rock" : 0.9
   },
   "Resistance" : {
     "Cutting" : 0.4,

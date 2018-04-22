@@ -18,6 +18,7 @@ class CMapCell {
   CMapCell(const std::shared_ptr<CUnit> &m_unit,
            const std::shared_ptr<CVillage> &m_village,
            const std::shared_ptr<CTerrain> &m_terrain);
+  explicit CMapCell(const std::shared_ptr<CTerrain> &m_terrain = nullptr);
   const std::shared_ptr<CUnit> &getM_unit() const;
   const std::shared_ptr<CVillage> &getM_village() const;
   const std::shared_ptr<CTerrain> &getM_terrain() const;

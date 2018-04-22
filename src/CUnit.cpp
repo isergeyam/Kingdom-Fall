@@ -4,6 +4,7 @@
 
 #include "CUnit.hpp"
 #include <queue>
+#include <iostream>
 #include "CGlobalGame.hpp"
 #include "CMap.hpp"
 #include "CTerrain.hpp"
@@ -22,8 +23,10 @@ Quantity_t CUnit::CalculateDistance(const CPosition &calc_position) {
     return m_distances[calc_position.getM_x_axis()][calc_position.getM_y_axis()];
   m_distances.resize(CurMap().getM_x_size());
   std::fill(m_distances.begin(), m_distances.end(), vector<Quantity_t>(CurMap().getM_y_size(), CGlobalGame::MaxDistance));
+  m_distances[m_position.getM_x_axis()][m_position.getM_y_axis()]=0;
+  std::vector<std::vector<CPosition >> m_prev(m_distances.size(), std::vector<CPosition >(m_distances[0].size()));
+  m_prev[m_position.getM_x_axis()][m_position.getM_y_axis()] = m_position;
   std::priority_queue<std::pair<Quantity_t, CPosition > > m_queue;
-  vector<Quantity_t> m_dists(CurMap().getM_x_size()*CurMap().getM_y_size());
   m_queue.push(std::make_pair(0, m_position));
   while(!m_queue.empty()) {
     auto m_cur_vert = m_queue.top();
@@ -36,10 +39,17 @@ Quantity_t CUnit::CalculateDistance(const CPosition &calc_position) {
       if (p_dist > n_dist) {
         p_dist = n_dist;
         m_queue.push(std::make_pair(n_dist, n_vert));
+        m_prev[n_vert.getM_x_axis()][n_vert.getM_y_axis()] = m_cur_vert.second;
       }
     }
   }
   m_state = CGlobalGame::CurGlobalState;
+  vector<CPosition> m_out_prev;
+  CPosition cur_pos = calc_position;
+  while(m_prev[cur_pos.getM_x_axis()][cur_pos.getM_y_axis()] != cur_pos) {
+    std::cout << cur_pos.getM_x_axis() << " " << cur_pos.getM_y_axis() << std::endl;
+    cur_pos = m_prev[cur_pos.getM_x_axis()][cur_pos.getM_y_axis()];
+  }
   return m_distances[calc_position.getM_x_axis()][calc_position.getM_y_axis()];
 }
 bool CUnit::MoveTo(const CPosition &new_postion) {
@@ -50,8 +60,8 @@ bool CUnit::MoveTo(const CPosition &new_postion) {
   return true;
 }
 Quantity_t CUnit::CalculateDistance(const CMapCell &calc_position) {
-  if (calc_position.getM_unit() != nullptr)
-    return CGlobalGame::MaxDistance;
   CTerrain &cur_terrain = *calc_position.getM_terrain();
-  return m_properties['Patency'][cur_terrain.getM_name()].get<Percent_t >()*cur_terrain.getM_patency();
+  if (calc_position.getM_unit() != nullptr || !cur_terrain.isPassable())
+    return CGlobalGame::MaxDistance;
+  return m_properties["Patency"][cur_terrain.getM_name()].get<Percent_t >()*cur_terrain.getM_patency();
 }

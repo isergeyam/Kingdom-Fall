@@ -11,8 +11,11 @@ class CMap {
   Quantity_t m_x_size;
   Quantity_t m_y_size;
   friend class CMapCell;
+  void init(const vector<vector<std::string>> &start_terrain);
  public:
-  CMap(vector<vector<CMapCell>> m_map);
+  CMap() = default;
+  explicit CMap(const vector<vector<std::string>> &start_terrain);
+  explicit CMap(std::ifstream &stream_);
   CMapCell & operator[](const CPosition &m_pos);
   Quantity_t getM_x_size() const;
   Quantity_t getM_y_size() const;

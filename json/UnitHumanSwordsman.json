@@ -15,6 +15,7 @@
   },
   "Adaption": {
     "Dungeon": 0.9,
+    "Rock" : 0.81,
     "Field": 0.9,
     "Forest": 0.9,
     "Grass": 0.9
@@ -24,6 +25,7 @@
   "Health": 100,
   "Patency": {
     "Dungeon": 0.81,
+    "Rock" : 0.81,
     "Field": 0.9,
     "Forest": 0.9,
     "Grass": 0.99

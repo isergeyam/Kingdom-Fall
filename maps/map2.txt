@@ -1,0 +1,5 @@
+Grass Grass Rock Dungeon
+Rock Rock Dungeon Rock
+Grass Grass Rock HighRock
+HighRock Rock Rock Dungeon
+Rock Rock Grass Grass

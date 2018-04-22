@@ -5,6 +5,10 @@
 #pragma once
 #include "CurrentSerializer.hpp"
 #include "defines.hpp"
+#include "CTerrain.hpp"
+#include "CObjectFactoryValidateDecorator.hpp"
+#include <random>
+using std::vector;
 class CMap;
 class CGlobalGame {
  private:
@@ -19,10 +23,12 @@ class CGlobalGame {
   CGlobalGame(const CGlobalGame&) = delete;
   CGlobalGame& operator=(CGlobalGame&) = delete;
   static std::shared_ptr<CurrentSerializerType> Settings();
-  static std::shared_ptr<CMap> Map();
+  static std::shared_ptr<CMap>& Map();
   static Percent_t GetRandomPercent();
   static const Quantity_t MaxDistance = 1000000;
   static Quantity_t CurGlobalState;
+  static std::map<std::string, CObjectFactoryValidateDecorator<CTerrain>> LoadedTerrains;
+  static void InitializeTerrains(const vector<CurrentSerializerType> &m_terrains);
   static void InitializeGame(const CurrentSerializerType &new_map, const CurrentSerializerType &new_settings);
 };
 inline CMap &CurMap() {

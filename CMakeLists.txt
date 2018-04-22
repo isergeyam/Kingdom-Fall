@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.5)
 project(Kingdom-Fall)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_FLAGS_DEBUG "-fsanitize=leak -g -O0 -Wall")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS_RELEASE})

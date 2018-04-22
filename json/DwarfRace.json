@@ -6,11 +6,13 @@
 	},
 	"Patency" : {
 		"Grass" : 0.9,
-		"Dungeon" : 1.1
+		"Dungeon" : 1.1,
+		"Rock" : 1.1
 	},
 	"Adaption" : {
 		"Grass" : 0.9,
-		"Dungeon" : 1.1
+		"Dungeon" : 1.1,
+		"Rock" : 1.1
 	},
 	"Health" : 1.05,
 	"Stamina" : 1.05,
