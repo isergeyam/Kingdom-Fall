@@ -30,6 +30,7 @@ class CGlobalGame {
   static std::map<std::string, CObjectFactoryValidateDecorator<CTerrain>> LoadedTerrains;
   static void InitializeTerrains(const vector<CurrentSerializerType> &m_terrains);
   static void InitializeGame(const CurrentSerializerType &new_map, const CurrentSerializerType &new_settings);
+  static void GlobalSetUp();
 };
 inline CMap &CurMap() {
   return *CGlobalGame::Map();

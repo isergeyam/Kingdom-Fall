@@ -14,14 +14,14 @@ class CObjectFactoryValidateDecorator : public IObjectFactory<_Object> {
  public:
   static CurrentValidator m_validator;
   explicit CObjectFactoryValidateDecorator(const std::shared_ptr<IObjectFactory<_Object>> &my_factory = nullptr);
-  CObjectFactoryValidateDecorator& operator=(const CObjectFactoryValidateDecorator &other);
+  CObjectFactoryValidateDecorator &operator=(const CObjectFactoryValidateDecorator &other);
   std::shared_ptr<_Object> CreateObject(const CPosition &position) override;
   const CurrentSerializerType &getM_properties() const override;
 };
 template<typename _Object>
 CObjectFactoryValidateDecorator<_Object>::CObjectFactoryValidateDecorator(const std::shared_ptr<IObjectFactory<_Object>> &my_factory)
     : my_factory(my_factory) {
-  //m_validator.validate(my_factory->getM_properties()); TODO
+  m_validator.validate(my_factory->getM_properties());
 }
 template<typename _Object>
 std::shared_ptr<_Object> CObjectFactoryValidateDecorator<_Object>::CreateObject(const CPosition &position) {
@@ -32,7 +32,8 @@ const CurrentSerializerType &CObjectFactoryValidateDecorator<_Object>::getM_prop
   return my_factory->getM_properties();
 }
 template<typename _Object>
-CObjectFactoryValidateDecorator<_Object> &CObjectFactoryValidateDecorator<_Object>::operator=(const CObjectFactoryValidateDecorator<_Object> &other) {
+CObjectFactoryValidateDecorator<_Object> &CObjectFactoryValidateDecorator<_Object>::operator=(const CObjectFactoryValidateDecorator<
+    _Object> &other) {
   my_factory = other.my_factory;
   return *this;
 }

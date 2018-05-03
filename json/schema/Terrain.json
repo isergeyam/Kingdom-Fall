@@ -1,12 +1,22 @@
 {
-	"$schema": "http://json-schema.org/draft-07/schema#",
-		"title": "Field",
-		"description" : "An game field schema",
-		"type" : "object",
-		"properties" : {
-			"DefaultPass" : { "type" : "boolean" },
-			"DefaultFlyPass" : { "type" : "boolean" },
-			"DefaultPatency" : { "type" : "integer" }
-		},
-		"required" : ["DefaultPass", "DefaultFlyPass",  "DefaultPatency"]
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Field",
+  "description": "An game field schema",
+  "type": "object",
+  "properties": {
+    "Pass": {
+      "type": "boolean"
+    },
+    "FlyPass": {
+      "type": "boolean"
+    },
+    "Patency": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "Pass",
+    "FlyPass",
+    "Patency"
+  ]
 }

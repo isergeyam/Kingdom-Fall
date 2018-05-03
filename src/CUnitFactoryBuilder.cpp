@@ -3,20 +3,21 @@
 //
 
 #include "CUnitFactoryBuilder.hpp"
+#include "CObjectFactoryValidateDecorator.hpp"
 void CUnitFactoryBuilder::setM_race(const CurrentSerializerType &m_race) {
-  // m_race_validator.validate(m_race); TODO
+  m_race_validator.validate(m_race);
   CUnitFactoryBuilder::m_race = m_race;
 }
 void CUnitFactoryBuilder::setM_type(const CurrentSerializerType &m_type) {
-  //m_type_validator.validate(m_type); TODO
+  m_type_validator.validate(m_type);
   CUnitFactoryBuilder::m_type = m_type;
 }
-template <typename T>
+template<typename T>
 void CUnitFactoryBuilder::AddAttr(std::string m_attr, T m_val) {
   m_custom[m_attr] = m_val;
 }
-void CUnitFactoryBuilder::ExtendData(CurrentSerializerType &j1, const CurrentSerializerType &j2){
-  for (auto j = j2.begin(); j != j2.end(); ++j) {
+void CUnitFactoryBuilder::ExtendData(CurrentSerializerType &j1, const CurrentSerializerType &j2) {
+  for (auto j = j2.begin(); j!=j2.end(); ++j) {
     j1[j.key()] = j.value();
   }
 }
@@ -37,7 +38,7 @@ std::shared_ptr<CUnitFactory> CUnitFactoryBuilder::GetFactory() {
     ExtendData(m_unit[iter], m_custom[iter]);
   }
   for (auto &&iter1 : {"Patency", "Resistance", "Adaption"}) {
-    for (auto iter2 = m_default[iter1].begin(); iter2 != m_default[iter1].end();
+    for (auto iter2 = m_default[iter1].begin(); iter2!=m_default[iter1].end();
          ++iter2) {
       m_unit[iter1][iter2.key()] =
           UpdateField<Percent_t>(m_default[iter1], m_race[iter1], m_type[iter1],
@@ -49,7 +50,7 @@ std::shared_ptr<CUnitFactory> CUnitFactoryBuilder::GetFactory() {
 void CUnitFactoryBuilder::setM_custom(const CurrentSerializerType &m_custom) {
   CUnitFactoryBuilder::m_custom = m_custom;
 }
-template <typename T>
+template<typename T>
 T CUnitFactoryBuilder::UpdateField(const CurrentSerializerType &m_def, const CurrentSerializerType &m_race,
                                    const CurrentSerializerType &m_type, const CurrentSerializerType &m_custom,
                                    const std::string &key) {
@@ -63,9 +64,8 @@ T CUnitFactoryBuilder::UpdateField(const CurrentSerializerType &m_def, const Cur
   return res;
 }
 void CUnitFactoryBuilder::setM_default(const CurrentSerializerType &m_default) {
-  //m_default_validator.validate(m_default); TODO
+  CObjectFactoryValidateDecorator<CUnit>::m_validator.validate(m_default);
   CUnitFactoryBuilder::m_default = m_default;
 }
-CurrentValidator CUnitFactoryBuilder::m_default_validator = CurrentValidator();
 CurrentValidator CUnitFactoryBuilder::m_type_validator = CurrentValidator();
 CurrentValidator CUnitFactoryBuilder::m_race_validator = CurrentValidator();

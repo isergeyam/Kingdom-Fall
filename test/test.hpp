@@ -10,6 +10,12 @@
 #include <fstream>
 #include <gtest/gtest.h>
 #include <iomanip>
+class MyEnvironment : public ::testing::Environment {
+ public:
+  void SetUp() override {
+    CGlobalGame::GlobalSetUp();
+  }
+};
 class UnitBuildingTest
     : public ::testing::TestWithParam<
         std::tuple<const char *, const char *, const char *, const char *>> {
@@ -19,13 +25,6 @@ TEST_P(UnitBuildingTest, UnitsTest_UnitsBuilding_Test) {
   std::ifstream iUnitRace(std::get<1>(GetParam()));
   std::ifstream iUnitType(std::get<2>(GetParam()));
   std::ifstream iExpectedUnit(std::get<3>(GetParam()));
-  std::ifstream iValidateUnit("json/schema/Unit.json");
-  std::ifstream iValidateType("json/schema/Type.json");
-  std::ifstream iValidateRace("json/schema/Race.json");
-  // TODO
-//  CUnitFactoryBuilder::m_default_validator.set_schema(iValidateUnit);
-//  CUnitFactoryBuilder::m_type_validator.set_schema(iValidateType);
-//  CUnitFactoryBuilder::m_race_validator.set_schema(iValidateRace);
   CUnitFactoryBuilder Builder;
   Builder.setM_default(CurrentSerializer::Deserialize(iDefaultUnit));
   Builder.setM_race(CurrentSerializer::Deserialize(iUnitRace));
@@ -56,7 +55,6 @@ TEST_P(UnitMovementTest, UnitMovementTest_Units_Test) {
   CObjectFactoryValidateDecorator<CUnit>
       m_factory(std::make_shared<CUnitFactory>(CurrentSerializer::Deserialize(iUnit)));
   auto m_unit = m_factory.CreateObject(start_pos);
-  //std::cout << m_unit->CalculateDistance(end_pos) << std::endl;
   EXPECT_EQ(expected_ans, m_unit->CalculateDistance(end_pos));
 }
 INSTANTIATE_TEST_CASE_P(INST_HUMAN_SWORDSMAN, UnitBuildingTest,
