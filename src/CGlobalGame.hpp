@@ -17,6 +17,7 @@ class CGlobalGame {
   static std::random_device m_device;
   static std::default_random_engine m_engine;
   static std::uniform_real_distribution<Percent_t > m_random_percentage;
+  //static std::uniform_int_distribution<bool> m_random_event; TODO
  public:
   CGlobalGame() = delete;
   ~CGlobalGame() = delete;
@@ -25,6 +26,7 @@ class CGlobalGame {
   static std::shared_ptr<CurrentSerializerType> Settings();
   static std::shared_ptr<CMap>& Map();
   static Percent_t GetRandomPercent();
+  //static bool GetRandomEvent(); TODO
   static const Quantity_t MaxDistance = 1000000;
   static Quantity_t CurGlobalState;
   static std::map<std::string, CObjectFactoryValidateDecorator<CTerrain>> LoadedTerrains;

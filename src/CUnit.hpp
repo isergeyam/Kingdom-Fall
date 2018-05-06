@@ -17,14 +17,18 @@ public:
   Quantity_t CalculateDistance(const CMapCell &calc_position);
   bool CanMove(const CPosition &new_position);
   bool MoveTo(const CPosition &new_postion);
+  bool Attack(const CUnit &m_other, const std::string &attack_type);
 private:
   Quantity_t m_health;
   Quantity_t m_stamina;
   Quantity_t m_exp;
   Quantity_t m_state;
   vector<vector<Quantity_t >> m_distances;
+  Quantity_t Hit(CUnit &m_other, const CurrentSerializerType &attack_type);
+  Percent_t CalcHitProbability(const CUnit &m_other);
   //std::string m_master;
   const CurrentSerializerType &m_properties;
+  Quantity_t CalcHitStrength(const CUnit &m_other, const CurrentSerializerType &attack_type) const;
 };
 
 #endif // GAME_PROJ_CUNIT_HPP

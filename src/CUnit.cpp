@@ -65,3 +65,24 @@ Quantity_t CUnit::CalculateDistance(const CMapCell &calc_position) {
     return CGlobalGame::MaxDistance;
   return cur_terrain.getM_patency()/m_properties["Patency"][cur_terrain.getM_name()].get<Percent_t >();
 }
+bool CUnit::Attack(const CUnit &m_other, const std::string &attack_type) {
+  auto it = m_properties['Abilities'].find(attack_type);
+  if (it == m_properties['Abilities'].end() || (*it)['type'] != 'attack')
+    return false;
+  // TODO
+}
+Quantity_t CUnit::Hit(CUnit &m_other, const CurrentSerializerType &attack_type) {
+  Percent_t HitProbability = CalcHitProbability(m_other);
+  if (HitProbability < CGlobalGame::GetRandomPercent())
+    return 0;
+  Quantity_t hit_strength = CalcHitStrength(m_other, attack_type);
+  m_other.m_health-=std::min(m_other.m_health, hit_strength);
+  return hit_strength;
+}
+Quantity_t CUnit::CalcHitStrength(const CUnit &m_other, const CurrentSerializerType &attack_type) const {
+  return
+      attack_type['strength'].get<Quantity_t >()*(1-m_other.m_properties['Resistance'][attack_type['weapon_type']].get<Percent_t >());
+}
+Percent_t CUnit::CalcHitProbability(const CUnit &m_other) {
+  return 1 - m_other.m_properties['Adoption'][CurMap()[m_other.m_position].getM_terrain()->getM_name()].get<Percent_t>;
+}

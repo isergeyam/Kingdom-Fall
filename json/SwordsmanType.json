@@ -5,6 +5,7 @@
       "type" : "attack",
       "strength" : 4,
       "count" : 4,
+      "weapon_type" : "Cutting",
       "range_type" : "melee"
     }
   }
