@@ -39,15 +39,41 @@ void CGlobalGame::InitializeTerrains(const vector<CurrentSerializerType> &m_terr
                                            CTerrain>>(cur_terrain))));
   }
 }
-void CGlobalGame::GlobalSetUp() {
-  std::ifstream iValidateUnit("json/schema/Unit.json");
-  std::ifstream iValidateType("json/schema/Type.json");
-  std::ifstream iValidateRace("json/schema/Race.json");
-  std::ifstream iValidateTerrain("json/schema/Terrain.json");
+void CGlobalGame::GlobalSetUp(const std::string &m_settings = "global_settings.json") {
+  std::ifstream iSettings(m_settings);
+  CurrentSerializerType cur_settings = CurrentSerializer::Deserialize(iSettings);
+  std::ifstream iValidateUnit(cur_settings["UnitValidator"]);
+  std::ifstream iValidateType(cur_settings["TypeValidator"]);
+  std::ifstream iValidateRace(cur_settings["RaceValidator"]);
+  std::ifstream iValidateTerrain(cur_settings["TerrainValidator"]);
+  std::ifstream iMap(cur_settings["Map"]);
+  m_map = std::make_shared<CMap>(iMap);
   CObjectFactoryValidateDecorator<CTerrain>::m_validator.set_schema(CurrentSerializer::Deserialize(iValidateTerrain));
   CObjectFactoryValidateDecorator<CUnit>::m_validator.set_schema(CurrentSerializer::Deserialize(iValidateUnit));
   CUnitFactoryBuilder::m_type_validator.set_schema(CurrentSerializer::Deserialize(iValidateType));
   CUnitFactoryBuilder::m_race_validator.set_schema(CurrentSerializer::Deserialize(iValidateRace));
+  std::vector<CurrentSerializerType > terrains_vector;
+  for (auto &it : cur_settings["terrains"]) {
+    std::ifstream iCurTerrain(it.get<std::string>());
+    terrains_vector.push_back(CurrentSerializer::Deserialize(iCurTerrain));
+  }
+  InitializeTerrains(terrains_vector);
+  screen_width = cur_settings["width"];
+  screen_height = cur_settings["height"];
+  m_window = std::make_shared<SDL2pp::Window>("Kingdom Fall", 0, 0, screen_width, screen_height);
+  m_renderer = std::make_shared<SDL2pp::Renderer>(*m_window, -1, SDL_RENDERER_ACCELERATED)
+}
+size_t CGlobalGame::getScreen_width() {
+  return screen_width;
+}
+size_t CGlobalGame::getScreen_height() {
+  return screen_height;
+}
+const std::shared_ptr<SDL2pp::Window> &CGlobalGame::getM_window() {
+  return m_window;
+}
+const std::shared_ptr<SDL2pp::Renderer> &CGlobalGame::getM_renderer() {
+  return m_renderer;
 }
 std::shared_ptr<CMap> CGlobalGame::m_map;
 std::shared_ptr<CurrentSerializerType> CGlobalGame::m_settings;

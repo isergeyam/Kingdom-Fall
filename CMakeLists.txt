@@ -12,15 +12,19 @@ add_library(json-hpp INTERFACE)
 target_include_directories(json-hpp
         INTERFACE
         third_party/nlohmann/)
-
+SET(SDL2PP_WITH_IMAGE ON)
+SET(SDL2PP_WITH_TTF ON)
+ADD_SUBDIRECTORY(third_party/libSDL2pp)
 
 add_subdirectory(third_party/json-schema-validator json-schema-validator)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR})
-set(SOURCE_FILES src/CObject.cpp src/CObject.hpp src/CPosition.cpp src/CPosition.hpp src/CUnit.cpp src/CUnit.hpp src/CTerrain.cpp src/CTerrain.hpp src/CUnitFactoryBuilder.cpp src/CUnitFactoryBuilder.hpp src/defines.hpp src/json.hpp src/json-validator.hpp src/CObjectFactory.hpp src/CVillage.cpp src/CVillage.hpp src/CMapCell.cpp src/CMapCell.hpp src/CMap.cpp src/CMap.hpp src/CJsonSerializerAdapter.cpp src/CJsonSerializerAdapter.hpp src/CurrentSerializer.hpp src/CJsonValidatorAdapter.cpp src/CJsonValidatorAdapter.hpp src/CObjectFactoryValidateDecorator.hpp src/IObjectFactory.hpp src/CGlobalGame.cpp src/CGlobalGame.hpp)
+set(SOURCE_FILES src/CObject.cpp src/CObject.hpp src/CPosition.cpp src/CPosition.hpp src/CUnit.cpp src/CUnit.hpp src/CTerrain.cpp src/CTerrain.hpp src/CUnitFactoryBuilder.cpp src/CUnitFactoryBuilder.hpp src/defines.hpp src/json.hpp src/json-validator.hpp src/CObjectFactory.hpp src/CVillage.cpp src/CVillage.hpp src/CMapCell.cpp src/CMapCell.hpp src/CMap.cpp src/CMap.hpp src/CJsonSerializerAdapter.cpp src/CJsonSerializerAdapter.hpp src/CurrentSerializer.hpp src/CJsonValidatorAdapter.cpp src/CJsonValidatorAdapter.hpp src/CObjectFactoryValidateDecorator.hpp src/IObjectFactory.hpp src/CGlobalGame.cpp src/CGlobalGame.hpp src/IObjectView.cpp src/IObjectView.hpp src/IObjectObserver.hpp src/IObjectObserver.cpp src/CObjectController.cpp src/CObjectController.hpp src/IObjectController.cpp src/IObjectController.hpp)
 if (WITH_TEST STREQUAL "ON")
     set(TEST_SOURCES ${SOURCE_FILES} test/test.hpp test/test.cpp)
     add_executable(MyTest ${TEST_SOURCES})
     target_include_directories(MyTest PUBLIC third_party)
+    target_include_directories(MyTest PUBLIC ${SDL2PP_INCLUDE_DIRS})
+    TARGET_LINK_LIBRARIES(MyTest ${SDL2PP_LIBRARIES})
     target_link_libraries(MyTest gtest)
     if (UNIX)
         target_link_libraries(MyTest pthread)

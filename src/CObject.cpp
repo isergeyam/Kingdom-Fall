@@ -16,3 +16,13 @@ void CObject::setM_position(const CPosition &m_position) {
   CObject::m_position = m_position;
 }
 CObject::~CObject() {}
+void CObject::AddObserver(IObjectObserver *m_observer) {
+  m_observer_list.insert(m_observer);
+}
+void CObject::NotifyObservers() {
+  for (auto &&it : m_observer_list)
+    it->UpdateObject();
+}
+void CObject::RemoveObserver(IObjectObserver *m_observer) {
+  m_observer_list.erase(m_observer);
+}
