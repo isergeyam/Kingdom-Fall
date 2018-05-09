@@ -1,6 +1,6 @@
 [submodule "third_party/json-schema-validator"]
 	path = third_party/json-schema-validator
 	url = https://github.com/pboettch/json-schema-validator
-[submodule "libSDL2pp"]
+[submodule "third_party/libSDL2pp"]
 	path = third_party/libSDL2pp
 	url = https://github.com/libSDL2pp/libSDL2pp
