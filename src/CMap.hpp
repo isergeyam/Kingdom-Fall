@@ -21,6 +21,7 @@ class CMap {
   Quantity_t getM_y_size() const;
   Quantity_t PosToInt(const CPosition &pos);
   vector<CPosition> GetNeighbour(const CPosition &pos);
+  void UpdateFieldView(CPosition m_position);
 };
 
 

@@ -58,3 +58,9 @@ void CMap::init(const vector<vector<std::string>> &start_terrains) {
   }
   ++CGlobalGame::CurGlobalState;
 }
+void CMap::UpdateFieldView(CPosition m_pos) {
+  CMapCell cur_cell = operator[](m_pos);
+  if (cur_cell.getM_terrain() != nullptr) {
+
+  }
+}

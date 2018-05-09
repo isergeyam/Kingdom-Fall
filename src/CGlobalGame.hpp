@@ -37,7 +37,7 @@ class CGlobalGame {
   static std::map<std::string, CObjectFactoryValidateDecorator<CTerrain>> LoadedTerrains;
   static void InitializeTerrains(const vector<CurrentSerializerType> &m_terrains);
   static void InitializeGame(const CurrentSerializerType &new_map, const CurrentSerializerType &new_settings);
-  static void GlobalSetUp(const std::string &);
+  static void GlobalSetUp(const std::string &m_string = "global_settings.json");
   static size_t getScreen_width();
   static size_t getScreen_height();
   static const std::shared_ptr<SDL2pp::Renderer> &getM_renderer();
@@ -51,4 +51,7 @@ inline CurrentSerializerType &CurSettings() {
 }
 inline SDL2pp::Window &CurWindow() {
   return *CGlobalGame::getM_window();
+}
+inline SDL2pp::Renderer &CurRenderer() {
+  return *CGlobalGame::getM_renderer();
 }

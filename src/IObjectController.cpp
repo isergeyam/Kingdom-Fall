@@ -3,4 +3,4 @@
 //
 
 #include "IObjectController.hpp"
-IObjectController::IObjectController(std::shared_ptr<CObject> m_object) : m_object(m_object) {}
+IObjectController::IObjectController(const std::shared_ptr<CObject> &m_object) : m_object(m_object) {}

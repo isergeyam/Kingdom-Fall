@@ -4,14 +4,14 @@
 
 #pragma once
 #include "CPosition.hpp"
-#include <bits/shared_ptr.h>
+#include <memory>
 class CObject;
 class IObjectController {
- private:
+ protected:
   std::shared_ptr<CObject> m_object;
  public:
   virtual void SetObjectPosition(CPosition m_pos) = 0;
-  explicit IObjectController(std::shared_ptr<CObject> m_object);
+  explicit IObjectController(const std::shared_ptr<CObject> &m_object);
 };
 
 
