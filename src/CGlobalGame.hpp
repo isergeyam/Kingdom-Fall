@@ -11,6 +11,7 @@
 #include <SDL2pp/SDL2pp.hh>
 using std::vector;
 class CMap;
+class CControllerFactory;
 class CGlobalGame {
  private:
   static std::shared_ptr<CurrentSerializerType> m_settings;
@@ -34,8 +35,8 @@ class CGlobalGame {
   //static bool GetRandomEvent(); TODO
   static const Quantity_t MaxDistance = 1000000;
   static Quantity_t CurGlobalState;
-  static std::map<std::string, CObjectFactoryValidateDecorator<CTerrain>> LoadedTerrains;
-  static void InitializeTerrains(const vector<CurrentSerializerType> &m_terrains);
+  static std::map<std::string, CControllerFactory> LoadedTerrains;
+  static void InitializeObjects(const vector<CurrentSerializerType> &m_terrains);
   static void InitializeGame(const CurrentSerializerType &new_map, const CurrentSerializerType &new_settings);
   static void GlobalSetUp(const std::string &m_string = "global_settings.json");
   static size_t getScreen_width();

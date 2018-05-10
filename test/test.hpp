@@ -47,10 +47,10 @@ TEST_P(UnitMovementTest, UnitMovementTest_Units_Test) {
   CPosition start_pos = std::get<2>(GetParam());
   CPosition end_pos = std::get<3>(GetParam());
   Quantity_t expected_ans = std::get<4>(GetParam());
-  CGlobalGame::InitializeTerrains(std::vector<CurrentSerializerType>{CurrentSerializer::Deserialize(iGrass),
-                                                                     CurrentSerializer::Deserialize(iRock),
-                                                                     CurrentSerializer::Deserialize(iHighRock),
-                                                                     CurrentSerializer::Deserialize(iDungeon)});
+  CGlobalGame::InitializeObjects(std::vector<CurrentSerializerType>{CurrentSerializer::Deserialize(iGrass),
+                                                                    CurrentSerializer::Deserialize(iRock),
+                                                                    CurrentSerializer::Deserialize(iHighRock),
+                                                                    CurrentSerializer::Deserialize(iDungeon)});
   CGlobalGame::Map() = std::make_shared<CMap>(iMap);
   CObjectFactoryValidateDecorator<CUnit>
       m_factory(std::make_shared<CUnitFactory>(CurrentSerializer::Deserialize(iUnit)));

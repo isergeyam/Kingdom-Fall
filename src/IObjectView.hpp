@@ -18,6 +18,9 @@ class IObjectView : public IObjectObserver {
                        const std::shared_ptr<IObjectController> &m_controller,
                        const std::shared_ptr<SDL2pp::Texture> &m_texture);
   void UpdateObject() override;
+  const std::shared_ptr<SDL2pp::Texture> &getM_texture() const;
+  const std::shared_ptr<IObjectController> &getM_controller() const;
+  const CPosition &getPrev_position() const;
 };
 
 

@@ -32,7 +32,7 @@ void CGlobalGame::InitializeGame(const CurrentSerializerType &new_map, const Cur
   m_map = std::make_shared<CMap>(new_map.get<vector<vector<std::string>>>());
   m_settings = std::make_shared<CurrentSerializerType>(new_settings);
 }
-void CGlobalGame::InitializeTerrains(const vector<CurrentSerializerType> &m_terrains) {
+void CGlobalGame::InitializeObjects(const vector<CurrentSerializerType> &m_terrains) {
   for (auto &&cur_terrain : m_terrains) {
     CGlobalGame::LoadedTerrains.insert(std::make_pair(cur_terrain["Name"].get<std::string>(),
                                        CObjectFactoryValidateDecorator<CTerrain>(std::make_shared<CObjectFactory<
@@ -52,12 +52,12 @@ void CGlobalGame::GlobalSetUp(const std::string &m_settings) {
   CObjectFactoryValidateDecorator<CUnit>::m_validator.set_schema(CurrentSerializer::Deserialize(iValidateUnit));
   CUnitFactoryBuilder::m_type_validator.set_schema(CurrentSerializer::Deserialize(iValidateType));
   CUnitFactoryBuilder::m_race_validator.set_schema(CurrentSerializer::Deserialize(iValidateRace));
-  std::vector<CurrentSerializerType > terrains_vector;
-  for (auto &it : cur_settings["terrains"]) {
+  std::vector<CurrentSerializerType > objects_vector;
+  for (auto &it : cur_settings["objects"]) {
     std::ifstream iCurTerrain(it.get<std::string>());
-    terrains_vector.push_back(CurrentSerializer::Deserialize(iCurTerrain));
+    objects_vector.push_back(CurrentSerializer::Deserialize(iCurTerrain));
   }
-  InitializeTerrains(terrains_vector);
+  InitializeObjects(objects_vector);
   screen_width = cur_settings["width"].get<size_t>();
   screen_height = cur_settings["height"].get<size_t>();
   m_window = std::make_shared<SDL2pp::Window>("Kingdom Fall", 0, 0, screen_width, screen_height, SDL_WINDOW_SHOWN);
