@@ -12,6 +12,7 @@ class IObjectView : public IObjectObserver {
   std::shared_ptr<SDL2pp::Texture> m_texture;
   std::shared_ptr<IObjectController> m_controller;
   CPosition prev_position;
+  static SDL2pp::Rect PositionRect(const CPosition &m_pos);
  public:
   explicit IObjectView(const std::shared_ptr<CObject> &m_obj,
                        const std::shared_ptr<IObjectController> &m_controller,

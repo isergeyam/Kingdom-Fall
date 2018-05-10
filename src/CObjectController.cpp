@@ -10,3 +10,6 @@ CObjectController::CObjectController(const std::shared_ptr<CObject> &m_object,
 void CObjectController::SetObjectPosition(CPosition m_pos) {
   m_object->setM_position(m_pos);
 }
+const std::shared_ptr<IObjectView> &CObjectController::getM_view() const {
+  return m_view;
+}

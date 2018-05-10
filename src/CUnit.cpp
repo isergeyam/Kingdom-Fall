@@ -16,7 +16,7 @@ CUnit::CUnit(const CurrentSerializerType &m_properties, const CPosition &positio
   m_state = 0;
 }
 bool CUnit::CanMove(const CPosition &new_position) {
-  return CurMap()[new_position].getM_unit()==nullptr && CalculateDistance(new_position) <= m_stamina;
+  return CurMap()[new_position].GetUnitObject()==nullptr && CalculateDistance(new_position) <= m_stamina;
 }
 Quantity_t CUnit::CalculateDistance(const CPosition &calc_position) {
   if (m_state==CGlobalGame::CurGlobalState)
@@ -62,8 +62,8 @@ bool CUnit::MoveTo(const CPosition &new_postion) {
   return true;
 }
 Quantity_t CUnit::CalculateDistance(const CMapCell &calc_position) {
-  CTerrain &cur_terrain = *calc_position.getM_terrain();
-  if (calc_position.getM_unit()!=nullptr || !cur_terrain.isPassable())
+  CTerrain &cur_terrain = *calc_position.GetTerrainObject();
+  if (calc_position.GetUnitObject()!=nullptr || !cur_terrain.isPassable())
     return CGlobalGame::MaxDistance;
   return cur_terrain.getM_patency()/m_properties["Patency"][cur_terrain.getM_name()].get<Percent_t>();
 }
@@ -87,5 +87,5 @@ Quantity_t CUnit::CalcHitStrength(const CUnit &m_other, const CurrentSerializerT
           *(1 - m_other.m_properties["Resistance"][attack_type["weapon_type"].get<std::string>()].get<Percent_t>());
 }
 Percent_t CUnit::CalcHitProbability(const CUnit &m_other) {
-  return 1 - m_other.m_properties["Adoption"][CurMap()[m_other.m_position].getM_terrain()->getM_name()].get<Percent_t>();
+  return 1 - m_other.m_properties["Adoption"][CurMap()[m_other.m_position].GetTerrainObject()->getM_name()].get<Percent_t>();
 }

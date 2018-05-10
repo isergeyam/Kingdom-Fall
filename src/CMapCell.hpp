@@ -9,22 +9,26 @@
 class CUnit;
 class CVillage;
 class CTerrain;
+class CObjectController;
 class CMapCell {
  private:
-  std::shared_ptr<CUnit> m_unit;
-  std::shared_ptr<CVillage> m_village;
-  std::shared_ptr<CTerrain> m_terrain;
+  std::shared_ptr<CObjectController> m_unit;
+  std::shared_ptr<CObjectController> m_village;
+  std::shared_ptr<CObjectController> m_terrain;
  public:
-  CMapCell(const std::shared_ptr<CUnit> &m_unit,
-           const std::shared_ptr<CVillage> &m_village,
-           const std::shared_ptr<CTerrain> &m_terrain);
-  explicit CMapCell(const std::shared_ptr<CTerrain> &m_terrain = nullptr);
-  const std::shared_ptr<CUnit> &getM_unit() const;
-  const std::shared_ptr<CVillage> &getM_village() const;
-  const std::shared_ptr<CTerrain> &getM_terrain() const;
-  void setM_unit(const std::shared_ptr<CUnit> &m_unit);
-  void setM_village(const std::shared_ptr<CVillage> &m_village);
-  void setM_terrain(const std::shared_ptr<CTerrain> &m_terrain);
+  CMapCell(const std::shared_ptr<CObjectController> &m_unit,
+           const std::shared_ptr<CObjectController> &m_village,
+           const std::shared_ptr<CObjectController> &m_terrain);
+  explicit CMapCell(const std::shared_ptr<CObjectController> &m_terrain = nullptr);
+  const std::shared_ptr<CUnit> &GetUnitObject() const;
+  const std::shared_ptr<CVillage> &GetVillageObject() const;
+  const std::shared_ptr<CTerrain> &GetTerrainObject() const;
+  const std::shared_ptr<CObjectController> &getM_unit() const;
+  const std::shared_ptr<CObjectController> &getM_village() const;
+  const std::shared_ptr<CObjectController> &getM_terrain() const;
+  void setM_unit(const std::shared_ptr<CObjectController> &m_unit);
+  void setM_village(const std::shared_ptr<CObjectController> &m_village);
+  void setM_terrain(const std::shared_ptr<CObjectController> &m_terrain);
 };
 
 

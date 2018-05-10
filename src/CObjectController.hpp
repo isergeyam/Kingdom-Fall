@@ -13,6 +13,7 @@ class CObjectController : public IObjectController {
   explicit CObjectController(const std::shared_ptr<CObject> &m_object,
                              const std::shared_ptr<SDL2pp::Texture> &m_texture);
   void SetObjectPosition(CPosition m_pos) override;
+  const std::shared_ptr<IObjectView> &getM_view() const;
 };
 
 

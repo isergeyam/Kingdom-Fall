@@ -11,6 +11,7 @@ class IObjectObserver {
  public:
   explicit IObjectObserver(std::shared_ptr<CObject> m_object);
   virtual void UpdateObject() = 0;
+  const std::shared_ptr<CObject> &getM_object() const;
 };
 
 
