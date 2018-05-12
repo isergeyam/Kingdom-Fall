@@ -16,7 +16,10 @@ class MyEnvironment : public ::testing::Environment {
     CGlobalGame::GlobalSetUp();
   }
 };
-class UnitBuildingTest
+TEST(GlobalGameTest, InitializerTest) {
+    
+}
+/*class UnitBuildingTest
     : public ::testing::TestWithParam<
         std::tuple<const char *, const char *, const char *, const char *>> {
 };
@@ -102,4 +105,5 @@ INSTANTIATE_TEST_CASE_P(INST_NOT_ACCESSIBLE,
                                                           CPosition(0, 0),
                                                           CPosition(2, 2),
                                                           CGlobalGame::MaxDistance)));
+                                                          */
 #endif // GAME_PROJ_TEST_HPP

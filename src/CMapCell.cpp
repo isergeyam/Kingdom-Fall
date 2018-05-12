@@ -5,6 +5,9 @@
 #include "CMapCell.hpp"
 #include "CGlobalGame.hpp"
 #include "CObjectController.hpp"
+#include "CUnit.hpp"
+#include "CVillage.hpp"
+#include "CTerrain.hpp"
 CMapCell::CMapCell(const std::shared_ptr<CObjectController> &m_unit,
                    const std::shared_ptr<CObjectController> &m_village,
                    const std::shared_ptr<CObjectController> &m_terrain)

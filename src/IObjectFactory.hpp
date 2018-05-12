@@ -3,17 +3,15 @@
 //
 
 #pragma once
-#include <bits/shared_ptr.h>
-#include "CPosition.hpp"
+#include <memory>
 #include "CurrentSerializer.hpp"
-template<typename _Object>
+class CObject;
+class CPosition;
 class IObjectFactory {
  public:
-  virtual std::shared_ptr<_Object> CreateObject(const CPosition &) = 0;
+  virtual std::shared_ptr<CObject> CreateObject(const CPosition &) = 0;
   virtual const CurrentSerializerType &getM_properties() const = 0;
   virtual ~IObjectFactory() = 0;
 };
-template<typename _Object>
-IObjectFactory<_Object>::~IObjectFactory() {}
 
 

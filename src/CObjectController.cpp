@@ -5,11 +5,11 @@
 #include "CObjectController.hpp"
 CObjectController::CObjectController(const std::shared_ptr<CObject> &m_object,
                                      const std::shared_ptr<SDL2pp::Texture> &m_texture) : IObjectController(m_object) {
-  m_view = std::make_shared<IObjectView>(m_object, std::shared_ptr<IObjectController>(this), m_texture);
+  m_view = std::make_shared<CObjectPositionView>(m_object, std::shared_ptr<IObjectController>(this), m_texture);
 }
 void CObjectController::SetObjectPosition(CPosition m_pos) {
   m_object->setM_position(m_pos);
 }
-const std::shared_ptr<IObjectView> &CObjectController::getM_view() const {
+const std::shared_ptr<IObjectObserver> & CObjectController::getM_view() const {
   return m_view;
 }

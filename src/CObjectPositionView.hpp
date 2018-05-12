@@ -7,14 +7,14 @@
 #include "IObjectObserver.hpp"
 #include "CObject.hpp"
 #include "IObjectController.hpp"
-class IObjectView : public IObjectObserver {
+class CObjectPositionView : public IObjectObserver {
  private:
   std::shared_ptr<SDL2pp::Texture> m_texture;
   std::shared_ptr<IObjectController> m_controller;
   CPosition prev_position;
   static SDL2pp::Rect PositionRect(const CPosition &m_pos);
  public:
-  explicit IObjectView(const std::shared_ptr<CObject> &m_obj,
+  explicit CObjectPositionView(const std::shared_ptr<CObject> &m_obj,
                        const std::shared_ptr<IObjectController> &m_controller,
                        const std::shared_ptr<SDL2pp::Texture> &m_texture);
   void UpdateObject() override;

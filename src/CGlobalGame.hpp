@@ -9,6 +9,7 @@
 #include "CObjectFactoryValidateDecorator.hpp"
 #include <random>
 #include <SDL2pp/SDL2pp.hh>
+#include <istream>
 using std::vector;
 class CMap;
 class CControllerFactory;
@@ -23,6 +24,7 @@ class CGlobalGame {
   static size_t screen_height;
   static std::shared_ptr<SDL2pp::Window> m_window;
   static std::shared_ptr<SDL2pp::Renderer> m_renderer;
+  static bool with_graphics;
   //static std::uniform_int_distribution<bool> m_random_event; TODO
  public:
   CGlobalGame() = delete;
@@ -35,13 +37,14 @@ class CGlobalGame {
   //static bool GetRandomEvent(); TODO
   static const Quantity_t MaxDistance = 1000000;
   static Quantity_t CurGlobalState;
-  static std::map<std::string, CControllerFactory> LoadedTerrains;
-  static void InitializeObjects(const vector<CurrentSerializerType> &m_terrains);
+  static std::map<std::string, CControllerFactory> LoadedObjects;
+  static void InitializeObjects(const vector<CurrentSerializerType> &m_objects);
   static void InitializeGame(const CurrentSerializerType &new_map, const CurrentSerializerType &new_settings);
-  static void GlobalSetUp(const std::string &m_string = "global_settings.json");
+  static void GlobalSetUp(std::istream &m_string = std::cin);
   static size_t getScreen_width();
   static size_t getScreen_height();
   static const std::shared_ptr<SDL2pp::Renderer> &getM_renderer();
+  static bool isWith_graphics();
   static const std::shared_ptr<SDL2pp::Window> &getM_window();
 };
 inline CMap &CurMap() {

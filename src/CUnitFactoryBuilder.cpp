@@ -64,8 +64,8 @@ T CUnitFactoryBuilder::UpdateField(const CurrentSerializerType &m_def, const Cur
   return res;
 }
 void CUnitFactoryBuilder::setM_default(const CurrentSerializerType &m_default) {
-  CObjectFactoryValidateDecorator<CUnit>::m_validator.validate(m_default);
+  //CObjectFactoryValidateDecorator<CUnit>::m_validator.validate(m_default); TODO
   CUnitFactoryBuilder::m_default = m_default;
 }
-CurrentValidator CUnitFactoryBuilder::m_type_validator = CurrentValidator();
-CurrentValidator CUnitFactoryBuilder::m_race_validator = CurrentValidator();
+CurrentValidator CUnitFactoryBuilder::m_type_validator;
+CurrentValidator CUnitFactoryBuilder::m_race_validator;

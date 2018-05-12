@@ -4,10 +4,9 @@
 
 #include "CControllerFactory.hpp"
 #include "CGlobalGame.hpp"
-CControllerFactory::CControllerFactory(const CurrentSerializerType &m_properties)
-    : CObjectFactory(m_properties),
-      m_texture(new SDL2pp::Texture(CurRenderer(), m_properties["icon"].get<std::string>())) {
-}
 std::shared_ptr<CObjectController> CControllerFactory::CreateController(CPosition m_pos) {
-  return std::make_shared<CObjectController>(CreateObject(m_pos), m_texture);
+  return std::make_shared<CObjectController>(m_factory->CreateObject(m_pos), m_texture);
+}
+CControllerFactory::CControllerFactory(std::shared_ptr<IObjectFactory> m_factory) : m_factory(std::move(m_factory)) {
+  m_texture = std::make_shared<SDL2pp::Texture>(CurRenderer(), m_factory->getM_properties()["icon"].get<std::string>());
 }

@@ -6,6 +6,7 @@
 #include "CGlobalGame.hpp"
 #include <fstream>
 #include <sstream>
+#include "CControllerFactory.hpp"
 CMapCell &CMap::operator[](const CPosition &m_pos) {
   return m_map[m_pos.getM_x_axis()][m_pos.getM_y_axis()];
 }
@@ -53,7 +54,7 @@ void CMap::init(const vector<vector<std::string>> &start_terrains) {
   m_y_size = start_terrains[0].size();
   for(size_t i=0;i<m_x_size;++i) {
     for (size_t j=0;j<m_y_size;++j) {
-      m_map[i][j] = CMapCell(CGlobalGame::LoadedTerrains[start_terrains[i][j]].CreateObject(CPosition(i, j)));
+      m_map[i][j] = CMapCell(CGlobalGame::LoadedObjects[start_terrains[i][j]].CreateController(CPosition(i, j)));
     }
   }
   ++CGlobalGame::CurGlobalState;
