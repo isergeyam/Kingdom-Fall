@@ -3,13 +3,18 @@
 //
 
 #include "CObjectController.hpp"
+#include "CGlobalGame.hpp"
+#include "CObjectProxyView.hpp"
 CObjectController::CObjectController(const std::shared_ptr<CObject> &m_object,
                                      const std::shared_ptr<SDL2pp::Texture> &m_texture) : IObjectController(m_object) {
-  m_view = std::make_shared<CObjectPositionView>(m_object, std::shared_ptr<IObjectController>(this), m_texture);
+  if (CGlobalGame::isWith_graphics())
+    m_view = std::make_shared<CObjectPositionView>(m_object, std::shared_ptr<IObjectController>(this), m_texture);
+  else
+    m_view = std::make_shared<CObjectProxyView>();
 }
 void CObjectController::SetObjectPosition(CPosition m_pos) {
   m_object->setM_position(m_pos);
 }
-const std::shared_ptr<IObjectObserver> & CObjectController::getM_view() const {
-  return m_view;
+const std::shared_ptr<CObjectPositionView> & CObjectController::GetPositionView() const {
+  return std::dynamic_pointer_cast<CObjectPositionView>(m_view);
 }

@@ -17,7 +17,7 @@ class MyEnvironment : public ::testing::Environment {
   }
 };
 TEST(GlobalGameTest, InitializerTest) {
-    
+  CGlobalGame::StartGame();
 }
 /*class UnitBuildingTest
     : public ::testing::TestWithParam<

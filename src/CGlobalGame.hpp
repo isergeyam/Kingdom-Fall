@@ -46,6 +46,7 @@ class CGlobalGame {
   static const std::shared_ptr<SDL2pp::Renderer> &getM_renderer();
   static bool isWith_graphics();
   static const std::shared_ptr<SDL2pp::Window> &getM_window();
+  static void StartGame();
 };
 inline CMap &CurMap() {
   return *CGlobalGame::Map();

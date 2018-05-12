@@ -65,3 +65,14 @@ void CMap::UpdateFieldView(CPosition m_pos) {
 
   }
 }
+void CMap::UpdateView() {
+  for (auto &it1 : m_map) {
+    for (auto &it2 : it1) {
+      it2.getM_terrain()->GetPositionView()->UpdateObject();
+      if (it2.getM_village() != nullptr)
+        it2.getM_village()->GetPositionView()->UpdateObject();
+      if (it2.getM_unit() != nullptr)
+        it2.getM_unit()->GetPositionView()->UpdateObject();
+    }
+  }
+}

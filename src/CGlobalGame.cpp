@@ -83,6 +83,9 @@ const std::shared_ptr<SDL2pp::Renderer> &CGlobalGame::getM_renderer() {
 bool CGlobalGame::isWith_graphics() {
   return with_graphics;
 }
+void CGlobalGame::StartGame() {
+  CurMap().UpdateView();
+}
 std::shared_ptr<CMap> CGlobalGame::m_map;
 std::shared_ptr<CurrentSerializerType> CGlobalGame::m_settings;
 std::map<std::string, CControllerFactory> CGlobalGame::LoadedObjects;

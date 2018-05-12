@@ -4,11 +4,12 @@
 
 #pragma once
 #include "CObject.hpp"
+#include "CurrentSerializer.hpp"
 class CVillage : public CObject {
  public:
-  enum EState{VILLAGE_FREE, VILLAGE_OCCUPIED};
- private:
-
+  enum EState { VILLAGE_FREE, VILLAGE_OCCUPIED };
+  const CurrentSerializerType &m_properties;
+  CVillage(const CurrentSerializerType &m_properties, const CPosition &m_position);
 };
 
 

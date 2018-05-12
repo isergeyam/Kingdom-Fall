@@ -21,8 +21,8 @@ void CObjectPositionView::UpdateObject() {
   CMapCell &prev_cell = CurMap()[prev_position];
   CMapCell &new_cell = CurMap()[new_position];
   CurRenderer().FillRect(prev_rect);
-  CurRenderer().Copy(*prev_cell.getM_terrain()->getM_view()->getM_texture(), SDL2pp::NullOpt, prev_rect.GetTopLeft());
-  CurRenderer().Copy(*prev_cell.getM_village()->getM_view()->getM_texture(), SDL2pp::NullOpt, prev_rect.GetTopLeft());
+  CurRenderer().Copy(*prev_cell.getM_terrain()->GetPositionView()->getM_texture(), SDL2pp::NullOpt, prev_rect.GetTopLeft());
+  CurRenderer().Copy(*prev_cell.getM_village()->GetPositionView()->getM_texture(), SDL2pp::NullOpt, prev_rect.GetTopLeft());
   CurRenderer().Copy(*m_texture, SDL2pp::NullOpt, new_rect.GetTopLeft());
 }
 SDL2pp::Rect CObjectPositionView::PositionRect(const CPosition &m_pos) {
