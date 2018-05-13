@@ -35,7 +35,7 @@ vector<CPosition> CMap::GetNeighbour(const CPosition &pos) {
 CMap::CMap(const vector<vector<std::string>> &start_terrains) {
   init(start_terrains);
 }
-CMap::CMap(std::ifstream &stream_) {
+CMap::CMap(std::istream &stream_) {
   vector<vector<std::string>> m_terrains;
   while(!stream_.eof()) {
     std::string cur_terrains;
@@ -59,12 +59,6 @@ void CMap::init(const vector<vector<std::string>> &start_terrains) {
   }
   ++CGlobalGame::CurGlobalState;
 }
-void CMap::UpdateFieldView(CPosition m_pos) {
-  CMapCell cur_cell = operator[](m_pos);
-  if (cur_cell.GetTerrainObject() != nullptr) {
-
-  }
-}
 void CMap::UpdateView() {
   for (auto &it1 : m_map) {
     for (auto &it2 : it1) {
@@ -73,6 +67,24 @@ void CMap::UpdateView() {
         it2.getM_village()->GetPositionView()->UpdateObject();
       if (it2.getM_unit() != nullptr)
         it2.getM_unit()->GetPositionView()->UpdateObject();
+    }
+  }
+}
+void CMap::SetObjects(std::istream &is, bool units) {
+  size_t i=0;
+  while(!is.eof()) {
+    std::string cur_terrains;
+    std::getline(is, cur_terrains);
+    vector<std::string> tokens;
+    std::istringstream current_iss(cur_terrains);
+    std::copy(std::istream_iterator<std::string>(current_iss), std::istream_iterator<std::string>(), std::back_inserter(tokens));
+    for (size_t j=0;j<tokens.size();++j) {
+      if (tokens[j] == ".")
+        continue;
+      if (units) {
+        m_map[i][j].setM_unit(CGlobalGame::LoadedObjects[tokens[j]]->CreateController(CPosition(i, j)));
+      } else
+        m_map[i][j].setM_village(CGlobalGame::LoadedObjects[tokens[j]]->CreateController(CPosition(i, j)));
     }
   }
 }

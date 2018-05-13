@@ -12,7 +12,7 @@
 #include <istream>
 using std::vector;
 class CMap;
-class CControllerFactory;
+class IControllerFactory;
 class CGlobalGame {
  private:
   static std::unique_ptr<CMap> m_map;
@@ -36,7 +36,7 @@ class CGlobalGame {
   //static bool GetRandomEvent(); TODO
   static const Quantity_t MaxDistance = 1000000;
   static Quantity_t CurGlobalState;
-  static std::map<std::string, std::unique_ptr<CControllerFactory>> LoadedObjects;
+  static std::map<std::string, std::unique_ptr<IControllerFactory>> LoadedObjects;
   static void InitializeObjects(const vector<CurrentSerializerType> &m_objects);
   //static void InitializeGame(const CurrentSerializerType &new_map, const CurrentSerializerType &new_settings);
   static void GenerateUnits(vector<CurrentSerializerType> &m_races, vector<CurrentSerializerType> &m_types);
@@ -48,6 +48,9 @@ class CGlobalGame {
   static const std::unique_ptr<SDL2pp::Window> & getM_window();
   static void StartGame();
   static void GlobalMessage(const std::string &message);
+  static void InitSerializerVector(CurrentSerializerType &cur_settings,
+                                    vector<CurrentSerializerType> &objects_vector,
+                                    const std::string &m_field);
 };
 inline CMap &CurMap() {
   return *CGlobalGame::Map();

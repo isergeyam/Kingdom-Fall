@@ -62,15 +62,18 @@ void CGlobalGame::GlobalSetUp(std::istream &m_settings) {
   std::ifstream iValidateRace(cur_settings["RaceValidator"].get<std::string>());
   std::ifstream iValidateTerrain(cur_settings["TerrainValidator"].get<std::string>());
   std::ifstream iMap(cur_settings["Map"].get<std::string>());
+  std::ifstream iUnitMap(cur_settings["UnitMap"].get<std::string>());
+  std::ifstream iVillageMap(cur_settings["VillageMap"].get<std::string>());
   //CObjectFactoryValidateDecorator<CTerrain>::m_validator.set_schema(CurrentSerializer::Deserialize(iValidateTerrain));
   //CObjectFactoryValidateDecorator<CUnit>::m_validator.set_schema(CurrentSerializer::Deserialize(iValidateUnit));
   CUnitFactoryBuilder::m_type_validator.set_schema(CurrentSerializer::Deserialize(iValidateType));
   CUnitFactoryBuilder::m_race_validator.set_schema(CurrentSerializer::Deserialize(iValidateRace));
   std::vector<CurrentSerializerType> objects_vector;
-  for (auto &it : cur_settings["objects"]) {
-    std::ifstream iCurTerrain(it.get<std::string>());
-    objects_vector.push_back(CurrentSerializer::Deserialize(iCurTerrain));
-  }
+  std::vector<CurrentSerializerType> races_vector;
+  std::vector<CurrentSerializerType> types_vector;
+  InitSerializerVector(cur_settings, objects_vector, "objects");
+  InitSerializerVector(cur_settings, races_vector, "races");
+  InitSerializerVector(cur_settings, types_vector, "types");
   screen_width = cur_settings["width"].get<size_t>();
   screen_height = cur_settings["height"].get<size_t>();
   with_graphics = cur_settings["enable_graphics"].get<bool>();
@@ -81,7 +84,18 @@ void CGlobalGame::GlobalSetUp(std::istream &m_settings) {
   } else
     with_graphics = false;
   InitializeObjects(objects_vector);
+  GenerateUnits(races_vector, types_vector);
   m_map = std::make_unique<CMap>(iMap);
+  m_map->SetObjects(iVillageMap, false);
+  m_map->SetObjects(iUnitMap, true);
+}
+void CGlobalGame::InitSerializerVector(CurrentSerializerType &cur_settings,
+                                      vector<CurrentSerializerType> &objects_vector,
+                                      const std::string &m_field) {
+  for (auto &it : cur_settings[m_field]) {
+    std::ifstream iCurObject(it.get<std::__cxx11::string>());
+    objects_vector.push_back(CJsonSerializerAdapter::Deserialize(iCurObject));
+  }
 }
 size_t CGlobalGame::getScreen_width() {
   return screen_width;
@@ -118,6 +132,10 @@ void CGlobalGame::GenerateUnits(vector<CurrentSerializerType> &m_races,
   }
 }
 void CGlobalGame::GlobalMessage(const std::string &message) {
+  if (!with_graphics) {
+    std::cout << message << std::endl;
+    return;
+  }
   SDL2pp::Font font("data/Vera.ttf", 12);
   size_t start_pos = 0;
   SDL2pp::Renderer &m_renderer = CurRenderer();
@@ -132,7 +150,7 @@ void CGlobalGame::GlobalMessage(const std::string &message) {
   }
 }
 std::unique_ptr<CMap> CGlobalGame::m_map;
-std::map<std::string, std::unique_ptr<CControllerFactory> > CGlobalGame::LoadedObjects;
+std::map<std::string, std::unique_ptr<IControllerFactory> > CGlobalGame::LoadedObjects;
 std::unique_ptr<SDL2pp::Window> CGlobalGame::m_window;
 std::unique_ptr<SDL2pp::Renderer> CGlobalGame::m_renderer;
 size_t CGlobalGame::screen_width;

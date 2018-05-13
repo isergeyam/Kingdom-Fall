@@ -7,5 +7,5 @@ CVillage::CVillage(const CurrentSerializerType &m_properties, const CPosition &m
                                                                                                      false,
                                                                                                      true,
                                                                                                      true,
-                                                                                                     false),
-                                                                                             m_properties(m_properties) {}
+                                                                                                     false,
+                                                                                                     m_properties) {}

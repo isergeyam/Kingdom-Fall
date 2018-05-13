@@ -10,8 +10,8 @@ CUnit::CUnit(const CurrentSerializerType &m_properties, const CPosition &positio
                                                                                              true,
                                                                                              false,
                                                                                              false,
-                                                                                             true),
-                                                                                     m_properties(m_properties) {
+                                                                                             true,
+                                                                                             m_properties) {
   m_health = m_properties["Health"];
   m_stamina = m_properties["Stamina"];
   m_exp = 0;
@@ -75,11 +75,12 @@ Quantity_t CUnit::CalculateDistance(const CMapCell &calc_position) {
     return CGlobalGame::MaxDistance;
   return cur_terrain.getM_patency()/m_properties["Patency"][cur_terrain.getM_name()].get<Percent_t>();
 }
-bool CUnit::Attack(const CUnit &m_other, const std::string &attack_type) {
-  auto it = m_properties["Abilities"].find(attack_type);
-  if (it==m_properties["Abilities"].end() || (*it)["type"]!="attack")
-    return false;
-
+bool CUnit::Attack(CUnit &m_other, const std::string &attack_type) {
+  const auto &it = m_properties["Abilities"].find(attack_type);
+  for (Quantity_t i=0;i<it["count"].get<Quantity_t >();++i)
+    Hit(m_other, it);
+  NotifyObservers();
+  return true;
 }
 Quantity_t CUnit::Hit(CUnit &m_other, const CurrentSerializerType &attack_type) {
   Percent_t HitProbability = CalcHitProbability(m_other);

@@ -9,10 +9,12 @@
 #include "CPosition.hpp"
 #include "defines.hpp"
 #include "IObjectObserver.hpp"
+#include "CurrentSerializer.hpp"
 #include <unordered_set>
 #include <bits/shared_ptr.h>
 class CUnit;
 class CObject {
+  //std::string m_master;
  protected:
   CPosition m_position;
   bool injurable;
@@ -21,16 +23,18 @@ class CObject {
   bool movable;
   bool selected;
   std::unordered_set<IObjectObserver *> m_observer_list;
+  const CurrentSerializerType &m_properties;
  public:
   enum MoveProp {
     MOVE, ATTACK, FAIL
   };
   void setM_position(const CPosition &m_position);
   CObject(const CPosition &m_position,
-          bool is_injurable,
-          bool is_passable,
-          bool is_fly_passable,
-          bool is_movable);
+            bool is_injurable,
+            bool is_passable,
+            bool is_fly_passable,
+            bool is_movable,
+            const CurrentSerializerType &m_prop);
   const CPosition &getM_position() const;
   bool isInjurable() const;
   bool isPassable() const;
@@ -41,7 +45,8 @@ class CObject {
   void RemoveObserver(IObjectObserver *m_observer);
   virtual MoveProp MoveTo(CPosition m_pos);
   void ToggleSelected();
-  virtual bool Attack(const CUnit &m_other, const std::string &attack_type);
+  virtual bool Attack(CUnit &m_other, const std::string &attack_type);
+  const CurrentSerializerType &getM_properties() const;
   virtual ~CObject() = 0;
 };
 

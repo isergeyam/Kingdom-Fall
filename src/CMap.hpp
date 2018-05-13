@@ -15,14 +15,14 @@ class CMap {
  public:
   CMap() = default;
   explicit CMap(const vector<vector<std::string>> &start_terrain);
-  explicit CMap(std::ifstream &stream_);
+  explicit CMap(std::istream &stream_);
   CMapCell & operator[](const CPosition &m_pos);
   Quantity_t getM_x_size() const;
   Quantity_t getM_y_size() const;
   Quantity_t PosToInt(const CPosition &pos);
   vector<CPosition> GetNeighbour(const CPosition &pos);
-  void UpdateFieldView(CPosition m_position);
   void UpdateView();
+  void SetObjects(std::istream &is, bool units);
 };
 
 

@@ -45,6 +45,7 @@ std::shared_ptr<CUnitFactory> CUnitFactoryBuilder::GetFactory() {
                                  m_custom[iter1], iter2.key());
     }
   }
+  m_unit["Name"] = m_unit["Race"].get<std::string>() + m_unit["Type"].get<std::string>();
   return std::make_shared<CUnitFactory>(std::move(m_unit));
 }
 void CUnitFactoryBuilder::setM_custom(const CurrentSerializerType &m_custom) {
