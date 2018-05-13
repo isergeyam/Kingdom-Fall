@@ -1,7 +1,7 @@
 {
-    "Name" : "Grass",
+    "Name" : "GrassTerrain",
     "Pass" : true,
     "FlyPass" : true,
     "Patency" : 10,
-    "Icon" : "grass.png"
+    "icon" : "data/grass.png"
 }

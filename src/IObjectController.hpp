@@ -12,6 +12,7 @@ class IObjectController {
  public:
   virtual void SetObjectPosition(CPosition m_pos) = 0;
   explicit IObjectController(const std::shared_ptr<CObject> &m_object);
+  virtual ~IObjectController();
 };
 
 

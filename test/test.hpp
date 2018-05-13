@@ -13,7 +13,8 @@
 class MyEnvironment : public ::testing::Environment {
  public:
   void SetUp() override {
-    CGlobalGame::GlobalSetUp();
+    std::ifstream ifs("settings.json");
+    CGlobalGame::GlobalSetUp(ifs);
   }
 };
 TEST(GlobalGameTest, InitializerTest) {

@@ -7,6 +7,7 @@
 std::shared_ptr<CObjectController> CControllerFactory::CreateController(CPosition m_pos) {
   return std::make_shared<CObjectController>(m_factory->CreateObject(m_pos), m_texture);
 }
-CControllerFactory::CControllerFactory(std::shared_ptr<IObjectFactory> m_factory) : m_factory(std::move(m_factory)) {
-  m_texture = std::make_shared<SDL2pp::Texture>(CurRenderer(), m_factory->getM_properties()["icon"].get<std::string>());
+CControllerFactory::CControllerFactory(std::shared_ptr<IObjectFactory> m_copy_factory) : m_factory(std::move(m_copy_factory)) {
+  m_texture =
+      std::make_shared<SDL2pp::Texture>(CurRenderer(), this->m_factory->getM_properties()["icon"].get<std::string>());
 }

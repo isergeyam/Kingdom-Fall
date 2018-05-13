@@ -7,3 +7,6 @@ IObjectObserver::IObjectObserver(std::shared_ptr<CObject> m_object) : m_object(s
 const std::shared_ptr<CObject> &IObjectObserver::getM_object() const {
   return m_object;
 }
+IObjectObserver::~IObjectObserver() {
+
+}

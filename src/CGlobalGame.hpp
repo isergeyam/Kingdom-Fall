@@ -37,7 +37,7 @@ class CGlobalGame {
   //static bool GetRandomEvent(); TODO
   static const Quantity_t MaxDistance = 1000000;
   static Quantity_t CurGlobalState;
-  static std::map<std::string, CControllerFactory> LoadedObjects;
+  static std::map<std::string, std::shared_ptr<CControllerFactory>> LoadedObjects;
   static void InitializeObjects(const vector<CurrentSerializerType> &m_objects);
   static void InitializeGame(const CurrentSerializerType &new_map, const CurrentSerializerType &new_settings);
   static void GlobalSetUp(std::istream &m_string = std::cin);

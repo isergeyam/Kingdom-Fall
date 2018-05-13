@@ -11,7 +11,7 @@ class CControllerFactory {
   std::shared_ptr<SDL2pp::Texture> m_texture;
   std::shared_ptr<IObjectFactory> m_factory;
  public:
-  explicit CControllerFactory(std::shared_ptr<IObjectFactory> m_factory = nullptr);
+  explicit CControllerFactory(std::shared_ptr<IObjectFactory> m_copy_factory);
   std::shared_ptr<CObjectController> CreateController(CPosition m_pos);
 };
 

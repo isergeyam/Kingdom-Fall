@@ -17,7 +17,7 @@ class CObjectFactory : public IObjectFactory {
   explicit CObjectFactory(CurrentSerializerType m_properties);
   const CurrentSerializerType &getM_properties() const override;
   std::shared_ptr<CObject> CreateObject(const CPosition &m_position) override;
-  ~CObjectFactory() override = default ;
+  ~CObjectFactory() override ;
 };
 template <typename _Object>
 CObjectFactory<_Object>::CObjectFactory(CurrentSerializerType m_properties)
@@ -31,3 +31,5 @@ template<typename _Object>
 const CurrentSerializerType &CObjectFactory<_Object>::getM_properties() const {
   return m_properties;
 }
+template<typename _Object>
+CObjectFactory<_Object>::~CObjectFactory() {}

@@ -15,6 +15,6 @@ CObjectController::CObjectController(const std::shared_ptr<CObject> &m_object,
 void CObjectController::SetObjectPosition(CPosition m_pos) {
   m_object->setM_position(m_pos);
 }
-const std::shared_ptr<CObjectPositionView> & CObjectController::GetPositionView() const {
-  return std::dynamic_pointer_cast<CObjectPositionView>(m_view);
+const std::shared_ptr<IObjectObserver> & CObjectController::GetPositionView() const {
+  return m_view;
 }
