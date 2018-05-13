@@ -6,11 +6,11 @@
 #include "CMap.hpp"
 #include "CUnitFactoryBuilder.hpp"
 #include "CControllerFactory.hpp"
-std::shared_ptr<CurrentSerializerType> CGlobalGame::Settings() {
-  if (m_settings==nullptr)
-    m_settings = std::make_shared<CurrentSerializerType>();
-  return m_settings;
-}
+//std::shared_ptr<CurrentSerializerType> CGlobalGame::Settings() {
+//  if (m_settings==nullptr)
+//    m_settings = std::make_shared<CurrentSerializerType>();
+//  return m_settings;
+//}
 std::shared_ptr<CMap> &CGlobalGame::Map() {
   if (m_map==nullptr)
     m_map = std::make_shared<CMap>();
@@ -25,19 +25,20 @@ Percent_t CGlobalGame::GetRandomPercent() {
 }
 const Quantity_t CGlobalGame::MaxDistance;
 Quantity_t CGlobalGame::CurGlobalState = 0;
-void CGlobalGame::InitializeGame(const CurrentSerializerType &new_map, const CurrentSerializerType &new_settings) {
-  m_map = std::make_shared<CMap>(new_map.get<vector<vector<std::string>>>());
-  m_settings = std::make_shared<CurrentSerializerType>(new_settings);
-}
+//void CGlobalGame::InitializeGame(const CurrentSerializerType &new_map, const CurrentSerializerType &new_settings) {
+//  m_map = std::make_shared<CMap>(new_map.get<vector<vector<std::string>>>());
+//  m_settings = std::make_shared<CurrentSerializerType>(new_settings);
+//}
 void CGlobalGame::InitializeObjects(const vector<CurrentSerializerType> &m_objects) {
   for (auto cur_object : m_objects) {
     std::string cur_name = cur_object["Name"].get<std::string>();
     if (cur_name.find("Terrain")!=std::string::npos) {
-      std::shared_ptr<IObjectFactory> factory_ptr = std::static_pointer_cast<IObjectFactory>(std::make_shared<CObjectFactory<CTerrain> >(cur_object));
-      auto controller_ptr = std::make_shared<CControllerFactory>(factory_ptr);
+      std::shared_ptr<IObjectFactory> factory_ptr =
+          std::static_pointer_cast<IObjectFactory>(std::make_shared<CObjectFactory<CTerrain>>(cur_object));
+      auto controller_ptr = std::make_unique<CControllerFactory>(factory_ptr);
       //auto controller_ptr = std::make_shared<CControllerFactory>(factory_ptr);
       CGlobalGame::LoadedObjects
-          .insert(std::make_pair(cur_name, controller_ptr));
+          .insert(std::make_pair(cur_name, std::move(controller_ptr)));
     } else if (cur_name.find("Village")!=std::string::npos) {
       CGlobalGame::LoadedObjects
           .insert(std::make_pair(cur_name,
@@ -94,8 +95,7 @@ void CGlobalGame::StartGame() {
   SDL_Delay(100);
 }
 std::shared_ptr<CMap> CGlobalGame::m_map;
-std::shared_ptr<CurrentSerializerType> CGlobalGame::m_settings;
-std::map<std::string, std::shared_ptr<CControllerFactory> > CGlobalGame::LoadedObjects;
+std::map<std::string, std::unique_ptr<CControllerFactory> > CGlobalGame::LoadedObjects;
 std::shared_ptr<SDL2pp::Window> CGlobalGame::m_window;
 std::shared_ptr<SDL2pp::Renderer> CGlobalGame::m_renderer;
 size_t CGlobalGame::screen_width;
