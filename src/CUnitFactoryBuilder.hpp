@@ -23,11 +23,15 @@ public:
   static CurrentValidator m_race_validator;
   static CurrentValidator m_type_validator;
   void setM_default(const CurrentSerializerType &m_default);
-  void setM_race(const CurrentSerializerType &m_race);
-  void setM_type(const CurrentSerializerType &m_type);
+  void setM_race(CurrentSerializerType &&m_race);
+  void setM_type(CurrentSerializerType &&m_type);
   void setM_custom(const CurrentSerializerType &m_custom);
   template <typename T> void AddAttr(std::string, T);
   std::shared_ptr<CUnitFactory> GetFactory();
+  const CurrentSerializerType &getM_race() const;
+  const CurrentSerializerType &getM_type() const;
+  const CurrentSerializerType &getM_custom() const;
+  const CurrentSerializerType &getM_default() const;
   static void ExtendData(CurrentSerializerType &j1, const CurrentSerializerType &j2);
 };
 

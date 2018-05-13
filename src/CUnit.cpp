@@ -8,7 +8,8 @@
 CUnit::CUnit(const CurrentSerializerType &m_properties, const CPosition &position) : CObject(position,
                                                                                              true,
                                                                                              false,
-                                                                                             false),
+                                                                                             false,
+                                                                                             true),
                                                                                      m_properties(m_properties) {
   m_health = m_properties["Health"];
   m_stamina = m_properties["Stamina"];
@@ -54,7 +55,12 @@ Quantity_t CUnit::CalculateDistance(const CPosition &calc_position) {
   }*/
   return m_distances[calc_position.getM_x_axis()][calc_position.getM_y_axis()];
 }
-bool CUnit::MoveTo(const CPosition &new_postion) {
+bool CUnit::MoveTo(CPosition new_postion) {
+  if (CurMap()[new_postion].GetTerrainObject()->isInjurable()
+      && abs(new_postion.getM_x_axis() - m_position.getM_x_axis()) <= 1
+      && abs(new_postion.getM_x_axis() - m_position.getM_y_axis()) <= 1) {
+
+  }
   if (!CanMove(new_postion))
     return false;
   CurMap()[new_postion].setM_unit(CurMap()[m_position].getM_unit());
@@ -87,5 +93,6 @@ Quantity_t CUnit::CalcHitStrength(const CUnit &m_other, const CurrentSerializerT
           *(1 - m_other.m_properties["Resistance"][attack_type["weapon_type"].get<std::string>()].get<Percent_t>());
 }
 Percent_t CUnit::CalcHitProbability(const CUnit &m_other) {
-  return 1 - m_other.m_properties["Adoption"][CurMap()[m_other.m_position].GetTerrainObject()->getM_name()].get<Percent_t>();
+  return 1
+      - m_other.m_properties["Adoption"][CurMap()[m_other.m_position].GetTerrainObject()->getM_name()].get<Percent_t>();
 }

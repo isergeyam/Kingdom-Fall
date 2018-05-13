@@ -26,6 +26,7 @@ class CMapCell {
   const std::shared_ptr<CObjectController> &getM_unit() const;
   const std::shared_ptr<CObjectController> &getM_village() const;
   const std::shared_ptr<CObjectController> &getM_terrain() const;
+  const std::shared_ptr<CObjectController> &GetTopObject() const;
   void setM_unit(const std::shared_ptr<CObjectController> &m_unit);
   void setM_village(const std::shared_ptr<CObjectController> &m_village);
   void setM_terrain(const std::shared_ptr<CObjectController> &m_terrain);

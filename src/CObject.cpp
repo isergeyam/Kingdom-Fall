@@ -4,10 +4,13 @@
 
 #include "CObject.hpp"
 
-CObject::CObject(const CPosition &m_position, bool is_injurable,
-                 bool is_passable, bool is_fly_passable)
+CObject::CObject(const CPosition &m_position,
+                 bool is_injurable,
+                 bool is_passable,
+                 bool is_fly_passable,
+                 bool is_movable = false)
     : m_position(m_position), injurable(is_injurable), passable(is_passable),
-      fly_passable(is_fly_passable) {}
+      fly_passable(is_fly_passable), movable(is_movable), selected(false) {}
 const CPosition &CObject::getM_position() const { return m_position; }
 bool CObject::isInjurable() const { return injurable; }
 bool CObject::isPassable() const { return passable; }
@@ -25,4 +28,15 @@ void CObject::NotifyObservers() {
 }
 void CObject::RemoveObserver(IObjectObserver *m_observer) {
   m_observer_list.erase(m_observer);
+}
+void CObject::ToggleSelected() {
+  selected = true;
+  NotifyObservers();
+  selected = false;
+}
+bool CObject::isMovable() const {
+  return movable;
+}
+bool CObject::MoveTo(CPosition m_pos) {
+  return false;
 }

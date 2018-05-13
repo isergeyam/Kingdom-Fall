@@ -38,7 +38,8 @@ class CGlobalGame {
   static Quantity_t CurGlobalState;
   static std::map<std::string, std::unique_ptr<CControllerFactory>> LoadedObjects;
   static void InitializeObjects(const vector<CurrentSerializerType> &m_objects);
-  static void InitializeGame(const CurrentSerializerType &new_map, const CurrentSerializerType &new_settings);
+  //static void InitializeGame(const CurrentSerializerType &new_map, const CurrentSerializerType &new_settings);
+  static void GenerateUnits(vector<CurrentSerializerType> &m_races, vector<CurrentSerializerType> &m_types);
   static void GlobalSetUp(std::istream &m_string = std::cin);
   static size_t getScreen_width();
   static size_t getScreen_height();

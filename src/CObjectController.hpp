@@ -14,6 +14,7 @@ class CObjectController : public IObjectController {
                              const std::shared_ptr<SDL2pp::Texture> &m_texture);
   void SetObjectPosition(CPosition m_pos) override;
   const std::shared_ptr<IObjectObserver> & GetPositionView() const;
+  const std::shared_ptr<CObject> & GetObject() const;
   ~CObjectController() override = default;
 };
 

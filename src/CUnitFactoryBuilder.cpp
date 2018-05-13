@@ -4,13 +4,13 @@
 
 #include "CUnitFactoryBuilder.hpp"
 #include "CObjectFactoryValidateDecorator.hpp"
-void CUnitFactoryBuilder::setM_race(const CurrentSerializerType &m_race) {
+void CUnitFactoryBuilder::setM_race(CurrentSerializerType &&m_race) {
   m_race_validator.validate(m_race);
-  CUnitFactoryBuilder::m_race = m_race;
+  CUnitFactoryBuilder::m_race = std::move(m_race);
 }
-void CUnitFactoryBuilder::setM_type(const CurrentSerializerType &m_type) {
+void CUnitFactoryBuilder::setM_type(CurrentSerializerType &&m_type) {
   m_type_validator.validate(m_type);
-  CUnitFactoryBuilder::m_type = m_type;
+  CUnitFactoryBuilder::m_type = std::move(m_type);
 }
 template<typename T>
 void CUnitFactoryBuilder::AddAttr(std::string m_attr, T m_val) {
@@ -66,6 +66,18 @@ T CUnitFactoryBuilder::UpdateField(const CurrentSerializerType &m_def, const Cur
 void CUnitFactoryBuilder::setM_default(const CurrentSerializerType &m_default) {
   //CObjectFactoryValidateDecorator<CUnit>::m_validator.validate(m_default); TODO
   CUnitFactoryBuilder::m_default = m_default;
+}
+const CurrentSerializerType &CUnitFactoryBuilder::getM_race() const {
+  return m_race;
+}
+const CurrentSerializerType &CUnitFactoryBuilder::getM_type() const {
+  return m_type;
+}
+const CurrentSerializerType &CUnitFactoryBuilder::getM_custom() const {
+  return m_custom;
+}
+const CurrentSerializerType &CUnitFactoryBuilder::getM_default() const {
+  return m_default;
 }
 CurrentValidator CUnitFactoryBuilder::m_type_validator;
 CurrentValidator CUnitFactoryBuilder::m_race_validator;

@@ -44,3 +44,10 @@ const std::shared_ptr<CObjectController> &CMapCell::getM_village() const {
 const std::shared_ptr<CObjectController> &CMapCell::getM_terrain() const {
   return m_terrain;
 }
+const std::shared_ptr<CObjectController> &CMapCell::GetTopObject() const {
+  if (m_unit!=nullptr)
+    return m_unit;
+  if (m_village!=nullptr)
+    return m_village;
+  return m_terrain;
+}

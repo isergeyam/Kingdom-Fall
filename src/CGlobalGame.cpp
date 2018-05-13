@@ -6,6 +6,11 @@
 #include "CMap.hpp"
 #include "CUnitFactoryBuilder.hpp"
 #include "CControllerFactory.hpp"
+template<typename TO, typename FROM>
+std::unique_ptr<TO> static_unique_pointer_cast(std::unique_ptr<FROM> &&old) {
+  return std::unique_ptr<TO>{static_cast<TO *>(old.release())};
+  //conversion: unique_ptr<FROM>->FROM*->TO*->unique_ptr<TO>
+}
 //std::shared_ptr<CurrentSerializerType> CGlobalGame::Settings() {
 //  if (m_settings==nullptr)
 //    m_settings = std::make_shared<CurrentSerializerType>();
@@ -35,15 +40,18 @@ void CGlobalGame::InitializeObjects(const vector<CurrentSerializerType> &m_objec
     if (cur_name.find("Terrain")!=std::string::npos) {
       std::shared_ptr<IObjectFactory> factory_ptr =
           std::static_pointer_cast<IObjectFactory>(std::make_shared<CObjectFactory<CTerrain>>(cur_object));
-      auto controller_ptr = std::make_unique<CControllerFactory>(factory_ptr);
+      auto controller_ptr =
+          static_unique_pointer_cast<IControllerFactory>(std::make_unique<CControllerFactory>(factory_ptr));
       //auto controller_ptr = std::make_shared<CControllerFactory>(factory_ptr);
       CGlobalGame::LoadedObjects
           .insert(std::make_pair(cur_name, std::move(controller_ptr)));
     } else if (cur_name.find("Village")!=std::string::npos) {
+      auto factory_ptr =
+          std::static_pointer_cast<IObjectFactory>(std::make_shared<CObjectFactory<CVillage>>(cur_object));
+      auto controller_ptr =
+          static_unique_pointer_cast<IControllerFactory>(std::make_unique<CControllerFactory>(factory_ptr));
       CGlobalGame::LoadedObjects
-          .insert(std::make_pair(cur_name,
-                                 std::make_unique<CControllerFactory>(std::make_shared<CObjectFactory<CVillage>>(
-                                     cur_object))));
+          .insert(std::make_pair(cur_name, std::move(controller_ptr)));
     }
   }
 }
@@ -93,6 +101,20 @@ void CGlobalGame::StartGame() {
   CurMap().UpdateView();
   CurRenderer().Present();
   SDL_Delay(100);
+}
+void CGlobalGame::GenerateUnits(vector<CurrentSerializerType> &m_races,
+                                vector<CurrentSerializerType> &m_types) {
+  for (CurrentSerializerType &it_race : m_races) {
+    for (CurrentSerializerType &it_type : m_types) {
+      CUnitFactoryBuilder m_builder;
+      m_builder.setM_race(std::move(it_race));
+      m_builder.setM_type(std::move(it_type));
+      CGlobalGame::LoadedObjects.insert(std::make_pair(
+          m_builder.getM_race()["Name"].get<std::string>() + m_builder.getM_race()["Name"].get<std::string>(),
+          static_unique_pointer_cast<IControllerFactory>(std::make_unique<CControllerFactory>(m_builder
+                                                                                                  .GetFactory()))));
+    }
+  }
 }
 std::shared_ptr<CMap> CGlobalGame::m_map;
 std::map<std::string, std::unique_ptr<CControllerFactory> > CGlobalGame::LoadedObjects;
