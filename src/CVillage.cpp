@@ -9,3 +9,6 @@ CVillage::CVillage(const CurrentSerializerType &m_properties, const CPosition &m
                                                                                                      true,
                                                                                                      false,
                                                                                                      m_properties) {}
+std::string CVillage::GetInfo() {
+  return "Name: " + m_properties["Name"].get<std::string>();
+}

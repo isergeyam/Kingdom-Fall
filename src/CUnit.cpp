@@ -76,8 +76,8 @@ Quantity_t CUnit::CalculateDistance(const CMapCell &calc_position) {
   return cur_terrain.getM_patency()/m_properties["Patency"][cur_terrain.getM_name()].get<Percent_t>();
 }
 bool CUnit::Attack(CUnit &m_other, const std::string &attack_type) {
-  const auto &it = m_properties["Abilities"].find(attack_type);
-  for (Quantity_t i=0;i<it["count"].get<Quantity_t >();++i)
+  const auto &it = *m_properties["Abilities"].find(attack_type);
+  for (Quantity_t i = 0; i < it["count"].get<Quantity_t>(); ++i)
     Hit(m_other, it);
   NotifyObservers();
   return true;
@@ -98,4 +98,8 @@ Quantity_t CUnit::CalcHitStrength(const CUnit &m_other, const CurrentSerializerT
 Percent_t CUnit::CalcHitProbability(const CUnit &m_other) {
   return 1
       - m_other.m_properties["Adoption"][CurMap()[m_other.m_position].GetTerrainObject()->getM_name()].get<Percent_t>();
+}
+std::string CUnit::GetInfo() {
+  return "Name: " + m_properties["Name"].get<std::string>() + "\n" + "Health: " + std::to_string(m_health) + "\n" + "XP: "
+      + std::to_string(m_exp) + "\n" + "Stamina: " + std::to_string(m_stamina);
 }

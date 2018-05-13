@@ -12,9 +12,7 @@ CObjectPositionView::CObjectPositionView(const std::shared_ptr<CObject> &m_obj,
     : IObjectObserver(m_obj),
       m_controller(m_controller),
       prev_position(std::numeric_limits<size_t>::max(), std::numeric_limits<size_t>::max()),
-      m_texture(m_texture) {
-  m_obj->AddObserver(this);
-}
+      m_texture(m_texture) {}
 void CObjectPositionView::UpdateObject() {
   CPosition new_position = m_object->getM_position();
   if (prev_position==m_object->getM_position())

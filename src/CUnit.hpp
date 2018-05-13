@@ -26,6 +26,8 @@ private:
   Quantity_t Hit(CUnit &m_other, const CurrentSerializerType &attack_type);
   Percent_t CalcHitProbability(const CUnit &m_other);
   Quantity_t CalcHitStrength(const CUnit &m_other, const CurrentSerializerType &attack_type) const;
+ public:
+  std::string GetInfo() override;
 };
 
 #endif // GAME_PROJ_CUNIT_HPP

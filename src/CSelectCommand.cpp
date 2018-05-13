@@ -29,24 +29,23 @@ void CSelectCommand::SetNext(CCommand *next) {
         if (it["type"]=="attack") {
           auto attack_name = it["Name"].get<std::string>();
           message +=
-              std::to_string(was) + " - " << attack_name << " " << it["strength"].get<std::string>()
-                                          << "-" << it["count"].get<std::string>();
-          m_map.insert(was, attack_name);
+              std::to_string(was) + " - " + attack_name + " " + it["strength"].get<std::string>()
+                  + "-" + it["count"].get<std::string>();
+          m_map.insert(std::make_pair(was, attack_name));
           ++was;
         }
       }
       CGlobalGame::GlobalMessage(message);
       SDL_Event event;
-      while(SDL_PollEvent(&event)) {
-        if (event.type == SDL_KEYDOWN) {
-            wchar_t code = event.key.keysym.sym;
-            if (!std::isdigit(code) || code >= was)
-              CGlobalGame::GlobalMessage(message + "\nInvalid code given");
-            CUnit &m_other = *CurMap()[next->getM_pos()].GetUnitObject().get();
-            cur_obj->Attack(m_other, m_map[was]);
-            break;
-        }
-        else if (event.type == SDL_QUIT)
+      while (SDL_PollEvent(&event)) {
+        if (event.type==SDL_KEYDOWN) {
+          wchar_t code = event.key.keysym.sym;
+          if (!std::isdigit(code) || code >= was)
+            CGlobalGame::GlobalMessage(message + "\nInvalid code given");
+          CUnit &m_other = *CurMap()[next->getM_pos()].GetUnitObject().get();
+          cur_obj->Attack(m_other, m_map[was]);
+          break;
+        } else if (event.type==SDL_QUIT)
           exit(0);
         SDL_Delay(1);
       }

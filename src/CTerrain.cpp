@@ -15,3 +15,6 @@ Quantity_t CTerrain::getM_patency() const {
 const std::string &CTerrain::getM_name() const {
   return m_name;
 }
+std::string CTerrain::GetInfo() {
+  return "Name: " + m_properties["Name"].get<std::string>();
+}

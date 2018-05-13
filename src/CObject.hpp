@@ -47,6 +47,7 @@ class CObject {
   void ToggleSelected();
   virtual bool Attack(CUnit &m_other, const std::string &attack_type);
   const CurrentSerializerType &getM_properties() const;
+  virtual std::string GetInfo() = 0;
   virtual ~CObject() = 0;
 };
 

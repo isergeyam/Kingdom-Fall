@@ -8,7 +8,8 @@
 #include <SDL2pp/SDL2pp.hh>
 class CObjectController : public IObjectController {
  private:
-  std::shared_ptr<IObjectObserver> m_view;
+  std::shared_ptr<IObjectObserver> m_position_view;
+  std::shared_ptr<IObjectObserver> m_select_view;
  public:
   explicit CObjectController(const std::shared_ptr<CObject> &m_object,
                              const std::shared_ptr<SDL2pp::Texture> &m_texture);
