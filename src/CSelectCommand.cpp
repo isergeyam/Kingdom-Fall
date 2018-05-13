@@ -18,8 +18,9 @@ void CSelectCommand::Undo() {
 }
 void CSelectCommand::SetNext(CCommand *next) {
   auto cur_obj = CurMap()[m_pos].GetTopObject()->GetObject();
-  if (cur_obj->isMovable())
-    cur_obj->MoveTo(next->m_pos);
+  if (cur_obj->isMovable()) {
+    auto res = cur_obj->MoveTo(next->m_pos);
+  }
   else
     next->Proceed();
 }

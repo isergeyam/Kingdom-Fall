@@ -5,6 +5,7 @@
 #include "CUnit.hpp"
 #include "CGlobalGame.hpp"
 #include "CMap.hpp"
+#include "CObjectController.hpp"
 CUnit::CUnit(const CurrentSerializerType &m_properties, const CPosition &position) : CObject(position,
                                                                                              true,
                                                                                              false,
@@ -55,17 +56,18 @@ Quantity_t CUnit::CalculateDistance(const CPosition &calc_position) {
   }*/
   return m_distances[calc_position.getM_x_axis()][calc_position.getM_y_axis()];
 }
-bool CUnit::MoveTo(CPosition new_postion) {
-  if (CurMap()[new_postion].GetTerrainObject()->isInjurable()
+CObject::MoveProp CUnit::MoveTo(CPosition new_postion) {
+  if (CurMap()[new_postion].GetTopObject()->GetObject()->isInjurable()
       && abs(new_postion.getM_x_axis() - m_position.getM_x_axis()) <= 1
-      && abs(new_postion.getM_x_axis() - m_position.getM_y_axis()) <= 1) {
-
-  }
+      && abs(new_postion.getM_x_axis() - m_position.getM_y_axis()) <= 1)
+    return ATTACK;
   if (!CanMove(new_postion))
-    return false;
+    return FAIL;
   CurMap()[new_postion].setM_unit(CurMap()[m_position].getM_unit());
   CurMap()[m_position].setM_unit(nullptr);
-  return true;
+  m_position = new_postion;
+  NotifyObservers();
+  return MOVE;
 }
 Quantity_t CUnit::CalculateDistance(const CMapCell &calc_position) {
   CTerrain &cur_terrain = *calc_position.GetTerrainObject();
@@ -77,7 +79,7 @@ bool CUnit::Attack(const CUnit &m_other, const std::string &attack_type) {
   auto it = m_properties["Abilities"].find(attack_type);
   if (it==m_properties["Abilities"].end() || (*it)["type"]!="attack")
     return false;
-  // TODO
+
 }
 Quantity_t CUnit::Hit(CUnit &m_other, const CurrentSerializerType &attack_type) {
   Percent_t HitProbability = CalcHitProbability(m_other);

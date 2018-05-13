@@ -37,6 +37,9 @@ void CObject::ToggleSelected() {
 bool CObject::isMovable() const {
   return movable;
 }
-bool CObject::MoveTo(CPosition m_pos) {
+CObject::MoveProp CObject::MoveTo(CPosition m_pos) {
+  return false;
+}
+bool CObject::Attack(const CUnit &m_other, const std::string &attack_type) {
   return false;
 }

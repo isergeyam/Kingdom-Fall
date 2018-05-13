@@ -11,22 +11,26 @@
 #include "IObjectObserver.hpp"
 #include <unordered_set>
 #include <bits/shared_ptr.h>
+class CUnit;
 class CObject {
-protected:
+ protected:
   CPosition m_position;
   bool injurable;
   bool passable;
   bool fly_passable;
   bool movable;
   bool selected;
-  std::unordered_set<IObjectObserver*> m_observer_list;
-public:
+  std::unordered_set<IObjectObserver *> m_observer_list;
+ public:
+  enum MoveProp {
+    MOVE, ATTACK, FAIL
+  };
   void setM_position(const CPosition &m_position);
   CObject(const CPosition &m_position,
-            bool is_injurable,
-            bool is_passable,
-            bool is_fly_passable,
-            bool is_movable);
+          bool is_injurable,
+          bool is_passable,
+          bool is_fly_passable,
+          bool is_movable);
   const CPosition &getM_position() const;
   bool isInjurable() const;
   bool isPassable() const;
@@ -35,8 +39,9 @@ public:
   void NotifyObservers();
   void AddObserver(IObjectObserver *m_observer);
   void RemoveObserver(IObjectObserver *m_observer);
-  virtual bool MoveTo(CPosition m_pos);
+  virtual MoveProp MoveTo(CPosition m_pos);
   void ToggleSelected();
+  virtual bool Attack(const CUnit &m_other, const std::string &attack_type);
   virtual ~CObject() = 0;
 };
 

@@ -16,8 +16,8 @@ public:
   Quantity_t CalculateDistance(const CPosition &calc_position);
   Quantity_t CalculateDistance(const CMapCell &calc_position);
   bool CanMove(const CPosition &new_position);
-  bool MoveTo(CPosition new_postion) override;
-  bool Attack(const CUnit &m_other, const std::string &attack_type);
+  MoveProp MoveTo(CPosition new_postion) override;
+  bool Attack(const CUnit &m_other, const std::string &attack_type) override ;
 private:
   Quantity_t m_health;
   Quantity_t m_stamina;

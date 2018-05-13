@@ -15,14 +15,14 @@ class CMap;
 class CControllerFactory;
 class CGlobalGame {
  private:
-  static std::shared_ptr<CMap> m_map;
+  static std::unique_ptr<CMap> m_map;
   static std::random_device m_device;
   static std::default_random_engine m_engine;
   static std::uniform_real_distribution<Percent_t> m_random_percentage;
   static size_t screen_width;
   static size_t screen_height;
-  static std::shared_ptr<SDL2pp::Window> m_window;
-  static std::shared_ptr<SDL2pp::Renderer> m_renderer;
+  static std::unique_ptr<SDL2pp::Window> m_window;
+  static std::unique_ptr<SDL2pp::Renderer> m_renderer;
   static bool with_graphics;
   //static std::uniform_int_distribution<bool> m_random_event; TODO
  public:
@@ -31,7 +31,7 @@ class CGlobalGame {
   CGlobalGame(const CGlobalGame &) = delete;
   CGlobalGame &operator=(CGlobalGame &) = delete;
   static std::shared_ptr<CurrentSerializerType> Settings();
-  static std::shared_ptr<CMap> &Map();
+  static std::unique_ptr<CMap> & Map();
   static Percent_t GetRandomPercent();
   //static bool GetRandomEvent(); TODO
   static const Quantity_t MaxDistance = 1000000;
@@ -43,19 +43,14 @@ class CGlobalGame {
   static void GlobalSetUp(std::istream &m_string = std::cin);
   static size_t getScreen_width();
   static size_t getScreen_height();
-  static const std::shared_ptr<SDL2pp::Renderer> &getM_renderer();
+  static const std::unique_ptr<SDL2pp::Renderer> & getM_renderer();
   static bool isWith_graphics();
-  static const std::shared_ptr<SDL2pp::Window> &getM_window();
+  static const std::unique_ptr<SDL2pp::Window> & getM_window();
   static void StartGame();
+  static void GlobalMessage(const std::string &message);
 };
 inline CMap &CurMap() {
   return *CGlobalGame::Map();
-}
-inline CurrentSerializerType &CurSettings() {
-  return *CGlobalGame::Settings();
-}
-inline SDL2pp::Window &CurWindow() {
-  return *CGlobalGame::getM_window();
 }
 inline SDL2pp::Renderer &CurRenderer() {
   return *CGlobalGame::getM_renderer();

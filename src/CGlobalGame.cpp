@@ -16,9 +16,9 @@ std::unique_ptr<TO> static_unique_pointer_cast(std::unique_ptr<FROM> &&old) {
 //    m_settings = std::make_shared<CurrentSerializerType>();
 //  return m_settings;
 //}
-std::shared_ptr<CMap> &CGlobalGame::Map() {
+std::unique_ptr<CMap> &CGlobalGame::Map() {
   if (m_map==nullptr)
-    m_map = std::make_shared<CMap>();
+    m_map = std::make_unique<CMap>();
   return m_map;
 }
 std::random_device CGlobalGame::m_device;
@@ -75,12 +75,13 @@ void CGlobalGame::GlobalSetUp(std::istream &m_settings) {
   screen_height = cur_settings["height"].get<size_t>();
   with_graphics = cur_settings["enable_graphics"].get<bool>();
   if (with_graphics) {
-    m_window = std::make_shared<SDL2pp::Window>("Kingdom Fall", 0, 0, screen_width, screen_height, SDL_WINDOW_SHOWN);
-    m_renderer = std::make_shared<SDL2pp::Renderer>(*m_window, -1, SDL_RENDERER_ACCELERATED);
+    m_window =
+        std::make_unique<SDL2pp::Window>("Kingdom Fall", 0, 0, screen_width + 100, screen_height, SDL_WINDOW_SHOWN);
+    m_renderer = std::make_unique<SDL2pp::Renderer>(*m_window, -1, SDL_RENDERER_ACCELERATED);
   } else
     with_graphics = false;
   InitializeObjects(objects_vector);
-  m_map = std::make_shared<CMap>(iMap);
+  m_map = std::make_unique<CMap>(iMap);
 }
 size_t CGlobalGame::getScreen_width() {
   return screen_width;
@@ -88,10 +89,10 @@ size_t CGlobalGame::getScreen_width() {
 size_t CGlobalGame::getScreen_height() {
   return screen_height;
 }
-const std::shared_ptr<SDL2pp::Window> &CGlobalGame::getM_window() {
+const std::unique_ptr<SDL2pp::Window> &CGlobalGame::getM_window() {
   return m_window;
 }
-const std::shared_ptr<SDL2pp::Renderer> &CGlobalGame::getM_renderer() {
+const std::unique_ptr<SDL2pp::Renderer> &CGlobalGame::getM_renderer() {
   return m_renderer;
 }
 bool CGlobalGame::isWith_graphics() {
@@ -116,10 +117,24 @@ void CGlobalGame::GenerateUnits(vector<CurrentSerializerType> &m_races,
     }
   }
 }
-std::shared_ptr<CMap> CGlobalGame::m_map;
+void CGlobalGame::GlobalMessage(const std::string &message) {
+  SDL2pp::Font font("data/Vera.ttf", 12);
+  size_t start_pos = 0;
+  SDL2pp::Renderer &m_renderer = CurRenderer();
+  m_renderer.FillRect(SDL2pp::Rect(screen_width, 0, screen_width+100, screen_height));
+  while (start_pos < message.size()) {
+    std::string cur_message = message.substr(start_pos, 8);
+    start_pos += 8;
+    SDL2pp::Texture text_sprite(m_renderer, font.RenderText_Blended(cur_message, SDL_Color{255, 255, 255, 255}));
+    m_renderer.Copy(text_sprite,
+                    SDL2pp::Rect(screen_width, 12*(start_pos/8), text_sprite.GetWidth(), text_sprite.GetHeight()),
+                    SDL2pp::Rect(0, 0, text_sprite.GetWidth(), text_sprite.GetHeight()));
+  }
+}
+std::unique_ptr<CMap> CGlobalGame::m_map;
 std::map<std::string, std::unique_ptr<CControllerFactory> > CGlobalGame::LoadedObjects;
-std::shared_ptr<SDL2pp::Window> CGlobalGame::m_window;
-std::shared_ptr<SDL2pp::Renderer> CGlobalGame::m_renderer;
+std::unique_ptr<SDL2pp::Window> CGlobalGame::m_window;
+std::unique_ptr<SDL2pp::Renderer> CGlobalGame::m_renderer;
 size_t CGlobalGame::screen_width;
 size_t CGlobalGame::screen_height;
 bool CGlobalGame::with_graphics;
