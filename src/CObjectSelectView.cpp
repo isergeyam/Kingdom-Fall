@@ -13,5 +13,8 @@ const std::shared_ptr<SDL2pp::Texture> &CObjectSelectView::getM_texture() {
   return nullptr;
 }
 CObjectSelectView::CObjectSelectView(const std::shared_ptr<CObject> &m_copy_object,
-                                     const std::shared_ptr<IObjectController> &m_copy_controller)
-    : IObjectObserver(m_copy_object), m_controller(m_copy_controller) {}
+                                     IObjectController *m_copy_controller)
+    : IObjectView(m_copy_object), m_controller(m_copy_controller) {}
+void CObjectSelectView::RenderObject() {
+  return;
+}

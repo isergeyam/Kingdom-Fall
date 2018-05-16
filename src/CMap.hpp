@@ -21,8 +21,9 @@ class CMap {
   Quantity_t getM_y_size() const;
   Quantity_t PosToInt(const CPosition &pos);
   vector<CPosition> GetNeighbour(const CPosition &pos);
-  void UpdateView();
+  void RenderMap();
   void SetObjects(std::istream &is, bool units);
+  ~CMap() = default;
 };
 
 

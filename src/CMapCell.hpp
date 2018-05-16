@@ -20,9 +20,9 @@ class CMapCell {
            const std::shared_ptr<CObjectController> &m_village,
            const std::shared_ptr<CObjectController> &m_terrain);
   explicit CMapCell(const std::shared_ptr<CObjectController> &m_terrain = nullptr);
-  const std::shared_ptr<CUnit> &GetUnitObject() const;
-  const std::shared_ptr<CVillage> &GetVillageObject() const;
-  const std::shared_ptr<CTerrain> &GetTerrainObject() const;
+  std::shared_ptr<CUnit> GetUnitObject() const;
+  std::shared_ptr<CVillage> GetVillageObject() const;
+  std::shared_ptr<CTerrain> GetTerrainObject() const;
   const std::shared_ptr<CObjectController> &getM_unit() const;
   const std::shared_ptr<CObjectController> &getM_village() const;
   const std::shared_ptr<CObjectController> &getM_terrain() const;
@@ -30,6 +30,7 @@ class CMapCell {
   void setM_unit(const std::shared_ptr<CObjectController> &m_unit);
   void setM_village(const std::shared_ptr<CObjectController> &m_village);
   void setM_terrain(const std::shared_ptr<CObjectController> &m_terrain);
+  bool EmptyCell();
 };
 
 

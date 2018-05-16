@@ -14,7 +14,7 @@ private:
   CurrentSerializerType m_race;
   CurrentSerializerType m_type;
   CurrentSerializerType m_custom;
-  CurrentSerializerType m_default;
+  static std::unique_ptr<CurrentSerializerType> m_default;
   template <typename T>
   T UpdateField(const CurrentSerializerType &m_def, const CurrentSerializerType &m_race, const CurrentSerializerType &m_type,
                 const CurrentSerializerType &m_custom, const std::string &key);
@@ -22,7 +22,6 @@ private:
 public:
   static CurrentValidator m_race_validator;
   static CurrentValidator m_type_validator;
-  void setM_default(const CurrentSerializerType &m_default);
   void setM_race(CurrentSerializerType &&m_race);
   void setM_type(CurrentSerializerType &&m_type);
   void setM_custom(const CurrentSerializerType &m_custom);
@@ -31,8 +30,9 @@ public:
   const CurrentSerializerType &getM_race() const;
   const CurrentSerializerType &getM_type() const;
   const CurrentSerializerType &getM_custom() const;
-  const CurrentSerializerType &getM_default() const;
   static void ExtendData(CurrentSerializerType &j1, const CurrentSerializerType &j2);
+  static const std::unique_ptr<CurrentSerializerType> &getM_default();
+  static void setM_default(std::unique_ptr<CurrentSerializerType> &&m_default);
 };
 
 #endif // GAME_PROJ_CUNITFACTORYBUILDER_HPP

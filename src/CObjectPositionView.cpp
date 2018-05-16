@@ -7,9 +7,9 @@
 #include "CMap.hpp"
 #include "CObjectController.hpp"
 CObjectPositionView::CObjectPositionView(const std::shared_ptr<CObject> &m_obj,
-                                         const std::shared_ptr<IObjectController> &m_controller,
+                                         IObjectController *m_controller,
                                          const std::shared_ptr<SDL2pp::Texture> &m_texture)
-    : IObjectObserver(m_obj),
+    : IObjectView(m_obj),
       m_controller(m_controller),
       prev_position(std::numeric_limits<size_t>::max(), std::numeric_limits<size_t>::max()),
       m_texture(m_texture) {}
@@ -23,13 +23,14 @@ void CObjectPositionView::UpdateObject() {
   auto new_rect = PositionRect(new_position);
   CMapCell &prev_cell = CurMap()[prev_position];
   CMapCell &new_cell = CurMap()[new_position];
-  CurRenderer().FillRect(prev_rect);
+  CurRenderer().SetViewport(prev_rect);
   CurRenderer()
-      .Copy(*prev_cell.getM_terrain()->GetPositionView()->getM_texture(), SDL2pp::NullOpt, prev_rect.GetTopLeft());
+      .Copy(*prev_cell.getM_terrain()->GetPositionView()->getM_texture());
   if (prev_cell.getM_village()!=nullptr)
     CurRenderer()
-        .Copy(*prev_cell.getM_village()->GetPositionView()->getM_texture(), SDL2pp::NullOpt, prev_rect.GetTopLeft());
-  CurRenderer().Copy(*m_texture, SDL2pp::NullOpt, new_rect.GetTopLeft());
+        .Copy(*prev_cell.getM_village()->GetPositionView()->getM_texture());
+  CurRenderer().SetViewport(new_rect);
+  CurRenderer().Copy(*m_texture);
 }
 SDL2pp::Rect CObjectPositionView::PositionRect(const CPosition &m_pos) {
   size_t cell_width = CGlobalGame::getScreen_width()/CurMap().getM_x_size();
@@ -39,9 +40,14 @@ SDL2pp::Rect CObjectPositionView::PositionRect(const CPosition &m_pos) {
 const std::shared_ptr<SDL2pp::Texture> &CObjectPositionView::getM_texture() {
   return m_texture;
 }
-const std::shared_ptr<IObjectController> &CObjectPositionView::getM_controller() const {
+IObjectController *CObjectPositionView::getM_controller() const {
   return m_controller;
 }
 const CPosition &CObjectPositionView::getPrev_position() const {
   return prev_position;
+}
+void CObjectPositionView::RenderObject() {
+  SDL2pp::Rect m_rect = PositionRect(m_object->getM_position());
+  CurRenderer().SetViewport(m_rect);
+  CurRenderer().Copy(*m_texture);
 }

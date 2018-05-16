@@ -5,11 +5,11 @@
 #pragma once
 #include "CCommand.hpp"
 class CSelectCommand : public CCommand {
-  explicit CSelectCommand(CPosition m_pos_copy);
  public:
+  explicit CSelectCommand(CPosition m_pos_copy);
   void Proceed() override;
   void Undo() override;
-  void SetNext(CCommand *next) override;
+  void TryAttack(CCommand *next) override;
 };
 
 

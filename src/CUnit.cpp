@@ -18,7 +18,7 @@ CUnit::CUnit(const CurrentSerializerType &m_properties, const CPosition &positio
   m_state = 0;
 }
 bool CUnit::CanMove(const CPosition &new_position) {
-  return CurMap()[new_position].GetUnitObject()==nullptr && CalculateDistance(new_position) <= m_stamina;
+  return CurMap()[new_position].EmptyCell() && CalculateDistance(new_position) <= m_stamina;
 }
 Quantity_t CUnit::CalculateDistance(const CPosition &calc_position) {
   if (m_state==CGlobalGame::CurGlobalState)
@@ -59,10 +59,14 @@ Quantity_t CUnit::CalculateDistance(const CPosition &calc_position) {
 CObject::MoveProp CUnit::MoveTo(CPosition new_postion) {
   if (CurMap()[new_postion].GetTopObject()->GetObject()->isInjurable()
       && abs(new_postion.getM_x_axis() - m_position.getM_x_axis()) <= 1
-      && abs(new_postion.getM_x_axis() - m_position.getM_y_axis()) <= 1)
+      && abs(new_postion.getM_x_axis() - m_position.getM_y_axis()) <= 1) {
+    CGlobalGame::GlobalMessage("Attacking object");
     return ATTACK;
-  if (!CanMove(new_postion))
+  }
+  if (!CanMove(new_postion)) {
+    CGlobalGame::GlobalMessage("Can't move to that point");
     return FAIL;
+  }
   CurMap()[new_postion].setM_unit(CurMap()[m_position].getM_unit());
   CurMap()[m_position].setM_unit(nullptr);
   m_position = new_postion;
@@ -100,6 +104,6 @@ Percent_t CUnit::CalcHitProbability(const CUnit &m_other) {
       - m_other.m_properties["Adoption"][CurMap()[m_other.m_position].GetTerrainObject()->getM_name()].get<Percent_t>();
 }
 std::string CUnit::GetInfo() {
-  return "Name: " + m_properties["Name"].get<std::string>() + "\n" + "Health: " + std::to_string(m_health) + "\n" + "XP: "
-      + std::to_string(m_exp) + "\n" + "Stamina: " + std::to_string(m_stamina);
+  return "Name: " + m_properties["Name"].get<std::string>() + "$" + "Health: " + std::to_string(m_health) + "$" + "XP: "
+      + std::to_string(m_exp) + "$" + "Stamina: " + std::to_string(m_stamina);
 }

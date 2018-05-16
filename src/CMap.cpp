@@ -43,6 +43,8 @@ CMap::CMap(std::istream &stream_) {
     vector<std::string> tokens;
     std::istringstream current_iss(cur_terrains);
     std::copy(std::istream_iterator<std::string>(current_iss), std::istream_iterator<std::string>(), std::back_inserter(tokens));
+    if (tokens.empty())
+      break;
     m_terrains.push_back(std::move(tokens));
   }
   init(m_terrains);
@@ -59,14 +61,14 @@ void CMap::init(const vector<vector<std::string>> &start_terrains) {
   }
   ++CGlobalGame::CurGlobalState;
 }
-void CMap::UpdateView() {
+void CMap::RenderMap() {
   for (auto &it1 : m_map) {
     for (auto &it2 : it1) {
-      it2.getM_terrain()->GetPositionView()->UpdateObject();
+      it2.getM_terrain()->GetPositionView()->RenderObject();
       if (it2.getM_village() != nullptr)
-        it2.getM_village()->GetPositionView()->UpdateObject();
+        it2.getM_village()->GetPositionView()->RenderObject();
       if (it2.getM_unit() != nullptr)
-        it2.getM_unit()->GetPositionView()->UpdateObject();
+        it2.getM_unit()->GetPositionView()->RenderObject();
     }
   }
 }

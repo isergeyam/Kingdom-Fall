@@ -23,6 +23,7 @@ class CGlobalGame {
   static size_t screen_height;
   static std::unique_ptr<SDL2pp::Window> m_window;
   static std::unique_ptr<SDL2pp::Renderer> m_renderer;
+  static std::unique_ptr<SDL2pp::Font> m_font;
   static bool with_graphics;
   //static std::uniform_int_distribution<bool> m_random_event; TODO
  public:
@@ -57,4 +58,7 @@ inline CMap &CurMap() {
 }
 inline SDL2pp::Renderer &CurRenderer() {
   return *CGlobalGame::getM_renderer();
+}
+inline SDL2pp::Window &CurWindow() {
+  return *CGlobalGame::getM_window();
 }

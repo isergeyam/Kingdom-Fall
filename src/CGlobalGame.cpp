@@ -6,6 +6,8 @@
 #include "CMap.hpp"
 #include "CUnitFactoryBuilder.hpp"
 #include "CControllerFactory.hpp"
+#include "CSelectCommand.hpp"
+#include <SDL2/SDL.h>
 template<typename TO, typename FROM>
 std::unique_ptr<TO> static_unique_pointer_cast(std::unique_ptr<FROM> &&old) {
   return std::unique_ptr<TO>{static_cast<TO *>(old.release())};
@@ -61,6 +63,7 @@ void CGlobalGame::GlobalSetUp(std::istream &m_settings) {
   std::ifstream iValidateType(cur_settings["TypeValidator"].get<std::string>());
   std::ifstream iValidateRace(cur_settings["RaceValidator"].get<std::string>());
   std::ifstream iValidateTerrain(cur_settings["TerrainValidator"].get<std::string>());
+  std::ifstream iDefaultUnit(cur_settings["DefaultUnit"].get<std::string>());
   std::ifstream iMap(cur_settings["Map"].get<std::string>());
   std::ifstream iUnitMap(cur_settings["UnitMap"].get<std::string>());
   std::ifstream iVillageMap(cur_settings["VillageMap"].get<std::string>());
@@ -68,6 +71,7 @@ void CGlobalGame::GlobalSetUp(std::istream &m_settings) {
   //CObjectFactoryValidateDecorator<CUnit>::m_validator.set_schema(CurrentSerializer::Deserialize(iValidateUnit));
   CUnitFactoryBuilder::m_type_validator.set_schema(CurrentSerializer::Deserialize(iValidateType));
   CUnitFactoryBuilder::m_race_validator.set_schema(CurrentSerializer::Deserialize(iValidateRace));
+  CUnitFactoryBuilder::setM_default(std::make_unique<CurrentSerializerType>(CurrentSerializer::Deserialize(iDefaultUnit)));
   std::vector<CurrentSerializerType> objects_vector;
   std::vector<CurrentSerializerType> races_vector;
   std::vector<CurrentSerializerType> types_vector;
@@ -79,19 +83,20 @@ void CGlobalGame::GlobalSetUp(std::istream &m_settings) {
   with_graphics = cur_settings["enable_graphics"].get<bool>();
   if (with_graphics) {
     m_window =
-        std::make_unique<SDL2pp::Window>("Kingdom Fall", 0, 0, screen_width + 100, screen_height, SDL_WINDOW_SHOWN);
+        std::make_unique<SDL2pp::Window>("Kingdom Fall", 0, 0, screen_width + 600, screen_height, SDL_WINDOW_SHOWN);
     m_renderer = std::make_unique<SDL2pp::Renderer>(*m_window, -1, SDL_RENDERER_ACCELERATED);
-  } else
-    with_graphics = false;
+  }
   InitializeObjects(objects_vector);
   GenerateUnits(races_vector, types_vector);
   m_map = std::make_unique<CMap>(iMap);
   m_map->SetObjects(iVillageMap, false);
   m_map->SetObjects(iUnitMap, true);
+  m_font = std::make_unique<SDL2pp::Font>(cur_settings["font_name"].get<std::string>(),
+                                          cur_settings["font_size"].get<int>());
 }
 void CGlobalGame::InitSerializerVector(CurrentSerializerType &cur_settings,
-                                      vector<CurrentSerializerType> &objects_vector,
-                                      const std::string &m_field) {
+                                       vector<CurrentSerializerType> &objects_vector,
+                                       const std::string &m_field) {
   for (auto &it : cur_settings[m_field]) {
     std::ifstream iCurObject(it.get<std::__cxx11::string>());
     objects_vector.push_back(CJsonSerializerAdapter::Deserialize(iCurObject));
@@ -113,9 +118,37 @@ bool CGlobalGame::isWith_graphics() {
   return with_graphics;
 }
 void CGlobalGame::StartGame() {
-  CurMap().UpdateView();
+  CurMap().RenderMap();
   CurRenderer().Present();
-  SDL_Delay(100);
+  SDL_Event event;
+  CCommand *m_command = nullptr;
+  size_t clip_width = screen_width/CurMap().getM_y_size();
+  size_t clip_height = screen_height/CurMap().getM_x_size();
+  while (true) {
+    SDL_PollEvent(&event);
+    if (event.type==SDL_QUIT)
+      break;
+    if (event.type==SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT) {
+      CurRenderer().Clear();
+      auto x = event.button.x;
+      auto y = event.button.y;
+      if (x > screen_width)
+        continue;
+      CPosition command_position(x/clip_width, y/clip_height);
+      std::cout << command_position.getM_x_axis() << " " << command_position.getM_y_axis() << std::endl ;
+      CCommand *new_command = new CSelectCommand(command_position);
+      if (m_command!=nullptr) {
+        m_command->TryAttack(new_command);
+      }
+      else {
+        m_command = new_command;
+        new_command->Proceed();
+      }
+      CurMap().RenderMap();
+      CurRenderer().Present();
+      SDL_Delay(10);
+    }
+  }
 }
 void CGlobalGame::GenerateUnits(vector<CurrentSerializerType> &m_races,
                                 vector<CurrentSerializerType> &m_types) {
@@ -125,7 +158,7 @@ void CGlobalGame::GenerateUnits(vector<CurrentSerializerType> &m_races,
       m_builder.setM_race(std::move(it_race));
       m_builder.setM_type(std::move(it_type));
       CGlobalGame::LoadedObjects.insert(std::make_pair(
-          m_builder.getM_race()["Name"].get<std::string>() + m_builder.getM_race()["Name"].get<std::string>(),
+          m_builder.getM_race()["Name"].get<std::string>() + m_builder.getM_type()["Name"].get<std::string>(),
           static_unique_pointer_cast<IControllerFactory>(std::make_unique<CControllerFactory>(m_builder
                                                                                                   .GetFactory()))));
     }
@@ -136,23 +169,26 @@ void CGlobalGame::GlobalMessage(const std::string &message) {
     std::cout << message << std::endl;
     return;
   }
-  SDL2pp::Font font("data/Vera.ttf", 12);
-  size_t start_pos = 0;
   SDL2pp::Renderer &m_renderer = CurRenderer();
-  m_renderer.FillRect(SDL2pp::Rect(screen_width, 0, screen_width+100, screen_height));
-  while (start_pos < message.size()) {
-    std::string cur_message = message.substr(start_pos, 8);
-    start_pos += 8;
-    SDL2pp::Texture text_sprite(m_renderer, font.RenderText_Blended(cur_message, SDL_Color{255, 255, 255, 255}));
+  SDL2pp::Rect new_port_view(screen_width, 0, 600, screen_height);
+  m_renderer.FillRect(new_port_view);
+  m_renderer.SetViewport(new_port_view);
+  std::stringstream ss(message);
+  std::string token;
+  size_t cur_pos = 0;
+  while (std::getline(ss, token, '$')) {
+    SDL2pp::Texture text_sprite(m_renderer, m_font->RenderText_Blended(token, SDL_Color{255, 255, 255, 255}));
     m_renderer.Copy(text_sprite,
-                    SDL2pp::Rect(screen_width, 12*(start_pos/8), text_sprite.GetWidth(), text_sprite.GetHeight()),
-                    SDL2pp::Rect(0, 0, text_sprite.GetWidth(), text_sprite.GetHeight()));
+                    SDL2pp::NullOpt,
+                    SDL2pp::Rect(0, cur_pos*m_font->GetHeight(), text_sprite.GetWidth(), text_sprite.GetHeight()));
+    ++cur_pos;
   }
 }
 std::unique_ptr<CMap> CGlobalGame::m_map;
 std::map<std::string, std::unique_ptr<IControllerFactory> > CGlobalGame::LoadedObjects;
 std::unique_ptr<SDL2pp::Window> CGlobalGame::m_window;
 std::unique_ptr<SDL2pp::Renderer> CGlobalGame::m_renderer;
+std::unique_ptr<SDL2pp::Font> CGlobalGame::m_font;
 size_t CGlobalGame::screen_width;
 size_t CGlobalGame::screen_height;
 bool CGlobalGame::with_graphics;

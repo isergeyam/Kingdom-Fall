@@ -1,0 +1,24 @@
+{
+  "UnitValidator": "json/schema/Unit.json",
+  "TypeValidator": "json/schema/Type.json",
+  "RaceValidator": "json/schema/Race.json",
+  "TerrainValidator": "json/schema/Terrain.json",
+  "Map": "maps/terrain_map.txt",
+  "UnitMap" : "maps/unit_map.txt",
+  "VillageMap" : "maps/village_map.txt",
+  "DefaultUnit" : "json/DefaultUnit.json",
+  "objects": [
+    "json/GrassTerrain.json"
+  ],
+  "races" : [
+    "json/HumanRace.json"
+  ],
+  "types" : [
+    "json/SwordsmanType.json"
+  ],
+  "width" : 640,
+  "height" : 480,
+  "enable_graphics" : true,
+  "font_name" : "data/Vera.ttf",
+  "font_size" : 25
+}

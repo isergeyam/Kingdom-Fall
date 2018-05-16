@@ -10,9 +10,8 @@ class IObjectObserver {
  protected:
   std::shared_ptr<CObject> m_object;
  public:
-  explicit IObjectObserver(std::shared_ptr<CObject> m_object);
+  explicit IObjectObserver(const std::shared_ptr<CObject> &m_object_copy);
   virtual void UpdateObject() = 0;
-  virtual const std::shared_ptr<SDL2pp::Texture> &getM_texture() = 0;
   const std::shared_ptr<CObject> &getM_object() const;
   virtual ~IObjectObserver() = default;
 };

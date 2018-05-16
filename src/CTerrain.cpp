@@ -16,5 +16,6 @@ const std::string &CTerrain::getM_name() const {
   return m_name;
 }
 std::string CTerrain::GetInfo() {
-  return "Name: " + m_properties["Name"].get<std::string>();
+  return "Name: " + m_properties["Name"].get<std::string>() + "$" + "Pass: " + std::to_string(isPassable()) + "$"
+      + "Fly pass: " + std::to_string(isFly_passable());
 }

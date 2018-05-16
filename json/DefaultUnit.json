@@ -5,11 +5,11 @@
   "Stamina" : 100,
   "Icon" : "data/icons/default_icon.png",
   "Patency" : {
-    "Grass" : 0.9,
-    "Dungeon" : 0.9,
-    "Forest" : 0.9,
-    "Field" : 0.9,
-    "Rock" : 0.9
+    "GrassTerrain" : 0.9,
+    "DungeonTerrain" : 0.9,
+    "ForestTerrain" : 0.9,
+    "FieldTerrain" : 0.9,
+    "RockTerrain" : 0.9
   },
   "Adaption" : {
     "Grass" : 0.9,
@@ -26,6 +26,7 @@
   },
   "Abilities" : {
     "Hand Hit" : {
+      "Name" : "Hand Hit",
       "type" : "attack",
       "strength" : 2,
       "count" : 3,

@@ -2,6 +2,7 @@
   "Name" : "Swordsman",
   "Abilities" : {
     "Sword Hit" : {
+      "Name" : "Sword Hit",
       "type" : "attack",
       "strength" : 4,
       "count" : 4,

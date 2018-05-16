@@ -19,7 +19,6 @@ class MyEnvironment : public ::testing::Environment {
 };
 TEST(GlobalGameTest, InitializerTest) {
   CGlobalGame::StartGame();
-  SDL_Delay(1000);
 }
 /*class UnitBuildingTest
     : public ::testing::TestWithParam<

@@ -16,21 +16,23 @@ void CSelectCommand::Proceed() {
 void CSelectCommand::Undo() {
   // TODO
 }
-void CSelectCommand::SetNext(CCommand *next) {
+void CSelectCommand::TryAttack(CCommand *next) {
   auto cur_obj = CurMap()[m_pos].GetTopObject()->GetObject();
+  if (m_pos == next->getM_pos())
+    return;
   if (cur_obj->isMovable()) {
     auto res = cur_obj->MoveTo(next->getM_pos());
     if (res==CObject::MoveProp::ATTACK) {
       const CurrentSerializerType &cur_ser = cur_obj->getM_properties();
-      std::string message = "Choose attack type:\n";
+      std::string message = "Choose attack type:$";
       std::map<int, std::string> m_map;
       int was = 1;
       for (auto &&it : cur_ser["Abilities"]) {
         if (it["type"]=="attack") {
           auto attack_name = it["Name"].get<std::string>();
           message +=
-              std::to_string(was) + " - " + attack_name + " " + it["strength"].get<std::string>()
-                  + "-" + it["count"].get<std::string>();
+              std::to_string(was) + " - " + attack_name + " " + std::to_string(it["strength"].get<int>())
+                  + "-" + std::to_string(it["count"].get<int>()) + "$";
           m_map.insert(std::make_pair(was, attack_name));
           ++was;
         }
@@ -41,7 +43,7 @@ void CSelectCommand::SetNext(CCommand *next) {
         if (event.type==SDL_KEYDOWN) {
           wchar_t code = event.key.keysym.sym;
           if (!std::isdigit(code) || code >= was)
-            CGlobalGame::GlobalMessage(message + "\nInvalid code given");
+            CGlobalGame::GlobalMessage(message + "$Invalid code given");
           CUnit &m_other = *CurMap()[next->getM_pos()].GetUnitObject().get();
           cur_obj->Attack(m_other, m_map[was]);
           break;
@@ -50,6 +52,7 @@ void CSelectCommand::SetNext(CCommand *next) {
         SDL_Delay(1);
       }
     }
-  } else
+  } else {
     next->Proceed();
+  }
 }
