@@ -31,6 +31,7 @@ void CObject::RemoveObserver(IObjectObserver *m_observer) {
   m_observer_list.erase(m_observer);
 }
 void CObject::ToggleSelected() {
+  highlighted = true;
   selected = true;
   NotifyObservers();
   selected = false;
@@ -56,4 +57,7 @@ void CObject::Die() {
 }
 void CObject::ToggleAutoAbilities() {
 
+}
+bool CObject::isHighlighted() const {
+  return highlighted;
 }

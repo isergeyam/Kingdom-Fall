@@ -22,6 +22,7 @@ class CObject {
   bool fly_passable;
   bool movable;
   bool selected;
+  bool highlighted;
   std::unordered_set<IObjectObserver *> m_observer_list;
   const CurrentSerializerType &m_properties;
   bool dead;
@@ -52,6 +53,7 @@ class CObject {
   virtual std::string GetInfo() = 0;
   virtual ~CObject() = 0;
   bool isDead() const;
+  bool isHighlighted() const;
   void Die() ;
 };
 

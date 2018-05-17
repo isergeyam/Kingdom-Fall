@@ -21,6 +21,7 @@ public:
   bool Attack(CUnit &m_other, const std::string &attack_type) override ;
   void ToggleAutoAbilities() override;
   std::string GetInfo() override;
+  void ToggleSelected() override;
 private:
   Quantity_t m_health;
   Quantity_t m_stamina;

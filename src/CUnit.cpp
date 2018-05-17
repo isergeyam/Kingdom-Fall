@@ -59,7 +59,8 @@ Quantity_t CUnit::CalculateDistance(const CPosition &calc_position) {
 CObject::MoveProp CUnit::MoveTo(CPosition new_postion) {
   if (CurMap()[new_postion].GetTopObject()->GetObject()->isInjurable()
       && abs((int) new_postion.getM_x_axis() - (int) m_position.getM_x_axis()) <= 1
-      && abs((int) new_postion.getM_y_axis() - (int) m_position.getM_y_axis()) <= 1) {
+      && abs((int) new_postion.getM_y_axis() - (int) m_position.getM_y_axis()) <= 1
+      && m_stamina!=0) {
     //CGlobalGame::GlobalMessage("Attacking object");
     return ATTACK;
   }
@@ -67,10 +68,10 @@ CObject::MoveProp CUnit::MoveTo(CPosition new_postion) {
     CGlobalGame::GlobalMessage("Can't move to that point");
     return FAIL;
   }
+  m_stamina -= CalculateDistance(new_postion);
   CurMap()[new_postion].setM_unit(CurMap()[m_position].getM_unit());
   CurMap()[m_position].setM_unit(nullptr);
   m_position = new_postion;
-  m_stamina -= CalculateDistance(new_postion);
   NotifyObservers();
   return MOVE;
 }
@@ -81,6 +82,7 @@ Quantity_t CUnit::CalculateDistance(const CMapCell &calc_position) {
   return cur_terrain.getM_patency()/m_properties["Patency"][cur_terrain.getM_name()].get<Percent_t>();
 }
 bool CUnit::Attack(CUnit &m_other, const std::string &attack_type) {
+  m_stamina=0;
   const auto &it = *m_properties["Abilities"].find(attack_type);
   std::string message;
   for (Quantity_t i = 0; i < it["count"].get<Quantity_t>(); ++i) {
@@ -130,4 +132,7 @@ void CUnit::setM_health(Quantity_t m_health) {
 }
 Quantity_t CUnit::getM_health() const {
   return m_health;
+}
+void CUnit::ToggleSelected() {
+  CObject::ToggleSelected();
 }
