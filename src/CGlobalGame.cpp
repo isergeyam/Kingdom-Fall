@@ -122,23 +122,26 @@ void CGlobalGame::StartGame() {
   CurRenderer().Present();
   SDL_Event event;
   CCommand *m_command = nullptr;
-  size_t clip_width = screen_width/CurMap().getM_y_size();
-  size_t clip_height = screen_height/CurMap().getM_x_size();
+  size_t clip_width = screen_height/CurMap().getM_y_size();
+  size_t clip_height = screen_width/CurMap().getM_x_size();
   while (true) {
-    SDL_PollEvent(&event);
+    SDL_WaitEvent(&event);
     if (event.type==SDL_QUIT)
       break;
-    if (event.type==SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT) {
+    if (event.type==SDL_MOUSEBUTTONUP && event.button.button == SDL_BUTTON_LEFT) {
       CurRenderer().Clear();
-      auto x = event.button.x;
-      auto y = event.button.y;
+      auto x = event.button.y;
+      auto y = event.button.x;
       if (x > screen_width)
         continue;
       CPosition command_position(x/clip_width, y/clip_height);
       std::cout << command_position.getM_x_axis() << " " << command_position.getM_y_axis() << std::endl ;
       CCommand *new_command = new CSelectCommand(command_position);
       if (m_command!=nullptr) {
-        m_command->TryAttack(new_command);
+        if (m_command->TryAttack(new_command))
+          m_command = nullptr;
+        else
+          m_command = new_command;
       }
       else {
         m_command = new_command;
@@ -146,7 +149,6 @@ void CGlobalGame::StartGame() {
       }
       CurMap().RenderMap();
       CurRenderer().Present();
-      SDL_Delay(10);
     }
   }
 }
@@ -164,11 +166,11 @@ void CGlobalGame::GenerateUnits(vector<CurrentSerializerType> &m_races,
     }
   }
 }
-void CGlobalGame::GlobalMessage(const std::string &message) {
-  if (!with_graphics) {
-    std::cout << message << std::endl;
+void CGlobalGame::GlobalMessage(std::string message) {
+  CurRenderer().Clear();
+  std::cout << message << std::endl;
+  if (!with_graphics)
     return;
-  }
   SDL2pp::Renderer &m_renderer = CurRenderer();
   SDL2pp::Rect new_port_view(screen_width, 0, 600, screen_height);
   m_renderer.FillRect(new_port_view);
@@ -177,6 +179,8 @@ void CGlobalGame::GlobalMessage(const std::string &message) {
   std::string token;
   size_t cur_pos = 0;
   while (std::getline(ss, token, '$')) {
+    if (token.empty())
+      continue;
     SDL2pp::Texture text_sprite(m_renderer, m_font->RenderText_Blended(token, SDL_Color{255, 255, 255, 255}));
     m_renderer.Copy(text_sprite,
                     SDL2pp::NullOpt,

@@ -48,7 +48,7 @@ class CGlobalGame {
   static bool isWith_graphics();
   static const std::unique_ptr<SDL2pp::Window> & getM_window();
   static void StartGame();
-  static void GlobalMessage(const std::string &message);
+  static void GlobalMessage(std::string message);
   static void InitSerializerVector(CurrentSerializerType &cur_settings,
                                     vector<CurrentSerializerType> &objects_vector,
                                     const std::string &m_field);

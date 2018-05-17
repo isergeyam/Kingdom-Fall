@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.5)
 project(Kingdom-Fall)
 
 set(CMAKE_CXX_STANDARD 14)
-set(CMAKE_CXX_FLAGS_DEBUG "-g -O0 -Wall")
+set(CMAKE_CXX_FLAGS_DEBUG "-g -fsanitize=address -O0 -Wall")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS_RELEASE})
 if (DEBUG STREQUAL "ON")

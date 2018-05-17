@@ -12,7 +12,7 @@ class CCommand {
   virtual void Proceed() = 0;
   virtual void Undo() = 0;
   explicit CCommand(CPosition m_pos_copy);
-  virtual void TryAttack(CCommand *next) = 0;
+  virtual bool TryAttack(CCommand *next) = 0;
   const CPosition &getM_pos() const;
 };
 

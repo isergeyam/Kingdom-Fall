@@ -11,7 +11,7 @@ CObject::CObject(const CPosition &m_position,
                  bool is_movable,
                  const CurrentSerializerType &m_prop)
     : m_properties(m_prop), m_position(m_position), injurable(is_injurable), passable(is_passable),
-      fly_passable(is_fly_passable), movable(is_movable), selected(false) {}
+      fly_passable(is_fly_passable), movable(is_movable), selected(false), dead(false) {}
 const CPosition &CObject::getM_position() const { return m_position; }
 bool CObject::isInjurable() const { return injurable; }
 bool CObject::isPassable() const { return passable; }
@@ -46,4 +46,11 @@ bool CObject::Attack(CUnit &m_other, const std::string &attack_type) {
 }
 const CurrentSerializerType &CObject::getM_properties() const {
   return m_properties;
+}
+bool CObject::isDead() const {
+  return dead;
+}
+void CObject::Die() {
+  dead = true;
+  NotifyObservers();
 }

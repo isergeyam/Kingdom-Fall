@@ -6,6 +6,8 @@
 #include "CGlobalGame.hpp"
 #include "CObjectController.hpp"
 #include "CMap.hpp"
+#include <cwctype>
+#include <cwchar>
 CSelectCommand::CSelectCommand(CPosition m_pos_copy) : CCommand(m_pos_copy) {
 
 }
@@ -16,10 +18,10 @@ void CSelectCommand::Proceed() {
 void CSelectCommand::Undo() {
   // TODO
 }
-void CSelectCommand::TryAttack(CCommand *next) {
+bool CSelectCommand::TryAttack(CCommand *next) {
   auto cur_obj = CurMap()[m_pos].GetTopObject()->GetObject();
   if (m_pos == next->getM_pos())
-    return;
+    return false;
   if (cur_obj->isMovable()) {
     auto res = cur_obj->MoveTo(next->getM_pos());
     if (res==CObject::MoveProp::ATTACK) {
@@ -38,21 +40,29 @@ void CSelectCommand::TryAttack(CCommand *next) {
         }
       }
       CGlobalGame::GlobalMessage(message);
+      CurMap().RenderMap();
+      CurRenderer().Present();
       SDL_Event event;
-      while (SDL_PollEvent(&event)) {
+      while (true) {
+        SDL_WaitEvent(&event);
         if (event.type==SDL_KEYDOWN) {
           wchar_t code = event.key.keysym.sym;
-          if (!std::isdigit(code) || code >= was)
-            CGlobalGame::GlobalMessage(message + "$Invalid code given");
+          if (!std::isdigit(code) || code-'0' >= was) {
+            CGlobalGame::GlobalMessage(message + "Invalid code given");
+            CurMap().RenderMap();
+            CurRenderer().Present();
+            continue;
+          }
           CUnit &m_other = *CurMap()[next->getM_pos()].GetUnitObject().get();
-          cur_obj->Attack(m_other, m_map[was]);
+          cur_obj->Attack(m_other, m_map[code - '0']);
           break;
         } else if (event.type==SDL_QUIT)
           exit(0);
-        SDL_Delay(1);
       }
     }
+    return true;
   } else {
     next->Proceed();
+    return false;
   }
 }

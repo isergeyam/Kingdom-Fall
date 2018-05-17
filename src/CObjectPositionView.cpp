@@ -15,6 +15,10 @@ CObjectPositionView::CObjectPositionView(const std::shared_ptr<CObject> &m_obj,
       m_texture(m_texture) {}
 void CObjectPositionView::UpdateObject() {
   CPosition new_position = m_object->getM_position();
+  if (m_object->isDead()) {
+    CurMap()[new_position].setM_village(nullptr);
+    return;
+  }
   if (prev_position==m_object->getM_position())
     return;
   if (prev_position.getM_x_axis()==std::numeric_limits<size_t>::max())
@@ -33,9 +37,9 @@ void CObjectPositionView::UpdateObject() {
   CurRenderer().Copy(*m_texture);
 }
 SDL2pp::Rect CObjectPositionView::PositionRect(const CPosition &m_pos) {
-  size_t cell_width = CGlobalGame::getScreen_width()/CurMap().getM_x_size();
-  size_t cell_height = CGlobalGame::getScreen_height()/CurMap().getM_y_size();
-  return SDL2pp::Rect(cell_width*m_pos.getM_x_axis(), cell_height*m_pos.getM_y_axis(), cell_width, cell_height);
+  size_t clip_width = CGlobalGame::getScreen_width()/CurMap().getM_y_size();
+  size_t clip_height = CGlobalGame::getScreen_height()/CurMap().getM_x_size();
+  return SDL2pp::Rect(clip_width*m_pos.getM_y_axis(), clip_height*m_pos.getM_x_axis(), clip_width, clip_height);
 }
 const std::shared_ptr<SDL2pp::Texture> &CObjectPositionView::getM_texture() {
   return m_texture;

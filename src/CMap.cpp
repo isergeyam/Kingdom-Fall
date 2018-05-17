@@ -88,5 +88,6 @@ void CMap::SetObjects(std::istream &is, bool units) {
       } else
         m_map[i][j].setM_village(CGlobalGame::LoadedObjects[tokens[j]]->CreateController(CPosition(i, j)));
     }
+    ++i;
   }
 }

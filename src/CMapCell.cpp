@@ -29,7 +29,7 @@ void CMapCell::setM_unit(const std::shared_ptr<CObjectController> &m_unit) {
   ++CGlobalGame::CurGlobalState;
   CMapCell::m_unit = m_unit;
 }
-void CMapCell::setM_village(const std::shared_ptr<CObjectController> &m_village) {
+void CMapCell::setM_village(std::shared_ptr<CObjectController> m_village) {
   CMapCell::m_village = m_village;
 }
 void CMapCell::setM_terrain(const std::shared_ptr<CObjectController> &m_terrain) {

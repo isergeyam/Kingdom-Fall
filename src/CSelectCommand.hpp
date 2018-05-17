@@ -9,7 +9,7 @@ class CSelectCommand : public CCommand {
   explicit CSelectCommand(CPosition m_pos_copy);
   void Proceed() override;
   void Undo() override;
-  void TryAttack(CCommand *next) override;
+  bool TryAttack(CCommand *next) override;
 };
 
 

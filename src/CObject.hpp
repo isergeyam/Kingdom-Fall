@@ -24,6 +24,7 @@ class CObject {
   bool selected;
   std::unordered_set<IObjectObserver *> m_observer_list;
   const CurrentSerializerType &m_properties;
+  bool dead;
  public:
   enum MoveProp {
     MOVE, ATTACK, FAIL
@@ -49,6 +50,8 @@ class CObject {
   const CurrentSerializerType &getM_properties() const;
   virtual std::string GetInfo() = 0;
   virtual ~CObject() = 0;
+  bool isDead() const;
+  void Die() ;
 };
 
 #endif // GAME_PROJ_OBJECT_H
