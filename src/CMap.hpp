@@ -23,6 +23,7 @@ class CMap {
   vector<CPosition> GetNeighbour(const CPosition &pos);
   void RenderMap();
   void SetObjects(std::istream &is, bool units);
+  void ToggleAbilities();
   ~CMap() = default;
 };
 

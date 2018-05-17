@@ -150,6 +150,12 @@ void CGlobalGame::StartGame() {
       CurMap().RenderMap();
       CurRenderer().Present();
     }
+    else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_SPACE) {
+      GlobalMessage("New turn");
+      CurMap().ToggleAbilities();
+      CurMap().RenderMap();
+      CurRenderer().Present();
+    }
   }
 }
 void CGlobalGame::GenerateUnits(vector<CurrentSerializerType> &m_races,

@@ -119,14 +119,14 @@ void CUnit::ToggleAutoAbilities() {
   for (auto &&it : m_properties["AutoAbilities"]) {
     auto cur_name = it["Name"].get<std::string>();
     if (cur_name=="Refresh") {
-      m_stamina = m_properties["stamina"].get<Quantity_t>;
+      m_stamina = m_properties["stamina"].get<Quantity_t>();
     } else if (cur_name=="SelfRegeneration") {
-      m_health = std::min(m_properties["Health"], m_health + it["power"].get<Quantity_t>());
+      m_health = std::min(m_properties["Health"].get<Quantity_t >(), m_health + it["power"].get<Quantity_t>());
     }
   }
 }
 void CUnit::setM_health(Quantity_t m_health) {
-  CUnit::m_health = std::min(m_properties["health"], m_health);
+  CUnit::m_health = std::min(m_properties["health"].get<Quantity_t >(), m_health);
 }
 Quantity_t CUnit::getM_health() const {
   return m_health;

@@ -10,7 +10,7 @@ class CVillage : public CObject {
   enum EState { VILLAGE_FREE, VILLAGE_OCCUPIED };
   CVillage(const CurrentSerializerType &m_properties, const CPosition &m_position);
   std::string GetInfo() override;
-  void ToggleAutoAbilities();
+  void ToggleAutoAbilities() override;
 };
 
 

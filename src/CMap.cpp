@@ -7,6 +7,8 @@
 #include <fstream>
 #include <sstream>
 #include "CControllerFactory.hpp"
+#include "CUnit.hpp"
+#include "CVillage.hpp"
 CMapCell &CMap::operator[](const CPosition &m_pos) {
   return m_map[m_pos.getM_x_axis()][m_pos.getM_y_axis()];
 }
@@ -89,5 +91,17 @@ void CMap::SetObjects(std::istream &is, bool units) {
         m_map[i][j].setM_village(CGlobalGame::LoadedObjects[tokens[j]]->CreateController(CPosition(i, j)));
     }
     ++i;
+  }
+}
+void CMap::ToggleAbilities() {
+  for (auto &it1 : m_map) {
+    for (auto &it2 : it1) {
+      if (it2.GetTerrainObject()!=nullptr)
+        it2.GetTerrainObject()->ToggleAutoAbilities();
+      if (it2.GetVillageObject()!=nullptr)
+        it2.GetVillageObject()->ToggleAutoAbilities();
+      if (it2.GetUnitObject()!=nullptr)
+        it2.GetUnitObject()->ToggleAutoAbilities();
+    }
   }
 }

@@ -19,6 +19,8 @@ public:
   Quantity_t getM_health() const;
   void setM_health(Quantity_t m_health);
   bool Attack(CUnit &m_other, const std::string &attack_type) override ;
+  void ToggleAutoAbilities() override;
+  std::string GetInfo() override;
 private:
   Quantity_t m_health;
   Quantity_t m_stamina;
@@ -28,9 +30,6 @@ private:
   Quantity_t Hit(CUnit &m_other, const CurrentSerializerType &attack_type);
   Percent_t CalcHitProbability(const CUnit &m_other);
   Quantity_t CalcHitStrength(const CUnit &m_other, const CurrentSerializerType &attack_type) const;
-  void ToggleAutoAbilities();
- public:
-  std::string GetInfo() override;
 };
 
 #endif // GAME_PROJ_CUNIT_HPP
