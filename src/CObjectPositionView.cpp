@@ -16,7 +16,7 @@ CObjectPositionView::CObjectPositionView(const std::shared_ptr<CObject> &m_obj,
 void CObjectPositionView::UpdateObject() {
   CPosition new_position = m_object->getM_position();
   if (m_object->isDead()) {
-    CurMap()[new_position].setM_village(nullptr);
+    CurMap()[new_position].setM_unit(nullptr);
     return;
   }
   if (prev_position==m_object->getM_position())

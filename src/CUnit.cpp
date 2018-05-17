@@ -58,8 +58,8 @@ Quantity_t CUnit::CalculateDistance(const CPosition &calc_position) {
 }
 CObject::MoveProp CUnit::MoveTo(CPosition new_postion) {
   if (CurMap()[new_postion].GetTopObject()->GetObject()->isInjurable()
-      && abs((int)new_postion.getM_x_axis() - (int)m_position.getM_x_axis()) <= 1
-      && abs((int)new_postion.getM_y_axis() - (int)m_position.getM_y_axis()) <= 1) {
+      && abs((int) new_postion.getM_x_axis() - (int) m_position.getM_x_axis()) <= 1
+      && abs((int) new_postion.getM_y_axis() - (int) m_position.getM_y_axis()) <= 1) {
     //CGlobalGame::GlobalMessage("Attacking object");
     return ATTACK;
   }
@@ -84,7 +84,7 @@ bool CUnit::Attack(CUnit &m_other, const std::string &attack_type) {
   std::string message;
   for (Quantity_t i = 0; i < it["count"].get<Quantity_t>(); ++i) {
     Quantity_t strength = Hit(m_other, it);
-    message += "Hit number " + std::to_string(i+1) + ", strength - " + std::to_string(strength) + "$";
+    message += "Hit number " + std::to_string(i + 1) + ", strength - " + std::to_string(strength) + "$";
   }
   CGlobalGame::GlobalMessage(message);
   return true;
@@ -95,7 +95,7 @@ Quantity_t CUnit::Hit(CUnit &m_other, const CurrentSerializerType &attack_type) 
     return 0;
   Quantity_t hit_strength = CalcHitStrength(m_other, attack_type);
   m_other.m_health -= std::min(m_other.m_health, hit_strength);
-  if (m_other.m_health == 0)
+  if (m_other.m_health==0)
     m_other.Die();
   return hit_strength;
 }
@@ -110,5 +110,6 @@ Percent_t CUnit::CalcHitProbability(const CUnit &m_other) {
 }
 std::string CUnit::GetInfo() {
   return "Name: " + m_properties["Name"].get<std::string>() + "$" + "Health: " + std::to_string(m_health) + "$" + "XP: "
-      + std::to_string(m_exp) + "$" + "Stamina: " + std::to_string(m_stamina);
+      + std::to_string(m_exp) + "$" + "Stamina: " + std::to_string(m_stamina) + "$" + "Current Defense: "
+      + std::to_string((int)(m_properties["Adaption"][CurMap()[m_position].GetTerrainObject()->getM_name()].get<Percent_t >()*100));
 }
