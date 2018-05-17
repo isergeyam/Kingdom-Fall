@@ -70,6 +70,7 @@ CObject::MoveProp CUnit::MoveTo(CPosition new_postion) {
   CurMap()[new_postion].setM_unit(CurMap()[m_position].getM_unit());
   CurMap()[m_position].setM_unit(nullptr);
   m_position = new_postion;
+  m_stamina -= CalculateDistance(new_postion);
   NotifyObservers();
   return MOVE;
 }
@@ -111,5 +112,22 @@ Percent_t CUnit::CalcHitProbability(const CUnit &m_other) {
 std::string CUnit::GetInfo() {
   return "Name: " + m_properties["Name"].get<std::string>() + "$" + "Health: " + std::to_string(m_health) + "$" + "XP: "
       + std::to_string(m_exp) + "$" + "Stamina: " + std::to_string(m_stamina) + "$" + "Current Defense: "
-      + std::to_string((int)(m_properties["Adaption"][CurMap()[m_position].GetTerrainObject()->getM_name()].get<Percent_t >()*100));
+      + std::to_string((int) (
+          m_properties["Adaption"][CurMap()[m_position].GetTerrainObject()->getM_name()].get<Percent_t>()*100));
+}
+void CUnit::ToggleAutoAbilities() {
+  for (auto &&it : m_properties["AutoAbilities"]) {
+    auto cur_name = it["Name"].get<std::string>();
+    if (cur_name=="Refresh") {
+      m_stamina = m_properties["stamina"].get<Quantity_t>;
+    } else if (cur_name=="SelfRegeneration") {
+      m_health = std::min(m_properties["Health"], m_health + it["power"].get<Quantity_t>());
+    }
+  }
+}
+void CUnit::setM_health(Quantity_t m_health) {
+  CUnit::m_health = std::min(m_properties["health"], m_health);
+}
+Quantity_t CUnit::getM_health() const {
+  return m_health;
 }

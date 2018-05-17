@@ -54,3 +54,6 @@ void CObject::Die() {
   dead = true;
   NotifyObservers();
 }
+void CObject::ToggleAutoAbilities() {
+
+}

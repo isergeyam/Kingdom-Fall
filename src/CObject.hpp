@@ -45,7 +45,8 @@ class CObject {
   void AddObserver(IObjectObserver *m_observer);
   void RemoveObserver(IObjectObserver *m_observer);
   virtual MoveProp MoveTo(CPosition m_pos);
-  void ToggleSelected();
+  virtual void ToggleSelected();
+  virtual void ToggleAutoAbilities();
   virtual bool Attack(CUnit &m_other, const std::string &attack_type);
   const CurrentSerializerType &getM_properties() const;
   virtual std::string GetInfo() = 0;
