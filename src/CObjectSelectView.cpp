@@ -7,10 +7,10 @@
 #include "CObject.hpp"
 #include "CGlobalGame.hpp"
 void CObjectSelectView::UpdateObject() {
-  CGlobalGame::GlobalMessage(m_object->GetInfo());
-  Uint8 r, g, b;
+  if (m_object->isSelected())
+    CGlobalGame::GlobalMessage(m_object->GetInfo());
   if (m_object->isHighlighted()) {
-    m_texture->SetColorMod(50, 0, 0);
+    m_texture->SetColorMod(125, 125, 125);
   } else {
     m_texture->SetColorMod();
   }

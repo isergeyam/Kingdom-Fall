@@ -34,5 +34,10 @@
       "weapon_type" : "Ruinous"
     }
   },
-	"AutoAbilities" : {}
+	"AutoAbilities" : {
+      "Refresh" : {
+        "Name" : "Refresh",
+        "type" : "refresh"
+      }
+    }
 }

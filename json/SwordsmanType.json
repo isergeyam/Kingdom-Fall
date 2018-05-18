@@ -4,8 +4,8 @@
     "Sword Hit" : {
       "Name" : "Sword Hit",
       "type" : "attack",
-      "strength" : 4,
-      "count" : 4,
+      "strength" : 50,
+      "count" : 5,
       "weapon_type" : "Cutting",
       "range_type" : "melee"
     }

@@ -53,6 +53,9 @@ class CObject {
   virtual std::string GetInfo() = 0;
   virtual ~CObject() = 0;
   bool isDead() const;
+  void setHighlighted(bool highlighted);
+  void setSelected(bool selected);
+  bool isSelected() const;
   bool isHighlighted() const;
   void Die() ;
 };

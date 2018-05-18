@@ -121,7 +121,7 @@ void CUnit::ToggleAutoAbilities() {
   for (auto &&it : m_properties["AutoAbilities"]) {
     auto cur_name = it["Name"].get<std::string>();
     if (cur_name=="Refresh") {
-      m_stamina = m_properties["stamina"].get<Quantity_t>();
+      m_stamina = m_properties["Stamina"].get<Quantity_t>();
     } else if (cur_name=="SelfRegeneration") {
       m_health = std::min(m_properties["Health"].get<Quantity_t >(), m_health + it["power"].get<Quantity_t>());
     }
@@ -135,4 +135,15 @@ Quantity_t CUnit::getM_health() const {
 }
 void CUnit::ToggleSelected() {
   CObject::ToggleSelected();
+  for (int i=0;i<CurMap().getM_x_size();++i) {
+    for (int j=0;j<CurMap().getM_y_size();++j) {
+      CPosition cur_pos(i, j);
+      auto cur_terrain = CurMap()[cur_pos].GetTerrainObject();
+      if (CanMove(cur_pos)) {
+        cur_terrain->setHighlighted(true);
+      } else
+        cur_terrain->setHighlighted(false);
+      cur_terrain->NotifyObservers();
+    }
+  }
 }

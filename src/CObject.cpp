@@ -61,3 +61,12 @@ void CObject::ToggleAutoAbilities() {
 bool CObject::isHighlighted() const {
   return highlighted;
 }
+void CObject::setHighlighted(bool highlighted) {
+  CObject::highlighted = highlighted;
+}
+void CObject::setSelected(bool selected) {
+  CObject::selected = selected;
+}
+bool CObject::isSelected() const {
+  return selected;
+}

@@ -1,7 +1,6 @@
 //
 // Created by sg on 08.05.18.
 //
-#pragma once
 #include "IObjectObserver.hpp"
 #include "CObject.hpp"
 IObjectObserver::IObjectObserver(const std::shared_ptr<CObject> &m_object_copy) : m_object(std::move(m_object_copy)) {

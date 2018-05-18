@@ -15,26 +15,8 @@ CObjectPositionView::CObjectPositionView(const std::shared_ptr<CObject> &m_obj,
       m_texture(m_texture) {}
 void CObjectPositionView::UpdateObject() {
   CPosition new_position = m_object->getM_position();
-  if (m_object->isDead()) {
+  if (m_object->isDead())
     CurMap()[new_position].setM_unit(nullptr);
-    return;
-  }
-  if (prev_position==m_object->getM_position())
-    return;
-  if (prev_position.getM_x_axis()==std::numeric_limits<size_t>::max())
-    prev_position = new_position;
-  auto prev_rect = PositionRect(prev_position);
-  auto new_rect = PositionRect(new_position);
-  CMapCell &prev_cell = CurMap()[prev_position];
-  CMapCell &new_cell = CurMap()[new_position];
-  CurRenderer().SetViewport(prev_rect);
-  CurRenderer()
-      .Copy(*prev_cell.getM_terrain()->GetPositionView()->getM_texture());
-  if (prev_cell.getM_village()!=nullptr)
-    CurRenderer()
-        .Copy(*prev_cell.getM_village()->GetPositionView()->getM_texture());
-  CurRenderer().SetViewport(new_rect);
-  CurRenderer().Copy(*m_texture);
 }
 SDL2pp::Rect CObjectPositionView::PositionRect(const CPosition &m_pos) {
   size_t clip_width = CGlobalGame::getScreen_width()/CurMap().getM_y_size();

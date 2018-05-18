@@ -67,10 +67,18 @@ void CMap::RenderMap() {
   for (auto &it1 : m_map) {
     for (auto &it2 : it1) {
       it2.getM_terrain()->GetPositionView()->RenderObject();
-      if (it2.getM_village() != nullptr)
+      it2.GetTerrainObject()->setHighlighted(false);
+      it2.GetTerrainObject()->setSelected(false);
+      if (it2.getM_village() != nullptr) {
         it2.getM_village()->GetPositionView()->RenderObject();
-      if (it2.getM_unit() != nullptr)
+        it2.GetVillageObject()->setHighlighted(false);
+        it2.GetVillageObject()->setSelected(false);
+      }
+      if (it2.getM_unit() != nullptr) {
         it2.getM_unit()->GetPositionView()->RenderObject();
+        it2.GetUnitObject()->setHighlighted(false);
+        it2.GetUnitObject()->setSelected(false);
+      }
     }
   }
 }
