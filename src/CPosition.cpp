@@ -33,3 +33,7 @@ bool CPosition::operator==(const CPosition &rhs) const {
 bool CPosition::operator!=(const CPosition &rhs) const {
   return !(rhs==*this);
 }
+std::ostream &operator<<(std::ostream &os, const CPosition &position) {
+  os << position.m_x_axis << " " << position.m_y_axis;
+  return os;
+}

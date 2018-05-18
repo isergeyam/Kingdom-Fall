@@ -28,8 +28,6 @@ Quantity_t CUnit::CalculateDistance(const CPosition &calc_position) {
             m_distances.end(),
             vector<Quantity_t>(CurMap().getM_y_size(), CGlobalGame::MaxDistance));
   m_distances[m_position.getM_x_axis()][m_position.getM_y_axis()] = 0;
-  std::vector<std::vector<CPosition >> m_prev(m_distances.size(), std::vector<CPosition>(m_distances[0].size()));
-  //m_prev[m_position.getM_x_axis()][m_position.getM_y_axis()] = m_position;
   std::priority_queue<std::pair<Quantity_t, CPosition> > m_queue;
   m_queue.push(std::make_pair(0, m_position));
   while (!m_queue.empty()) {
@@ -140,6 +138,7 @@ void CUnit::ToggleSelected() {
       CPosition cur_pos(i, j);
       auto cur_terrain = CurMap()[cur_pos].GetTerrainObject();
       if (CanMove(cur_pos)) {
+        std::cout << "Highlight position " << cur_pos << std::endl;
         cur_terrain->setHighlighted(true);
       } else
         cur_terrain->setHighlighted(false);

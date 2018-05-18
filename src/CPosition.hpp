@@ -5,6 +5,7 @@
 #ifndef GAME_PROJ_POSITION_H
 #define GAME_PROJ_POSITION_H
 
+#include <ostream>
 #include "defines.hpp"
 class CPosition {
  public:
@@ -20,6 +21,8 @@ class CPosition {
  private:
   Position_t m_x_axis;
   Position_t m_y_axis;
+ public:
+  friend std::ostream &operator<<(std::ostream &os, const CPosition &position);
 };
 
 

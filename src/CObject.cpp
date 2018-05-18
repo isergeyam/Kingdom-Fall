@@ -53,7 +53,6 @@ bool CObject::isDead() const {
 }
 void CObject::Die() {
   dead = true;
-  NotifyObservers();
 }
 void CObject::ToggleAutoAbilities() {
 
