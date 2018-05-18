@@ -36,8 +36,7 @@
   },
 	"AutoAbilities" : {
       "Refresh" : {
-        "Name" : "Refresh",
-        "type" : "refresh"
+        "type" : "Refresh"
       }
     }
 }

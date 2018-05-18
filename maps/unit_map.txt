@@ -1,10 +1,10 @@
 HumanSwordsman . . . . . . . . .
+. . . . . HumanSwordsman . . . .
+. . . . . . . . . .
+. . DwarfSwordsman DwarfSwordsman . . . . . .
+. DwarfSwordsman DwarfSwordsman . . . . . . .
 . . . . . . . . . .
 . . . . . . . . . .
-. . . . . . . . . .
-. . . . . . . . . .
-. . . . . . . . . .
-. . . . . . . . . .
-. . . . . . . . . .
-. . . . . . . . . .
-. . . . . . . . . HumanSwordsman
+. . . ElfSwordsman ElfSwordsman . . . . .
+. . . . . ElfSwordsman ElfSwordsman . . .
+. . . HumanSwordsman . . . . . HumanSwordsman

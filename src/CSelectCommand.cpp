@@ -47,6 +47,8 @@ bool CSelectCommand::TryAttack(CCommand *next) {
         SDL_WaitEvent(&event);
         if (event.type==SDL_KEYDOWN) {
           wchar_t code = event.key.keysym.sym;
+          if (code == SDLK_ESCAPE)
+            break;
           if (!std::isdigit(code) || code-'0' >= was) {
             CGlobalGame::GlobalMessage(message + "Invalid code given");
             CurMap().RenderMap();

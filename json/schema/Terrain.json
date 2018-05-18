@@ -12,11 +12,15 @@
     },
     "Patency": {
       "type": "integer"
+    },
+    "icon" : {
+      "type" : "string"
     }
   },
   "required": [
     "Pass",
     "FlyPass",
-    "Patency"
+    "Patency",
+    "icon"
   ]
 }

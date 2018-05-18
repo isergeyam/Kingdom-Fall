@@ -23,7 +23,7 @@ public:
   static CurrentValidator m_race_validator;
   static CurrentValidator m_type_validator;
   void setM_race(CurrentSerializerType &&m_race);
-  void setM_type(CurrentSerializerType &&m_type);
+  void setM_type(const CurrentSerializerType &m_type);
   void setM_custom(const CurrentSerializerType &m_custom);
   template <typename T> void AddAttr(std::string, T);
   std::shared_ptr<CUnitFactory> GetFactory();

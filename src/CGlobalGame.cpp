@@ -7,7 +7,6 @@
 #include "CUnitFactoryBuilder.hpp"
 #include "CControllerFactory.hpp"
 #include "CSelectCommand.hpp"
-#include <SDL2/SDL.h>
 template<typename TO, typename FROM>
 std::unique_ptr<TO> static_unique_pointer_cast(std::unique_ptr<FROM> &&old) {
   return std::unique_ptr<TO>{static_cast<TO *>(old.release())};
@@ -37,7 +36,7 @@ Quantity_t CGlobalGame::CurGlobalState = 0;
 //  m_settings = std::make_shared<CurrentSerializerType>(new_settings);
 //}
 void CGlobalGame::InitializeObjects(const vector<CurrentSerializerType> &m_objects) {
-  for (auto cur_object : m_objects) {
+  for (auto &cur_object : m_objects) {
     std::string cur_name = cur_object["Name"].get<std::string>();
     if (cur_name.find("Terrain")!=std::string::npos) {
       std::shared_ptr<IObjectFactory> factory_ptr =
@@ -54,7 +53,7 @@ void CGlobalGame::InitializeObjects(const vector<CurrentSerializerType> &m_objec
           static_unique_pointer_cast<IControllerFactory>(std::make_unique<CControllerFactory>(factory_ptr));
       CGlobalGame::LoadedObjects
           .insert(std::make_pair(cur_name, std::move(controller_ptr)));
-    }
+    } else throw std::invalid_argument("Object name doesn't match");
   }
 }
 void CGlobalGame::GlobalSetUp(std::istream &m_settings) {
@@ -99,7 +98,7 @@ void CGlobalGame::InitSerializerVector(CurrentSerializerType &cur_settings,
                                        const std::string &m_field) {
   for (auto &it : cur_settings[m_field]) {
     std::ifstream iCurObject(it.get<std::__cxx11::string>());
-    objects_vector.push_back(CJsonSerializerAdapter::Deserialize(iCurObject));
+    objects_vector.push_back(CurrentSerializer::Deserialize(iCurObject));
   }
 }
 size_t CGlobalGame::getScreen_width() {
@@ -128,29 +127,27 @@ void CGlobalGame::StartGame() {
     SDL_WaitEvent(&event);
     if (event.type==SDL_QUIT)
       break;
-    if (event.type==SDL_MOUSEBUTTONUP && event.button.button == SDL_BUTTON_LEFT) {
+    if (event.type==SDL_MOUSEBUTTONUP && event.button.button==SDL_BUTTON_LEFT) {
       CurRenderer().Clear();
       auto x = event.button.y;
       auto y = event.button.x;
       if (x > screen_width)
         continue;
       CPosition command_position(x/clip_width, y/clip_height);
-      std::cout << command_position.getM_x_axis() << " " << command_position.getM_y_axis() << std::endl ;
+      std::cout << command_position.getM_x_axis() << " " << command_position.getM_y_axis() << std::endl;
       CCommand *new_command = new CSelectCommand(command_position);
       if (m_command!=nullptr) {
         if (m_command->TryAttack(new_command))
           m_command = nullptr;
         else
           m_command = new_command;
-      }
-      else {
+      } else {
         m_command = new_command;
         new_command->Proceed();
       }
       CurMap().RenderMap();
       CurRenderer().Present();
-    }
-    else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_SPACE) {
+    } else if (event.type==SDL_KEYDOWN && event.key.keysym.sym==SDLK_SPACE) {
       GlobalMessage("New turn");
       CurMap().ToggleAbilities();
       CurMap().RenderMap();
@@ -164,7 +161,7 @@ void CGlobalGame::GenerateUnits(vector<CurrentSerializerType> &m_races,
     for (CurrentSerializerType &it_type : m_types) {
       CUnitFactoryBuilder m_builder;
       m_builder.setM_race(std::move(it_race));
-      m_builder.setM_type(std::move(it_type));
+      m_builder.setM_type(it_type);
       CGlobalGame::LoadedObjects.insert(std::make_pair(
           m_builder.getM_race()["Name"].get<std::string>() + m_builder.getM_type()["Name"].get<std::string>(),
           static_unique_pointer_cast<IControllerFactory>(std::make_unique<CControllerFactory>(m_builder

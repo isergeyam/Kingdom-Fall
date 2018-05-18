@@ -117,10 +117,10 @@ std::string CUnit::GetInfo() {
 }
 void CUnit::ToggleAutoAbilities() {
   for (auto &&it : m_properties["AutoAbilities"]) {
-    auto cur_name = it["Name"].get<std::string>();
+    auto cur_name = it["type"].get<std::string>();
     if (cur_name=="Refresh") {
       m_stamina = m_properties["Stamina"].get<Quantity_t>();
-    } else if (cur_name=="SelfRegeneration") {
+    } else if (cur_name=="Heal") {
       m_health = std::min(m_properties["Health"].get<Quantity_t >(), m_health + it["power"].get<Quantity_t>());
     }
   }

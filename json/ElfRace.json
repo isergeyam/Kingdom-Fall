@@ -12,8 +12,8 @@
   "Agility" : 1.05,
   "AutoAbilities" : {
     "Healing" : {
-      "type" : "heal",
-      "force" : 2
+      "type" : "Heal",
+      "power" : 2
     }
   }
 }

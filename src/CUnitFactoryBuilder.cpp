@@ -8,9 +8,9 @@ void CUnitFactoryBuilder::setM_race(CurrentSerializerType &&m_race) {
   m_race_validator.validate(m_race);
   CUnitFactoryBuilder::m_race = std::move(m_race);
 }
-void CUnitFactoryBuilder::setM_type(CurrentSerializerType &&m_type) {
+void CUnitFactoryBuilder::setM_type(const CurrentSerializerType &m_type) {
   m_type_validator.validate(m_type);
-  CUnitFactoryBuilder::m_type = std::move(m_type);
+  CUnitFactoryBuilder::m_type = m_type;
 }
 template<typename T>
 void CUnitFactoryBuilder::AddAttr(std::string m_attr, T m_val) {

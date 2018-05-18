@@ -8,10 +8,15 @@
   "VillageMap" : "maps/village_map.txt",
   "DefaultUnit" : "json/DefaultUnit.json",
   "objects": [
-    "json/GrassTerrain.json"
+    "json/GrassTerrain.json",
+    "json/DungeonTerrain.json",
+    "json/RockTerrain.json",
+    "json/ForestTerrain.json"
   ],
   "races" : [
-    "json/HumanRace.json"
+    "json/HumanRace.json",
+    "json/DwarfRace.json",
+    "json/ElfRace.json"
   ],
   "types" : [
     "json/SwordsmanType.json"

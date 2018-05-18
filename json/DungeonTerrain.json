@@ -1,6 +1,7 @@
 {
-  "Name" : "Dungeon",
+  "Name" : "DungeonTerrain",
   "Pass" : true,
   "FlyPass" : true,
-  "Patency" : 15
+  "Patency" : 15,
+  "icon" : "data/DungeonTerrain.png"
 }
