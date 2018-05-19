@@ -16,7 +16,9 @@ private:
  public:
   Quantity_t getM_patency() const;
   const std::string &getM_name() const;
-  CTerrain(const CurrentSerializerType &m_prop, const CPosition &m_position);
+  CTerrain(const CurrentSerializerType &m_prop,
+             const CPosition &m_position,
+             std::shared_ptr<CGlobalGame> m_game);
   std::string GetInfo() override;
 };
 

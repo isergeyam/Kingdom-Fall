@@ -11,7 +11,9 @@
 using std::vector;
 class CUnit : public CObject {
 public:
-  explicit CUnit(const CurrentSerializerType &, const CPosition &);
+  explicit CUnit(const CurrentSerializerType &,
+                   const CPosition &,
+                   std::shared_ptr<CGlobalGame> m_game);
   Quantity_t CalculateDistance(const CPosition &calc_position);
   Quantity_t CalculateDistance(const CMapCell &calc_position);
   bool CanMove(const CPosition &new_position);

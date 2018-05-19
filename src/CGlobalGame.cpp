@@ -16,9 +16,6 @@ std::unique_ptr<CMap> &CGlobalGame::Map() {
     m_map = std::make_unique<CMap>();
   return m_map;
 }
-std::random_device CGlobalGame::m_device;
-std::default_random_engine CGlobalGame::m_engine(CGlobalGame::m_device());
-std::uniform_real_distribution<Percent_t> CGlobalGame::m_random_percentage(0, 1);
 Percent_t CGlobalGame::GetRandomPercent() {
   return m_random_percentage(m_engine);
 }
@@ -181,6 +178,16 @@ void CGlobalGame::GlobalMessage(std::string message) {
                     SDL2pp::Rect(0, cur_pos*m_font->GetHeight(), text_sprite.GetWidth(), text_sprite.GetHeight()));
     ++cur_pos;
   }
+}
+CGlobalGame::CGlobalGame() : m_device(), m_engine(m_device), m_random_percentage(0, 1) {}
+CMap &CGlobalGame::CurMap() {
+  return *Map();
+}
+SDL2pp::Renderer &CGlobalGame::CurRenderer() {
+  return *getM_renderer();
+}
+SDL2pp::Window &CGlobalGame::CurWindow() {
+  return *getM_window();
 }
 std::unique_ptr<CMap> CGlobalGame::m_map;
 std::map<std::string, std::unique_ptr<IControllerFactory> > CGlobalGame::LoadedObjects;

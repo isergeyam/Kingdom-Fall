@@ -11,7 +11,9 @@ CVillage::CVillage(const CurrentSerializerType &m_properties, const CPosition &m
                                                                                                      true,
                                                                                                      true,
                                                                                                      false,
-                                                                                                     m_properties) {}
+                                                                                                     m_properties,
+                                                                                                     std::shared_ptr<
+                                                                                                         CGlobalGame>()) {}
 std::string CVillage::GetInfo() {
   return "Name: " + m_properties["Name"].get<std::string>();
 }

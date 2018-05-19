@@ -12,6 +12,7 @@
 #include "CurrentSerializer.hpp"
 #include <unordered_set>
 #include <bits/shared_ptr.h>
+class CGlobalGame;
 class CUnit;
 class CObject {
   //std::string m_master;
@@ -26,6 +27,7 @@ class CObject {
   std::unordered_set<IObjectObserver *> m_observer_list;
   const CurrentSerializerType &m_properties;
   bool dead;
+  std::shared_ptr<CGlobalGame> m_global_game;
  public:
   enum MoveProp {
     MOVE, ATTACK, FAIL
@@ -36,7 +38,8 @@ class CObject {
             bool is_passable,
             bool is_fly_passable,
             bool is_movable,
-            const CurrentSerializerType &m_prop);
+            const CurrentSerializerType &m_prop,
+            std::shared_ptr<CGlobalGame> m_global_game);
   const CPosition &getM_position() const;
   bool isInjurable() const;
   bool isPassable() const;
