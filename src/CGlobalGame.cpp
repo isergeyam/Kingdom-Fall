@@ -49,8 +49,13 @@ void CGlobalGame::GlobalSetUp(std::istream &m_settings) {
   std::ifstream iMap(cur_settings["Map"].get<std::string>());
   std::ifstream iUnitMap(cur_settings["UnitMap"].get<std::string>());
   std::ifstream iVillageMap(cur_settings["VillageMap"].get<std::string>());
-  CUnitFactoryBuilder::m_type_validator.set_schema(CurrentSerializer::Deserialize(iValidateType));
-  CUnitFactoryBuilder::m_race_validator.set_schema(CurrentSerializer::Deserialize(iValidateRace));
+  m_validate_unit = std::make_shared<CurrentValidator >();
+  m_validate_unit->set_schema(CurrentSerializer::Deserialize(iValidateUnit));
+  CurrentValidator m_val1, m_val2;
+  m_val1.set_schema(CurrentSerializer::Deserialize(iValidateRace));
+  m_val2.set_schema(CurrentSerializer::Deserialize(iValidateType));
+  CUnitFactoryBuilder::m_race_validator = std::move(m_val1);
+  CUnitFactoryBuilder::m_type_validator = std::move(m_val2);
   CUnitFactoryBuilder::setM_default(std::make_unique<CurrentSerializerType>(CurrentSerializer::Deserialize(iDefaultUnit)));
   std::vector<CurrentSerializerType> objects_vector;
   std::vector<CurrentSerializerType> races_vector;
@@ -71,8 +76,9 @@ void CGlobalGame::GlobalSetUp(std::istream &m_settings) {
   m_map = std::make_unique<CMap>(iMap);
   m_map->SetObjects(iVillageMap, false);
   m_map->SetObjects(iUnitMap, true);
-  m_font = std::make_unique<SDL2pp::Font>(cur_settings["font_name"].get<std::string>(),
-                                          cur_settings["font_size"].get<int>());
+  if (isWith_graphics())
+    m_font = std::make_unique<SDL2pp::Font>(cur_settings["font_name"].get<std::string>(),
+                                            cur_settings["font_size"].get<int>());
 }
 void CGlobalGame::InitSerializerVector(CurrentSerializerType &cur_settings,
                                        vector<CurrentSerializerType> &objects_vector,
@@ -120,7 +126,6 @@ void CGlobalGame::StartGame() {
       if (x > screen_width)
         continue;
       CPosition command_position(x/clip_width, y/clip_height);
-      std::cout << command_position.getM_x_axis() << " " << command_position.getM_y_axis() << std::endl;
       CCommand *new_command = new CSelectCommand(command_position);
       if (m_command!=nullptr) {
         if (m_command->TryAttack(new_command))
@@ -184,13 +189,13 @@ CMap &CGlobalGame::CurMap() {
 SDL2pp::Renderer &CGlobalGame::CurRenderer() {
   return *getM_renderer();
 }
-SDL2pp::Window &CGlobalGame::CurWindow() {
-  return *getM_window();
-}
 std::shared_ptr<CGlobalGame> CGlobalGame::Instance() {
-  if (m_instance == nullptr)
+  if (m_instance==nullptr)
     m_instance = std::make_shared<CGlobalGame>();
   return m_instance;
+}
+const std::shared_ptr<CurrentValidator> &CGlobalGame::getM_validate_unit() const {
+  return m_validate_unit;
 }
 const Quantity_t CGlobalGame::MaxDistance;
 std::shared_ptr<CGlobalGame> CGlobalGame::m_instance;

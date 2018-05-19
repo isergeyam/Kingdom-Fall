@@ -23,11 +23,11 @@ class CGlobalGame {
   std::unique_ptr<SDL2pp::Window> m_window;
   std::unique_ptr<SDL2pp::Renderer> m_renderer;
   std::unique_ptr<SDL2pp::Font> m_font;
+  std::shared_ptr<CurrentValidator > m_validate_unit;
   bool with_graphics;
   void InitSerializerVector(CurrentSerializerType &cur_settings,
                             vector<CurrentSerializerType> &objects_vector,
                             const std::string &m_field);
-  void InitializeObjects(const vector<CurrentSerializerType> &m_objects);
   void GenerateUnits(vector<CurrentSerializerType> &m_races, vector<CurrentSerializerType> &m_types);
   static std::shared_ptr<CGlobalGame> m_instance;
  public:
@@ -38,9 +38,8 @@ class CGlobalGame {
   void GlobalSetUp(std::istream &m_string = std::cin);
   CGlobalGame &operator=(CGlobalGame &) = delete;
   std::unique_ptr<CMap> & Map();
-  inline CMap& CurMap();
-  inline SDL2pp::Renderer& CurRenderer();
-  inline SDL2pp::Window& CurWindow();
+  CMap& CurMap();
+  SDL2pp::Renderer& CurRenderer();
   Percent_t GetRandomPercent();
   static const Quantity_t MaxDistance = 1000000;
   Quantity_t CurGlobalState;
@@ -52,4 +51,6 @@ class CGlobalGame {
   void StartGame();
   void GlobalMessage(std::string message);
   static std::shared_ptr<CGlobalGame> Instance();
+  const std::shared_ptr<CurrentValidator> &getM_validate_unit() const;
+  void InitializeObjects(const vector<CurrentSerializerType> &m_objects);
 };

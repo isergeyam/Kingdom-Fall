@@ -10,7 +10,7 @@ class IObjectObserver {
  protected:
   std::shared_ptr<CObject> m_object;
  public:
-  explicit IObjectObserver(const std::shared_ptr<CObject> &m_object_copy);
+  explicit IObjectObserver(std::shared_ptr<CObject> m_object_copy);
   virtual void UpdateObject() = 0;
   const std::shared_ptr<CObject> &getM_object() const;
   virtual ~IObjectObserver() = default;

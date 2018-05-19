@@ -1,34 +1,43 @@
 {
   "Abilities": {
     "Hand Hit": {
+      "Name": "Hand Hit",
       "count": 3,
       "range_type": "melee",
       "strength": 2,
-      "type": "attack"
+      "type": "attack",
+      "weapon_type": "Ruinous"
     },
     "Sword Hit": {
-      "count": 4,
+      "Name": "Sword Hit",
+      "count": 5,
       "range_type": "melee",
-      "strength": 4,
-      "type": "attack"
+      "strength": 50,
+      "type": "attack",
+      "weapon_type": "Cutting"
     }
   },
   "Adaption": {
-    "Dungeon": 0.81,
-    "Field": 0.9,
-    "Forest": 0.9,
-    "Grass": 0.99,
-    "Rock": 0.81
+    "DungeonTerrain": 0.36,
+    "FieldTerrain": 0.4,
+    "ForestTerrain": 0.4,
+    "GrassTerrain": 0.44,
+    "RockTerrain": 0.36
   },
   "Agility": 1.0,
-  "AutoAbilities": {},
+  "AutoAbilities": {
+    "Refresh": {
+      "type": "Refresh"
+    }
+  },
   "Health": 100,
+  "Name": "HumanSwordsman",
   "Patency": {
-    "Dungeon": 0.81,
-    "Field": 0.9,
-    "Forest": 0.9,
-    "Grass": 0.99,
-    "Rock": 0.81
+    "DungeonTerrain": 0.36,
+    "FieldTerrain": 0.4,
+    "ForestTerrain": 0.4,
+    "GrassTerrain": 0.44,
+    "RockTerrain": 0.36
   },
   "Race": "Human",
   "Resistance": {
@@ -39,5 +48,6 @@
   },
   "Stamina": 100,
   "Strength": 1.0,
-  "Type": "Swordsman"
+  "Type": "Swordsman",
+  "icon": "data/HumanSwordsman.png"
 }

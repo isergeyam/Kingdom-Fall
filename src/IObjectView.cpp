@@ -3,4 +3,4 @@
 //
 
 #include "IObjectView.hpp"
-IObjectView::IObjectView(const std::shared_ptr<CObject> &m_object_copy) : IObjectObserver(m_object_copy) {}
+IObjectView::IObjectView(std::shared_ptr<CObject> m_object_copy) : IObjectObserver(std::move(m_object_copy)) {}

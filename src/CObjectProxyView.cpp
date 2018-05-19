@@ -6,7 +6,7 @@
 void CObjectProxyView::UpdateObject() {
 
 }
-CObjectProxyView::CObjectProxyView(const std::shared_ptr<CObject> &m_object) : IObjectView(m_object) {}
+CObjectProxyView::CObjectProxyView(std::shared_ptr<CObject> m_object) : IObjectView(std::move(m_object)) {}
 const std::shared_ptr<SDL2pp::Texture> &CObjectProxyView::getM_texture() {
   return nullptr;
 }

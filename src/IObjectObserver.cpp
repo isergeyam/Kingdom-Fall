@@ -3,7 +3,7 @@
 //
 #include "IObjectObserver.hpp"
 #include "CObject.hpp"
-IObjectObserver::IObjectObserver(const std::shared_ptr<CObject> &m_object_copy) : m_object(std::move(m_object_copy)) {
+IObjectObserver::IObjectObserver(std::shared_ptr<CObject> m_object_copy) : m_object(std::move(m_object_copy)) {
   m_object->AddObserver(this);
 }
 const std::shared_ptr<CObject> &IObjectObserver::getM_object() const {

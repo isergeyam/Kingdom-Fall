@@ -2,8 +2,9 @@
 // Created by sg on 10.05.18.
 //
 #include "CObjectFactoryValidateDecorator.hpp"
-CObjectFactoryValidateDecorator::CObjectFactoryValidateDecorator(const std::shared_ptr<IObjectFactory> &my_factory)
-    : my_factory(my_factory) {
+CObjectFactoryValidateDecorator::CObjectFactoryValidateDecorator(std::shared_ptr<IObjectFactory> my_copy_factory,
+                                                                 std::unique_ptr<CurrentValidator> &&m_copy_validator)
+    : my_factory(std::move(my_copy_factory)), m_validator(std::move(m_copy_validator)) {
   m_validator->validate(my_factory->getM_properties());
 }
 std::shared_ptr<CObject> CObjectFactoryValidateDecorator::CreateObject(const CPosition &position) {

@@ -13,8 +13,8 @@ CObjectController::CObjectController(const std::shared_ptr<CObject> &m_object,
         std::static_pointer_cast<IObjectView>(std::make_shared<CObjectPositionView>(m_object, this, m_texture));
     m_select_view = std::static_pointer_cast<IObjectView>(std::make_shared<CObjectSelectView>(m_object, this, m_texture));
   } else {
-    m_position_view = std::static_pointer_cast<IObjectView>(std::make_shared<CObjectProxyView>());
-    m_select_view = std::static_pointer_cast<IObjectView>(std::make_shared<CObjectProxyView>());
+    m_position_view = std::static_pointer_cast<IObjectView>(std::make_shared<CObjectProxyView>(m_object));
+    m_select_view = std::static_pointer_cast<IObjectView>(std::make_shared<CObjectProxyView>(m_object));
   }
 }
 void CObjectController::SetObjectPosition(CPosition m_pos) {

@@ -134,11 +134,7 @@ void CUnit::ToggleSelected() {
     for (int j = 0; j < CGlobalGame::Instance()->CurMap().getM_y_size(); ++j) {
       CPosition cur_pos(i, j);
       auto cur_terrain = CGlobalGame::Instance()->CurMap()[cur_pos].GetTerrainObject();
-      if (CanMove(cur_pos)) {
-        std::cout << "Highlight position " << cur_pos << std::endl;
-        cur_terrain->setHighlighted(true);
-      } else
-        cur_terrain->setHighlighted(false);
+      cur_terrain->setHighlighted(CanMove(cur_pos));
       cur_terrain->NotifyObservers();
     }
   }

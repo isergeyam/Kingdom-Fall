@@ -3,27 +3,28 @@
   "TypeValidator": "json/schema/Type.json",
   "RaceValidator": "json/schema/Race.json",
   "TerrainValidator": "json/schema/Terrain.json",
-  "Map": "maps/terrain_map.txt",
-  "UnitMap" : "maps/unit_map.txt",
-  "VillageMap" : "maps/village_map.txt",
-  "DefaultUnit" : "json/DefaultUnit.json",
+  "Map": "test/data/map3.txt",
+  "UnitMap": "test/data/map_unit3.txt",
+  "VillageMap": "test/data/map_unit3.txt",
+  "DefaultUnit": "json/DefaultUnit.json",
   "objects": [
     "json/GrassTerrain.json",
     "json/DungeonTerrain.json",
     "json/RockTerrain.json",
-    "json/ForestTerrain.json"
+    "json/ForestTerrain.json",
+    "json/HighRockTerrain.json"
   ],
-  "races" : [
+  "races": [
     "json/HumanRace.json",
     "json/DwarfRace.json",
     "json/ElfRace.json"
   ],
-  "types" : [
+  "types": [
     "json/SwordsmanType.json"
   ],
-  "width" : 640,
-  "height" : 480,
-  "enable_graphics" : true,
-  "font_name" : "data/Vera.ttf",
-  "font_size" : 25
+  "width": 1320,
+  "height": 1024,
+  "enable_graphics": false,
+  "font_name": "data/Vera.ttf",
+  "font_size": 25
 }
