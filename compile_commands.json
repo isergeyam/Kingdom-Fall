@@ -1,0 +1,37 @@
+[
+{
+  "directory": "/home/sg/mipt/homework/prog_tech/Kingdom_Fall",
+  "command": "/usr/bin/c++    -I/home/linuxbrew/.linuxbrew/Cellar/nlohmann_json/3.1.0/include  -fsanitize=address -g -Wall   -std=gnu++11 -o CMakeFiles/MyTest.dir/src/CObject.cpp.o -c /home/sg/mipt/homework/prog_tech/Kingdom_Fall/src/CObject.cpp",
+  "file": "/home/sg/mipt/homework/prog_tech/Kingdom_Fall/src/CObject.cpp"
+},
+{
+  "directory": "/home/sg/mipt/homework/prog_tech/Kingdom_Fall",
+  "command": "/usr/bin/c++    -I/home/linuxbrew/.linuxbrew/Cellar/nlohmann_json/3.1.0/include  -fsanitize=address -g -Wall   -std=gnu++11 -o CMakeFiles/MyTest.dir/src/CPosition.cpp.o -c /home/sg/mipt/homework/prog_tech/Kingdom_Fall/src/CPosition.cpp",
+  "file": "/home/sg/mipt/homework/prog_tech/Kingdom_Fall/src/CPosition.cpp"
+},
+{
+  "directory": "/home/sg/mipt/homework/prog_tech/Kingdom_Fall",
+  "command": "/usr/bin/c++    -I/home/linuxbrew/.linuxbrew/Cellar/nlohmann_json/3.1.0/include  -fsanitize=address -g -Wall   -std=gnu++11 -o CMakeFiles/MyTest.dir/src/CUnit.cpp.o -c /home/sg/mipt/homework/prog_tech/Kingdom_Fall/src/CUnit.cpp",
+  "file": "/home/sg/mipt/homework/prog_tech/Kingdom_Fall/src/CUnit.cpp"
+},
+{
+  "directory": "/home/sg/mipt/homework/prog_tech/Kingdom_Fall",
+  "command": "/usr/bin/c++    -I/home/linuxbrew/.linuxbrew/Cellar/nlohmann_json/3.1.0/include  -fsanitize=address -g -Wall   -std=gnu++11 -o CMakeFiles/MyTest.dir/src/CField.cpp.o -c /home/sg/mipt/homework/prog_tech/Kingdom_Fall/src/CField.cpp",
+  "file": "/home/sg/mipt/homework/prog_tech/Kingdom_Fall/src/CField.cpp"
+},
+{
+  "directory": "/home/sg/mipt/homework/prog_tech/Kingdom_Fall",
+  "command": "/usr/bin/c++    -I/home/linuxbrew/.linuxbrew/Cellar/nlohmann_json/3.1.0/include  -fsanitize=address -g -Wall   -std=gnu++11 -o CMakeFiles/MyTest.dir/src/CUnitFactoryBuilder.cpp.o -c /home/sg/mipt/homework/prog_tech/Kingdom_Fall/src/CUnitFactoryBuilder.cpp",
+  "file": "/home/sg/mipt/homework/prog_tech/Kingdom_Fall/src/CUnitFactoryBuilder.cpp"
+},
+{
+  "directory": "/home/sg/mipt/homework/prog_tech/Kingdom_Fall",
+  "command": "/usr/bin/c++    -I/home/linuxbrew/.linuxbrew/Cellar/nlohmann_json/3.1.0/include  -fsanitize=address -g -Wall   -std=gnu++11 -o CMakeFiles/MyTest.dir/src/CUnitFactory.cpp.o -c /home/sg/mipt/homework/prog_tech/Kingdom_Fall/src/CUnitFactory.cpp",
+  "file": "/home/sg/mipt/homework/prog_tech/Kingdom_Fall/src/CUnitFactory.cpp"
+},
+{
+  "directory": "/home/sg/mipt/homework/prog_tech/Kingdom_Fall",
+  "command": "/usr/bin/c++    -I/home/linuxbrew/.linuxbrew/Cellar/nlohmann_json/3.1.0/include  -fsanitize=address -g -Wall   -std=gnu++11 -o CMakeFiles/MyTest.dir/test/test.cpp.o -c /home/sg/mipt/homework/prog_tech/Kingdom_Fall/test/test.cpp",
+  "file": "/home/sg/mipt/homework/prog_tech/Kingdom_Fall/test/test.cpp"
+}
+]

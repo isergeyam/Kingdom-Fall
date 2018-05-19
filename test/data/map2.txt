@@ -1,0 +1,5 @@
+GrassTerrain GrassTerrain RockTerrain DungeonTerrain
+RockTerrain RockTerrain DungeonTerrain RockTerrain
+GrassTerrain GrassTerrain RockTerrain HighRockTerrain
+HighRockTerrain RockTerrain RockTerrain DungeonTerrain
+RockTerrain RockTerrain GrassTerrain GrassTerrain

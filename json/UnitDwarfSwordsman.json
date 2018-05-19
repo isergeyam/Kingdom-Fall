@@ -1,0 +1,53 @@
+{
+  "Abilities": {
+    "Hand Hit": {
+      "Name": "Hand Hit",
+      "count": 3,
+      "range_type": "melee",
+      "strength": 2,
+      "type": "attack",
+      "weapon_type": "Ruinous"
+    },
+    "Sword Hit": {
+      "Name": "Sword Hit",
+      "count": 5,
+      "range_type": "melee",
+      "strength": 50,
+      "type": "attack",
+      "weapon_type": "Cutting"
+    }
+  },
+  "Adaption": {
+    "DungeonTerrain": 0.44,
+    "FieldTerrain": 0.4,
+    "ForestTerrain": 0.4,
+    "GrassTerrain": 0.36,
+    "RockTerrain": 0.44
+  },
+  "Agility": 0.9,
+  "AutoAbilities": {
+    "Refresh": {
+      "type": "Refresh"
+    }
+  },
+  "Health": 105,
+  "Name": "DwarfSwordsman",
+  "Patency": {
+    "DungeonTerrain": 0.44,
+    "FieldTerrain": 0.4,
+    "ForestTerrain": 0.4,
+    "GrassTerrain": 0.36,
+    "RockTerrain": 0.44
+  },
+  "Race": "Dwarf",
+  "Resistance": {
+    "Cutting": 0.44,
+    "Magic": 0.36,
+    "Pricking": 0.4,
+    "Ruinous": 0.4
+  },
+  "Stamina": 105,
+  "Strength": 1.0,
+  "Type": "Swordsman",
+  "icon": "data/DwarfSwordsman.png"
+}

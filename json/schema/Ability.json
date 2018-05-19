@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "title": "Ability",
+  "description": "An ability of unit",
+  "type": "object",
+  "properties": {
+    "type": {
+      "description": "Ability type",
+      "type": "string"
+    },
+    "required": [
+      "type"
+    ]
+  }
+}

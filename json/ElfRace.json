@@ -1,0 +1,19 @@
+{
+  "Name" : "Elf",
+  "Adaption" : {
+    "Forest" : 1.05,
+    "Dungeon" : 0.95
+  },
+  "Patency" : {
+    "ForestTerrain" : 1.05,
+    "DungeonTerrain" : 0.95
+  },
+  "Health" : 0.95,
+  "Agility" : 1.05,
+  "AutoAbilities" : {
+    "Healing" : {
+      "type" : "Heal",
+      "power" : 2
+    }
+  }
+}

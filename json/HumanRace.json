@@ -1,0 +1,13 @@
+{
+	"Name" : "Human",
+	"Adaption" : {
+		"GrassTerrain" : 1.1,
+		"DungeonTerrain" : 0.9,
+		"RockTerrain" : 0.9
+	},
+	"Patency" : {
+		"GrassTerrain" : 1.1,
+		"DungeonTerrain" : 0.9,
+		"RockTerrain" : 0.9
+	}
+}

@@ -1,0 +1,13 @@
+{
+  "Name" : "Swordsman",
+  "Abilities" : {
+    "Sword Hit" : {
+      "Name" : "Sword Hit",
+      "type" : "attack",
+      "strength" : 50,
+      "count" : 5,
+      "weapon_type" : "Cutting",
+      "range_type" : "melee"
+    }
+  }
+}

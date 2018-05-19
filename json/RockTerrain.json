@@ -1,0 +1,7 @@
+{
+  "Name" : "RockTerrain",
+  "Pass" : true,
+  "FlyPass" : true,
+  "Patency" : 15,
+  "icon" : "data/RockTerrain.png"
+}

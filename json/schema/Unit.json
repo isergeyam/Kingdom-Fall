@@ -1,0 +1,79 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Unit",
+  "description": "An unit schema",
+  "type": "object",
+  "properties": {
+    "Health": {
+      "type": "integer"
+    },
+    "Agility": {
+      "type": "number"
+    },
+    "Strength": {
+      "type": "number"
+    },
+    "Stamina": {
+      "type": "integer"
+    },
+    "Patency": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "number"
+      }
+    },
+    "Adaption": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "number"
+      }
+    },
+    "Resistance": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "number"
+      }
+    },
+    "Abilities": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "Ability type",
+            "type": "string"
+          },
+          "required": [
+            "type"
+          ]
+        }
+      }
+    }
+  },
+  "AutoAbilities": {
+    "type": "object",
+    "additionalProperties": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "description": "Ability type",
+          "type": "string"
+        },
+        "required": [
+          "type"
+        ]
+      }
+    }
+  },
+  "required": [
+    "Health",
+    "Agility",
+    "Strength",
+    "Stamina",
+    "Patency",
+    "Resistance",
+    "Adaption",
+    "Abilities",
+    "AutoAbilities"
+  ]
+}

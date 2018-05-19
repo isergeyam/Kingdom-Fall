@@ -1,0 +1,6 @@
+.idea
+.ycm_extra_conf.py
+bin
+Debug
+Release
+MyTest

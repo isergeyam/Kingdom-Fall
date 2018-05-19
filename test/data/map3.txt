@@ -1,0 +1,3 @@
+GrassTerrain GrassTerrain GrassTerrain
+GrassTerrain HighRockTerrain HighRockTerrain
+GrassTerrain HighRockTerrain GrassTerrain
