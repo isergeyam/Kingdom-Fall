@@ -5,14 +5,14 @@
 		"Cutting" : 1.1
 	},
 	"Patency" : {
-		"Grass" : 0.9,
-		"Dungeon" : 1.1,
-		"Rock" : 1.1
+		"GrassTerrain" : 0.9,
+		"DungeonTerrain" : 1.1,
+		"RockTerrain" : 1.1
 	},
 	"Adaption" : {
-		"Grass" : 0.9,
-		"Dungeon" : 1.1,
-		"Rock" : 1.1
+		"GrassTerrain" : 0.9,
+		"DungeonTerrain" : 1.1,
+		"RockTerrain" : 1.1
 	},
 	"Health" : 1.05,
 	"Stamina" : 1.05,

@@ -10,13 +10,7 @@
 template<typename TO, typename FROM>
 std::unique_ptr<TO> static_unique_pointer_cast(std::unique_ptr<FROM> &&old) {
   return std::unique_ptr<TO>{static_cast<TO *>(old.release())};
-  //conversion: unique_ptr<FROM>->FROM*->TO*->unique_ptr<TO>
 }
-//std::shared_ptr<CurrentSerializerType> CGlobalGame::Settings() {
-//  if (m_settings==nullptr)
-//    m_settings = std::make_shared<CurrentSerializerType>();
-//  return m_settings;
-//}
 std::unique_ptr<CMap> &CGlobalGame::Map() {
   if (m_map==nullptr)
     m_map = std::make_unique<CMap>();
@@ -25,16 +19,11 @@ std::unique_ptr<CMap> &CGlobalGame::Map() {
 std::random_device CGlobalGame::m_device;
 std::default_random_engine CGlobalGame::m_engine(CGlobalGame::m_device());
 std::uniform_real_distribution<Percent_t> CGlobalGame::m_random_percentage(0, 1);
-//std::uniform_int_distribution<bool> CGlobalGame::m_random_event(0, 1); TODO
 Percent_t CGlobalGame::GetRandomPercent() {
   return m_random_percentage(m_engine);
 }
 const Quantity_t CGlobalGame::MaxDistance;
 Quantity_t CGlobalGame::CurGlobalState = 0;
-//void CGlobalGame::InitializeGame(const CurrentSerializerType &new_map, const CurrentSerializerType &new_settings) {
-//  m_map = std::make_shared<CMap>(new_map.get<vector<vector<std::string>>>());
-//  m_settings = std::make_shared<CurrentSerializerType>(new_settings);
-//}
 void CGlobalGame::InitializeObjects(const vector<CurrentSerializerType> &m_objects) {
   for (auto &cur_object : m_objects) {
     std::string cur_name = cur_object["Name"].get<std::string>();
@@ -43,7 +32,6 @@ void CGlobalGame::InitializeObjects(const vector<CurrentSerializerType> &m_objec
           std::static_pointer_cast<IObjectFactory>(std::make_shared<CObjectFactory<CTerrain>>(cur_object));
       auto controller_ptr =
           static_unique_pointer_cast<IControllerFactory>(std::make_unique<CControllerFactory>(factory_ptr));
-      //auto controller_ptr = std::make_shared<CControllerFactory>(factory_ptr);
       CGlobalGame::LoadedObjects
           .insert(std::make_pair(cur_name, std::move(controller_ptr)));
     } else if (cur_name.find("Village")!=std::string::npos) {
@@ -66,8 +54,6 @@ void CGlobalGame::GlobalSetUp(std::istream &m_settings) {
   std::ifstream iMap(cur_settings["Map"].get<std::string>());
   std::ifstream iUnitMap(cur_settings["UnitMap"].get<std::string>());
   std::ifstream iVillageMap(cur_settings["VillageMap"].get<std::string>());
-  //CObjectFactoryValidateDecorator<CTerrain>::m_validator.set_schema(CurrentSerializer::Deserialize(iValidateTerrain));
-  //CObjectFactoryValidateDecorator<CUnit>::m_validator.set_schema(CurrentSerializer::Deserialize(iValidateUnit));
   CUnitFactoryBuilder::m_type_validator.set_schema(CurrentSerializer::Deserialize(iValidateType));
   CUnitFactoryBuilder::m_race_validator.set_schema(CurrentSerializer::Deserialize(iValidateRace));
   CUnitFactoryBuilder::setM_default(std::make_unique<CurrentSerializerType>(CurrentSerializer::Deserialize(iDefaultUnit)));
@@ -127,7 +113,12 @@ void CGlobalGame::StartGame() {
     SDL_WaitEvent(&event);
     if (event.type==SDL_QUIT)
       break;
-    if (event.type==SDL_MOUSEBUTTONUP && event.button.button==SDL_BUTTON_LEFT) {
+    else if (event.type==SDL_KEYDOWN && event.key.keysym.sym==SDLK_ESCAPE) {
+      CGlobalGame::GlobalMessage("");
+      m_command = nullptr;
+      CurMap().RenderMap();
+      CurRenderer().Present();
+    } else if (event.type==SDL_MOUSEBUTTONUP && event.button.button==SDL_BUTTON_LEFT) {
       CurRenderer().Clear();
       auto x = event.button.y;
       auto y = event.button.x;

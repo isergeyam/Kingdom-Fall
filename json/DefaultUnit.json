@@ -5,18 +5,18 @@
   "Stamina" : 100,
   "Icon" : "data/icons/default_icon.png",
   "Patency" : {
-    "GrassTerrain" : 0.9,
-    "DungeonTerrain" : 0.9,
-    "ForestTerrain" : 0.9,
-    "FieldTerrain" : 0.9,
-    "RockTerrain" : 0.9
+    "GrassTerrain" : 0.4,
+    "DungeonTerrain" : 0.4,
+    "ForestTerrain" : 0.4,
+    "FieldTerrain" : 0.4,
+    "RockTerrain" : 0.4
   },
   "Adaption" : {
-    "GrassTerrain" : 0.9,
-    "DungeonTerrain" : 0.9,
-    "ForestTerrain" : 0.9,
-    "FieldTerrain" : 0.9,
-    "RockTerrain" : 0.9
+    "GrassTerrain" : 0.4,
+    "DungeonTerrain" : 0.4,
+    "ForestTerrain" : 0.4,
+    "FieldTerrain" : 0.4,
+    "RockTerrain" : 0.4
   },
   "Resistance" : {
     "Cutting" : 0.4,

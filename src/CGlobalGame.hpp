@@ -25,21 +25,17 @@ class CGlobalGame {
   static std::unique_ptr<SDL2pp::Renderer> m_renderer;
   static std::unique_ptr<SDL2pp::Font> m_font;
   static bool with_graphics;
-  //static std::uniform_int_distribution<bool> m_random_event; TODO
  public:
   CGlobalGame() = delete;
   ~CGlobalGame() = delete;
   CGlobalGame(const CGlobalGame &) = delete;
   CGlobalGame &operator=(CGlobalGame &) = delete;
-  static std::shared_ptr<CurrentSerializerType> Settings();
   static std::unique_ptr<CMap> & Map();
   static Percent_t GetRandomPercent();
-  //static bool GetRandomEvent(); TODO
   static const Quantity_t MaxDistance = 1000000;
   static Quantity_t CurGlobalState;
   static std::map<std::string, std::unique_ptr<IControllerFactory>> LoadedObjects;
   static void InitializeObjects(const vector<CurrentSerializerType> &m_objects);
-  //static void InitializeGame(const CurrentSerializerType &new_map, const CurrentSerializerType &new_settings);
   static void GenerateUnits(vector<CurrentSerializerType> &m_races, vector<CurrentSerializerType> &m_types);
   static void GlobalSetUp(std::istream &m_string = std::cin);
   static size_t getScreen_width();
