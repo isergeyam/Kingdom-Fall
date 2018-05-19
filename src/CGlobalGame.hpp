@@ -16,7 +16,6 @@ class IControllerFactory;
 class CGlobalGame {
  private:
   std::unique_ptr<CMap> m_map;
-  std::random_device m_device;
   std::default_random_engine m_engine;
   std::uniform_real_distribution<Percent_t> m_random_percentage;
   size_t screen_width;
@@ -24,14 +23,15 @@ class CGlobalGame {
   std::unique_ptr<SDL2pp::Window> m_window;
   std::unique_ptr<SDL2pp::Renderer> m_renderer;
   std::unique_ptr<SDL2pp::Font> m_font;
-  std::map<std::string, std::unique_ptr<IControllerFactory>> LoadedObjects;
   bool with_graphics;
   void InitSerializerVector(CurrentSerializerType &cur_settings,
                             vector<CurrentSerializerType> &objects_vector,
                             const std::string &m_field);
   void InitializeObjects(const vector<CurrentSerializerType> &m_objects);
   void GenerateUnits(vector<CurrentSerializerType> &m_races, vector<CurrentSerializerType> &m_types);
+  static std::shared_ptr<CGlobalGame> m_instance;
  public:
+  std::map<std::string, std::unique_ptr<IControllerFactory>> LoadedObjects;
   CGlobalGame();
   ~CGlobalGame() = default;
   CGlobalGame(const CGlobalGame &) = delete;
@@ -51,4 +51,5 @@ class CGlobalGame {
   const std::unique_ptr<SDL2pp::Window> & getM_window();
   void StartGame();
   void GlobalMessage(std::string message);
+  static std::shared_ptr<CGlobalGame> Instance();
 };

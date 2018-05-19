@@ -4,16 +4,8 @@
 
 #include "CTerrain.hpp"
 
-CTerrain::CTerrain(const CurrentSerializerType &m_properties,
-                   const CPosition &m_position,
-                   std::shared_ptr<CGlobalGame> m_game)
-    : CObject(m_position,
-              false,
-              m_properties["Pass"],
-              m_properties["FlyPass"],
-              false,
-              m_properties,
-              std::move(m_game)) {
+CTerrain::CTerrain(const CurrentSerializerType &m_properties, const CPosition &m_position)
+    : CObject(m_position, false, m_properties["Pass"], m_properties["FlyPass"], false, m_properties) {
   m_patency = m_properties["Patency"];
   m_name = m_properties["Name"];
 }

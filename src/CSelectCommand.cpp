@@ -12,14 +12,14 @@ CSelectCommand::CSelectCommand(CPosition m_pos_copy) : CCommand(m_pos_copy) {
 
 }
 void CSelectCommand::Proceed() {
-  auto cur_obj = CurMap()[m_pos].GetTopObject()->GetObject();
+  auto cur_obj = CGlobalGame::Instance()->CurMap()[m_pos].GetTopObject()->GetObject();
   cur_obj->ToggleSelected();
 }
 void CSelectCommand::Undo() {
   // TODO
 }
 bool CSelectCommand::TryAttack(CCommand *next) {
-  auto cur_obj = CurMap()[m_pos].GetTopObject()->GetObject();
+  auto cur_obj = CGlobalGame::Instance()->CurMap()[m_pos].GetTopObject()->GetObject();
   if (m_pos == next->getM_pos())
     return false;
   if (cur_obj->isMovable()) {
@@ -39,25 +39,25 @@ bool CSelectCommand::TryAttack(CCommand *next) {
           ++was;
         }
       }
-      CGlobalGame::GlobalMessage(message);
-      CurMap().RenderMap();
-      CurRenderer().Present();
+      CGlobalGame::Instance()->GlobalMessage(message);
+      CGlobalGame::Instance()->CurMap().RenderMap();
+      CGlobalGame::Instance()->CurRenderer().Present();
       SDL_Event event;
       while (true) {
         SDL_WaitEvent(&event);
         if (event.type==SDL_KEYDOWN) {
           wchar_t code = event.key.keysym.sym;
           if (code == SDLK_ESCAPE) {
-            CGlobalGame::GlobalMessage("");
+            CGlobalGame::Instance()->GlobalMessage("");
             break;
           }
           if (!std::isdigit(code) || code-'0' >= was) {
-            CGlobalGame::GlobalMessage(message + "Invalid code given");
-            CurMap().RenderMap();
-            CurRenderer().Present();
+            CGlobalGame::Instance()->GlobalMessage(message + "Invalid code given");
+            CGlobalGame::Instance()->CurMap().RenderMap();
+            CGlobalGame::Instance()->CurRenderer().Present();
             continue;
           }
-          CUnit &m_other = *CurMap()[next->getM_pos()].GetUnitObject().get();
+          CUnit &m_other = *CGlobalGame::Instance()->CurMap()[next->getM_pos()].GetUnitObject().get();
           cur_obj->Attack(m_other, m_map[code - '0']);
           break;
         } else if (event.type==SDL_QUIT)

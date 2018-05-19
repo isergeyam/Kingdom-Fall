@@ -22,7 +22,7 @@
     "json/SwordsmanType.json"
   ],
   "width" : 1320,
-  "height" : 1080,
+  "height" : 1024,
   "enable_graphics" : true,
   "font_name" : "data/Vera.ttf",
   "font_size" : 25

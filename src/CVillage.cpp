@@ -11,9 +11,7 @@ CVillage::CVillage(const CurrentSerializerType &m_properties, const CPosition &m
                                                                                                      true,
                                                                                                      true,
                                                                                                      false,
-                                                                                                     m_properties,
-                                                                                                     std::shared_ptr<
-                                                                                                         CGlobalGame>()) {}
+                                                                                                     m_properties) {}
 std::string CVillage::GetInfo() {
   return "Name: " + m_properties["Name"].get<std::string>();
 }
@@ -21,7 +19,7 @@ void CVillage::ToggleAutoAbilities() {
   for (auto &&it : m_properties["AutoAbilities"]) {
     std::string cur_name = it["Name"].get<std::string>();
     if (cur_name == "Heal") {
-      auto cur_unit = CurMap()[m_position].GetUnitObject();
+      auto cur_unit = CGlobalGame::Instance()->CurMap()[m_position].GetUnitObject();
       if (cur_unit != nullptr) {
         cur_unit->setM_health(cur_unit->getM_health() + it["power"].get<Quantity_t >());
       }

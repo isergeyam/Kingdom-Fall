@@ -9,5 +9,5 @@ std::shared_ptr<CObjectController> CControllerFactory::CreateController(CPositio
 }
 CControllerFactory::CControllerFactory(std::shared_ptr<IObjectFactory> m_copy_factory) : m_factory(std::move(m_copy_factory)) {
   m_texture =
-      std::make_shared<SDL2pp::Texture>(CurRenderer(), this->m_factory->getM_properties()["icon"].get<std::string>());
+      std::make_shared<SDL2pp::Texture>(CGlobalGame::Instance()->CurRenderer(), this->m_factory->getM_properties()["icon"].get<std::string>());
 }

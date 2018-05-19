@@ -9,10 +9,9 @@ CObject::CObject(const CPosition &m_position,
                  bool is_passable,
                  bool is_fly_passable,
                  bool is_movable,
-                 const CurrentSerializerType &m_prop,
-                 std::shared_ptr<CGlobalGame> m_global_game)
+                 const CurrentSerializerType &m_prop)
     : m_properties(m_prop), m_position(m_position), injurable(is_injurable), passable(is_passable),
-      fly_passable(is_fly_passable), movable(is_movable), selected(false), dead(false), highlighted(false), m_global_game(std::move(m_global_game)) {}
+      fly_passable(is_fly_passable), movable(is_movable), selected(false), dead(false), highlighted(false) {}
 const CPosition &CObject::getM_position() const { return m_position; }
 bool CObject::isInjurable() const { return injurable; }
 bool CObject::isPassable() const { return passable; }

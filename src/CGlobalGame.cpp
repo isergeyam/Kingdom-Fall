@@ -19,8 +19,6 @@ std::unique_ptr<CMap> &CGlobalGame::Map() {
 Percent_t CGlobalGame::GetRandomPercent() {
   return m_random_percentage(m_engine);
 }
-const Quantity_t CGlobalGame::MaxDistance;
-Quantity_t CGlobalGame::CurGlobalState = 0;
 void CGlobalGame::InitializeObjects(const vector<CurrentSerializerType> &m_objects) {
   for (auto &cur_object : m_objects) {
     std::string cur_name = cur_object["Name"].get<std::string>();
@@ -179,7 +177,7 @@ void CGlobalGame::GlobalMessage(std::string message) {
     ++cur_pos;
   }
 }
-CGlobalGame::CGlobalGame() : m_device(), m_engine(m_device), m_random_percentage(0, 1) {}
+CGlobalGame::CGlobalGame() : m_engine(std::random_device()()), m_random_percentage(0, 1), CurGlobalState(0) {}
 CMap &CGlobalGame::CurMap() {
   return *Map();
 }
@@ -189,11 +187,10 @@ SDL2pp::Renderer &CGlobalGame::CurRenderer() {
 SDL2pp::Window &CGlobalGame::CurWindow() {
   return *getM_window();
 }
-std::unique_ptr<CMap> CGlobalGame::m_map;
-std::map<std::string, std::unique_ptr<IControllerFactory> > CGlobalGame::LoadedObjects;
-std::unique_ptr<SDL2pp::Window> CGlobalGame::m_window;
-std::unique_ptr<SDL2pp::Renderer> CGlobalGame::m_renderer;
-std::unique_ptr<SDL2pp::Font> CGlobalGame::m_font;
-size_t CGlobalGame::screen_width;
-size_t CGlobalGame::screen_height;
-bool CGlobalGame::with_graphics;
+std::shared_ptr<CGlobalGame> CGlobalGame::Instance() {
+  if (m_instance == nullptr)
+    m_instance = std::make_shared<CGlobalGame>();
+  return m_instance;
+}
+const Quantity_t CGlobalGame::MaxDistance;
+std::shared_ptr<CGlobalGame> CGlobalGame::m_instance;

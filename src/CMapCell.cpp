@@ -26,14 +26,14 @@ std::shared_ptr<CTerrain> CMapCell::GetTerrainObject() const {
   return (m_terrain == nullptr) ? nullptr : std::dynamic_pointer_cast<CTerrain>(m_terrain->GetPositionView()->getM_object());
 }
 void CMapCell::setM_unit(const std::shared_ptr<CObjectController> &m_unit) {
-  ++CGlobalGame::CurGlobalState;
+  ++CGlobalGame::Instance()->CurGlobalState;
   CMapCell::m_unit = m_unit;
 }
 void CMapCell::setM_village(std::shared_ptr<CObjectController> m_village) {
   CMapCell::m_village = m_village;
 }
 void CMapCell::setM_terrain(const std::shared_ptr<CObjectController> &m_terrain) {
-  ++CGlobalGame::CurGlobalState;
+  ++CGlobalGame::Instance()->CurGlobalState;
   CMapCell::m_terrain = m_terrain;
 }
 CMapCell::CMapCell(const std::shared_ptr<CObjectController> &m_terrain) : m_terrain(m_terrain) {

@@ -58,10 +58,10 @@ void CMap::init(const vector<vector<std::string>> &start_terrains) {
   m_y_size = start_terrains[0].size();
   for (size_t i = 0; i < m_x_size; ++i) {
     for (size_t j = 0; j < m_y_size; ++j) {
-      m_map[i][j] = CMapCell(CGlobalGame::LoadedObjects[start_terrains[i][j]]->CreateController(CPosition(i, j)));
+      m_map[i][j] = CMapCell(CGlobalGame::Instance()->LoadedObjects[start_terrains[i][j]]->CreateController(CPosition(i, j)));
     }
   }
-  ++CGlobalGame::CurGlobalState;
+  ++CGlobalGame::Instance()->CurGlobalState;
 }
 void CMap::RenderMap() {
   for (auto &it1 : m_map) {
@@ -100,9 +100,9 @@ void CMap::SetObjects(std::istream &is, bool units) {
       if (tokens[j]==".")
         continue;
       if (units) {
-        m_map[i][j].setM_unit(CGlobalGame::LoadedObjects[tokens[j]]->CreateController(CPosition(i, j)));
+        m_map[i][j].setM_unit(CGlobalGame::Instance()->LoadedObjects[tokens[j]]->CreateController(CPosition(i, j)));
       } else
-        m_map[i][j].setM_village(CGlobalGame::LoadedObjects[tokens[j]]->CreateController(CPosition(i, j)));
+        m_map[i][j].setM_village(CGlobalGame::Instance()->LoadedObjects[tokens[j]]->CreateController(CPosition(i, j)));
     }
     ++i;
   }
