@@ -8,7 +8,7 @@
 #include <memory>
 class IObjectView : public IObjectObserver {
  public:
-  virtual const std::shared_ptr<SDL2pp::Texture> &getM_texture() = 0;
+  virtual std::shared_ptr<SDL2pp::Texture> getM_texture() = 0;
   virtual void RenderObject() = 0;
   explicit IObjectView(std::shared_ptr<CObject> m_object_copy);
 };

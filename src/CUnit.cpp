@@ -41,12 +41,6 @@ Quantity_t CUnit::CalculateDistance(const CPosition &calc_position) {
     }
   }
   m_state = CGlobalGame::Instance()->CurGlobalState;
-  /*vector<CPosition> m_out_prev;
-  CPosition cur_pos = calc_position;
-  while(m_prev[cur_pos.getM_x_axis()][cur_pos.getM_y_axis()] != cur_pos) {
-    std::cout << cur_pos.getM_x_axis() << " " << cur_pos.getM_y_axis() << std::endl;
-    cur_pos = m_prev[cur_pos.getM_x_axis()][cur_pos.getM_y_axis()];
-  }*/
   return m_distances[calc_position.getM_x_axis()][calc_position.getM_y_axis()];
 }
 CObject::MoveProp CUnit::MoveTo(CPosition new_postion) {
@@ -54,7 +48,6 @@ CObject::MoveProp CUnit::MoveTo(CPosition new_postion) {
       && abs((int) new_postion.getM_x_axis() - (int) m_position.getM_x_axis()) <= 1
       && abs((int) new_postion.getM_y_axis() - (int) m_position.getM_y_axis()) <= 1
       && m_stamina!=0) {
-    //CGlobalGame::Instance()->GlobalMessage("Attacking object");
     return ATTACK;
   }
   if (!CanMove(new_postion)) {

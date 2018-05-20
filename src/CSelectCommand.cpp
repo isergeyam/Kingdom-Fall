@@ -18,7 +18,7 @@ void CSelectCommand::Proceed() {
 void CSelectCommand::Undo() {
   // TODO
 }
-bool CSelectCommand::TryAttack(CCommand *next) {
+bool CSelectCommand::TryAttack(std::shared_ptr<CCommand> next) {
   auto cur_obj = CGlobalGame::Instance()->CurMap()[m_pos].GetTopObject()->GetObject();
   if (m_pos == next->getM_pos())
     return false;

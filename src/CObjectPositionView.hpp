@@ -20,7 +20,7 @@ class CObjectPositionView : public IObjectView {
                                IObjectController *m_controller,
                                const std::shared_ptr<SDL2pp::Texture> &m_texture);
   void UpdateObject() override;
-  const std::shared_ptr<SDL2pp::Texture> &getM_texture() override;
+  std::shared_ptr<SDL2pp::Texture> getM_texture() override;
   IObjectController * getM_controller() const;
   const CPosition &getPrev_position() const;
   void RenderObject();

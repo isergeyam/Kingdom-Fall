@@ -3,7 +3,8 @@
 //
 #include "CGlobalGame.hpp"
 int main () {
-  SDL2pp::SDLTTF ttf;
+  SDL2pp::SDL sdl(SDL_INIT_VIDEO);
+  SDL2pp::SDLTTF sdl_ttf;
   std::ifstream ifs("settings.json");
   CGlobalGame::Instance()->GlobalSetUp(ifs);
   CGlobalGame::Instance()->StartGame();

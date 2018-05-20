@@ -15,7 +15,7 @@ class CObjectSelectView : public IObjectView {
   std::shared_ptr<SDL2pp::Texture> m_texture;
  public:
   void UpdateObject() override;
-  const std::shared_ptr<SDL2pp::Texture> &getM_texture() override;
+  std::shared_ptr<SDL2pp::Texture> getM_texture() override;
   CObjectSelectView(const std::shared_ptr<CObject> &m_copy_object,
                       IObjectController *m_copy_controller,
                       std::shared_ptr<SDL2pp::Texture> m_copy_texture);

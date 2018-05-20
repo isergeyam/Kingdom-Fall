@@ -7,11 +7,10 @@
 #include "CObject.hpp"
 #include "CGlobalGame.hpp"
 void CObjectSelectView::UpdateObject() {
-  //std::cout << "Update select on " << m_object->GetInfo() << " " << m_object->isSelected() << "  " << m_object->isHighlighted() << std::endl;
   if (m_object->isSelected())
     CGlobalGame::Instance()->GlobalMessage(m_object->GetInfo());
 }
-const std::shared_ptr<SDL2pp::Texture> &CObjectSelectView::getM_texture() {
+std::shared_ptr<SDL2pp::Texture> CObjectSelectView::getM_texture() {
   return m_texture;
 }
 CObjectSelectView::CObjectSelectView(const std::shared_ptr<CObject> &m_copy_object,

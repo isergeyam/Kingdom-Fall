@@ -9,7 +9,7 @@ class CSelectCommand : public CCommand {
   explicit CSelectCommand(CPosition m_pos_copy);
   void Proceed() override;
   void Undo() override;
-  bool TryAttack(CCommand *next) override;
+  bool TryAttack(std::shared_ptr<CCommand> next) override;
 };
 
 

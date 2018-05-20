@@ -20,7 +20,7 @@ SDL2pp::Rect CObjectPositionView::PositionRect(const CPosition &m_pos) {
   size_t clip_height = CGlobalGame::Instance()->getScreen_height()/CGlobalGame::Instance()->CurMap().getM_x_size();
   return SDL2pp::Rect(clip_width*m_pos.getM_y_axis(), clip_height*m_pos.getM_x_axis(), clip_width, clip_height);
 }
-const std::shared_ptr<SDL2pp::Texture> &CObjectPositionView::getM_texture() {
+std::shared_ptr<SDL2pp::Texture> CObjectPositionView::getM_texture() {
   return m_texture;
 }
 IObjectController *CObjectPositionView::getM_controller() const {
